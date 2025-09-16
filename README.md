@@ -1,2 +1,2 @@
 # math-kingdom
-Where Numbers Come Alive and Math is Magical!
+Where numbers come alive and math is magical!
