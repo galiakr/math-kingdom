@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math Kingdom - Where Numbers Come Alive!</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="stars"></div>
+
+    <div class="floating-elements">
+      <div class="floating-math" style="left: 10%; animation-delay: 0s">π</div>
+      <div class="floating-math" style="left: 20%; animation-delay: 2s">∞</div>
+      <div class="floating-math" style="left: 30%; animation-delay: 4s">∑</div>
+      <div class="floating-math" style="left: 40%; animation-delay: 6s">√</div>
+      <div class="floating-math" style="left: 50%; animation-delay: 8s">∫</div>
+      <div class="floating-math" style="left: 60%; animation-delay: 1s">φ</div>
+      <div class="floating-math" style="left: 70%; animation-delay: 3s">∆</div>
+      <div class="floating-math" style="left: 80%; animation-delay: 5s">≈</div>
+      <div class="floating-math" style="left: 90%; animation-delay: 7s">∅</div>
+    </div>
+
+    <div class="container">
+      <header class="header">
+        <h1 class="main-title" data-i18n="title">🏰 Math Kingdom 🏰</h1>
+        <p class="subtitle" data-i18n="subtitle">
+          Where Numbers Come Alive and Math is Magical!
+        </p>
+      </header>
+
+      <section class="progress-section">
+        <h2 class="progress-title" data-i18n="progress-title">
+          🌟 Your Adventure Progress 🌟
+        </h2>
+        <div class="progress-stats">
+          <div class="stat-item">
+            <div class="stat-number" id="completed-adventures">1</div>
+            <div class="stat-label" data-i18n="progress-completed">
+              Adventures Unlocked
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" id="concepts-learned">1</div>
+            <div class="stat-label" data-i18n="progress-learned">
+              Math Concepts Mastered
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" id="magic-moments">3</div>
+            <div class="stat-label" data-i18n="progress-moments">
+              Magical Moments
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <main class="kingdom-map">
+        <div class="adventure-card available" data-adventure="hilberts-hotel">
+          <span class="card-icon">🏨</span>
+          <h3 class="card-title" data-i18n="card-infinity-title">
+            Hilbert's Amazing Hotel
+          </h3>
+          <p class="card-description" data-i18n="card-infinity-description">
+            Discover the magical hotel that can always fit more guests, even
+            when it's completely full! Learn about infinity through adorable
+            animals and a sparkly unicorn! ✨
+          </p>
+          <div class="card-concepts">
+            <span class="concept-tag" data-i18n="card-infinity-tag1"
+              >Infinity</span
+            >
+            <span class="concept-tag" data-i18n="card-infinity-tag2"
+              >Set Theory</span
+            >
+            <span class="concept-tag" data-i18n="card-infinity-tag3"
+              >Logic</span
+            >
+          </div>
+          <button
+            class="play-button"
+            data-i18n="card-infinity-button"
+            onclick="window.open('infinity/infinity.html')"
+          >
+            🎮 Start Adventure!
+          </button>
+        </div>
+
+        <div
+          class="adventure-card coming-soon"
+          data-adventure="prime-orchestra"
+        >
+          <span class="card-icon">🎵</span>
+          <h3 class="card-title">The Prime Number Orchestra</h3>
+          <p class="card-description">
+            Conduct a magical orchestra where instruments only play on prime
+            numbers! Discover the mysterious rhythm of 2, 3, 5, 7, 11... and
+            create beautiful mathematical music! 🎼
+          </p>
+          <div class="card-concepts">
+            <span class="concept-tag">Prime Numbers</span>
+            <span class="concept-tag">Number Theory</span>
+            <span class="concept-tag">Pattern Recognition</span>
+          </div>
+          <button class="play-button" disabled>🔒 Coming Soon!</button>
+        </div>
+
+        <div class="adventure-card coming-soon" data-adventure="fractal-pizza">
+          <span class="card-icon">🍕</span>
+          <h3 class="card-title">The Fractal Pizza Palace</h3>
+          <p class="card-description">
+            Slice a magical pizza that contains infinite copies of itself! Zoom
+            into a world where patterns repeat forever and mathematics becomes
+            deliciously fun! 🔍
+          </p>
+          <div class="card-concepts">
+            <span class="concept-tag">Fractals</span>
+            <span class="concept-tag">Self-Similarity</span>
+            <span class="concept-tag">Infinite Zoom</span>
+          </div>
+          <button class="play-button" disabled>🔒 Coming Soon!</button>
+        </div>
+
+        <div
+          class="adventure-card coming-soon"
+          data-adventure="probability-carnival"
+        >
+          <span class="card-icon">🎪</span>
+          <h3 class="card-title">Color Monster's Probability Carnival</h3>
+          <p class="card-description">
+            Join friendly monsters at magical carnival games! Predict outcomes,
+            spin wheels, and discover why some things are more likely to happen
+            than others! 🎲
+          </p>
+          <div class="card-concepts">
+            <span class="concept-tag">Probability</span>
+            <span class="concept-tag">Statistics</span>
+            <span class="concept-tag">Prediction</span>
+          </div>
+          <button class="play-button" disabled>🔒 Coming Soon!</button>
+        </div>
+
+        <div
+          class="adventure-card coming-soon"
+          data-adventure="fibonacci-garden"
+        >
+          <span class="card-icon">🐰</span>
+          <h3 class="card-title" data-i18n="card-fibonacci-title">
+            The Fibonacci Bunny Garden
+          </h3>
+          <p class="card-description" data-i18n="card-fibonacci-description">
+            Watch magical rabbits multiply in nature's most beautiful pattern!
+            Discover the golden spiral that appears in flowers, shells, and
+            galaxies! 🌻
+          </p>
+          <div class="card-concepts">
+            <span class="concept-tag" data-i18n="card-fibonacci-tag1"
+              >Fibonacci Sequence</span
+            >
+            <span class="concept-tag" data-i18n="card-fibonacci-tag2"
+              >Golden Ratio</span
+            >
+            <span class="concept-tag" data-i18n="card-fibonacci-tag3"
+              >Nature Patterns</span
+            >
+          </div>
+          <button
+            class="play-button"
+            data-i18n="card-fibonacci-button"
+            disabled
+          >
+            🔒 Coming Soon!
+          </button>
+        </div>
+
+        <div class="adventure-card coming-soon" data-adventure="topology-space">
+          <span class="card-icon">🚀</span>
+          <h3 class="card-title">Topology Space Adventure</h3>
+          <p class="card-description">
+            Travel with alien friends who can transform shapes without breaking
+            them! Watch coffee cups become donuts and learn how mathematicians
+            think about "sameness"! 👽
+          </p>
+          <div class="card-concepts">
+            <span class="concept-tag">Topology</span>
+            <span class="concept-tag">Shape Transformation</span>
+            <span class="concept-tag">Mathematical Thinking</span>
+          </div>
+          <button class="play-button" disabled>🔒 Coming Soon!</button>
+        </div>
+
+        <div class="adventure-card coming-soon" data-adventure="graph-kingdom">
+          <span class="card-icon">🏰</span>
+          <h3 class="card-title">Graph Theory Kingdom</h3>
+          <p class="card-description">
+            Help knights, dragons, and princesses travel between magical
+            castles! Solve the famous bridge problem and learn how
+            mathematicians map connections! ⚔️
+          </p>
+          <div class="card-concepts">
+            <span class="concept-tag">Graph Theory</span>
+            <span class="concept-tag">Networks</span>
+            <span class="concept-tag">Problem Solving</span>
+          </div>
+          <button class="play-button" disabled>🔒 Coming Soon!</button>
+        </div>
+
+        <div
+          class="adventure-card coming-soon"
+          data-adventure="mystery-adventure"
+        >
+          <span class="card-icon">❓</span>
+          <h3 class="card-title">Secret Math Mystery</h3>
+          <p class="card-description">
+            A special surprise adventure awaits those who complete all other
+            quests! What mathematical magic lies hidden in this mysterious final
+            challenge? 🎭
+          </p>
+          <div class="card-concepts">
+            <span class="concept-tag">???</span>
+            <span class="concept-tag">???</span>
+            <span class="concept-tag">???</span>
+          </div>
+          <button class="play-button" disabled>🔒 Mystery Locked!</button>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>
+          🌟 Welcome to Math Kingdom! Each adventure teaches real mathematical
+          concepts through play and wonder. 🌟
+        </p>
+        <p>
+          ✨ Click on available adventures to begin your magical mathematical
+          journey! ✨
+        </p>
+      </footer>
+    </div>
+
+    <script src="script.js" type="module"></script>
+    <script src="utils.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hilbert's Amazing Hotel</title>
+    <link rel="stylesheet" href="infinity.css" />
+  </head>
+  <body>
+    <h1 class="title" data-i18n="infinity-title">
+      🏨 Hilbert's Amazing Hotel 🏨
+    </h1>
+    <p class="subtitle" data-i18n="infinity-subtitle">
+      The magical hotel that can always fit more guests!
+    </p>
+
+    <div class="story-section">
+      <div class="scenario-selector">
+        <button
+          class="scenario-btn active"
+          data-scenario="single"
+          data-i18n="scenario-single-title"
+        >
+          🦄 Single Guest
+        </button>
+        <button
+          class="scenario-btn"
+          data-scenario="bus"
+          data-i18n="scenario-bus-title"
+        >
+          🚌 Bus Full of Guests
+        </button>
+        <button
+          class="scenario-btn"
+          data-scenario="infinite"
+          data-i18n="scenario-infinite-title"
+        >
+          ♾️ Infinite Buses!
+        </button>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+
+      <div class="step-indicator">
+        <div class="step active" id="step1">1</div>
+        <div class="step" id="step2">2</div>
+        <div class="step" id="step3">3</div>
+        <div class="step" id="step4">4</div>
+        <div class="step" id="step5">5</div>
+      </div>
+
+      <div class="hotel-container">
+        <div class="hotel-building">
+          <div class="hotel-sign" data-i18n="infinity-hotel-sign">
+            Hilbert's Hotel
+          </div>
+          <div class="rooms-container" id="rooms-container">
+            <!-- Rooms will be generated here -->
+          </div>
+        </div>
+
+        <div class="waiting-area" id="waiting-area"></div>
+
+        <div class="controls">
+          <button class="btn" id="reset-btn" data-i18n="infinity-reset-btn">
+            🔄 Start Over
+          </button>
+          <button
+            class="btn"
+            id="start-scenario-btn"
+            data-i18n="infinity-start-btn"
+          >
+            ▶️ Start Story
+          </button>
+          <button
+            class="btn"
+            id="show-solution-btn"
+            data-i18n="infinity-solution-btn"
+            style="display: none"
+          >
+            ✨ Show the Magic!
+          </button>
+          <button
+            class="btn"
+            id="next-step-btn"
+            data-i18n="infinity-next-btn"
+            style="display: none"
+          >
+            ➡️ Next Step
+          </button>
+          <button
+            class="btn"
+            id="continue-adventure-btn"
+            data-i18n="infinity-continue-btn"
+            style="display: none"
+          >
+            🎢 Continue Adventure!
+          </button>
+        </div>
+
+        <div
+          class="celebration"
+          id="celebration"
+          data-i18n="infinity-celebration"
+        >
+          🎉 Amazing! Everyone fits! 🎉
+        </div>
+      </div>
+
+      <div
+        class="explanation"
+        id="explanation"
+        data-i18n="infinity-explenation"
+      >
+        Choose your adventure! Pick a scenario above and click "Start Story" to
+        see the magic of Hilbert's Hotel! ✨
+      </div>
+    </div>
+
+    <script src="infinity.js"></script>
+    <script src="../utils.js" type="module"></script>
+  </body>
+</html>

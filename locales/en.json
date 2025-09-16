@@ -1,0 +1,61 @@
+{
+  "title": "🏰 Math Kingdom 🏰",
+  "subtitle": "Where Numbers Come Alive and Math is Magical!",
+
+  "progress-title": "🌟 Your Adventure Progress 🌟",
+  "progress-completed": "Adventures Unlocked",
+  "progress-learned": "Math Concepts Mastered",
+  "progress-moments": "Magical Moments",
+
+  "card-infinity-title": "Hilbert's Amazing Hotel",
+  "card-infinity-description": "Discover the magical hotel that can always fit more guests, even when it's completely full! Learn about infinity through adorable animals and a sparkly unicorn! ✨",
+  "card-infinity-tag1": "Infinity",
+  "card-infinity-tag2": "Set Theory",
+  "card-infinity-tag3": "Logic",
+  "card-infinity-button": "🎮 Start Adventure!",
+
+  "infinity-title": "🏨 Hilbert's Amazing Hotel 🏨",
+  "infinity-subtitle": "The magical hotel that can always fit more guests!",
+  "infiinty-scenario-single": "Single Guest",
+  "infiinty-scenario-bus": "Bus Full of Guests",
+  "infiinty-scenario-infinity": "Infinite Buses!",
+  "infiinty-scenario-single-title": "One New Guest",
+  "infiinty-scenario-bus-title": "Bus Full of Guests",
+  "infiinty-scenario-infinite-title": "Infinite Buses",
+  "infinity-hotel-sign": "Hilbert's Hotel",
+  "infinity-reset-btn": "Start Over",
+  "infinity-start-btn": "Start Story",
+  "infinity-solution-btn": "Show the Magic!",
+  "infinity-next-btn": "Next Step",
+  "infinity-continue-btn": "Continue Adventure!",
+  "infinity-celebration": "Amazing! Everyone fits!",
+  "infinity-explanation": {
+    "single": {
+      "1": "🦄 **Single Guest Adventure!** Our magical hotel has all rooms filled from 1 to infinity! But what happens when one new guest arrives? Click 'Start Story' to begin! ✨",
+      "2": "Oh no! 🦄 A unicorn wants a room, but every single room is taken! How can we possibly fit one more guest when infinity rooms are full? The hotel manager has a brilliant idea! Click 'Show the Magic!' 🪄",
+      "3": "✨ **The Magic Happens!** Watch as every guest moves to the room with the next higher number! Guest in room 1→2, room 2→3, room 3→4, and so on! This frees up room 1! 🏠",
+      "4": "🎉 **Success!** The unicorn gets room 1, and everyone else still has a room! This shows us something amazing about infinity - even when you have infinitely many things, you can sometimes still add more! Click 'Next Step' to learn more! 🏨✨",
+      "5": "🎓 **You Did It!** You've learned that infinity + 1 = infinity! In math, this helps us understand how infinite sets work. Ready for a bigger challenge? Try the 'Bus Full of Guests' scenario! 🚌"
+    },
+    "bus": {
+      "1": "🚌 **Bus Challenge!** Now let's try something harder! What if a whole bus full of 5 guests arrives at our infinitely full hotel? This seems impossible... or is it? Click 'Start Story'! 🤔",
+      "2": "🚌 A tour bus arrives with 5 guests who all need rooms! But every room from 1 to infinity is still occupied! How can we fit 5 more guests? The hotel manager has an even more clever idea! Click 'Show the Magic!' ⭐",
+      "3": "🎯 **Double Magic!** Watch as every guest moves to a room number that's DOUBLE their current room! Guest in room 1→2, room 2→4, room 3→6! This creates space in rooms 1, 3, 5, 7, 9... all the odd numbers! 🔢",
+      "4": "🌟 **Incredible!** All 5 bus passengers get rooms 1, 2, 3, 4, and 5, while everyone else still has a room! We made space for 5 guests by being extra clever! Click 'Next Step'! 🎊",
+      "5": "🧠 **Genius Level!** You've learned that infinity + 5 = infinity too! By doubling room numbers, we created infinite space! Ready for the ultimate challenge? Try 'Infinite Buses!' 🚌♾️"
+    },
+    "infinite": {
+      "1": "♾️ **Ultimate Challenge!** Here comes the most mind-blowing scenario! What if INFINITE buses arrive, each with INFINITE guests? This seems absolutely impossible! Click 'Start Story' for the ultimate magic! 🤯",
+      "2": "🚌♾️ Infinite buses with infinite guests each arrive! That's infinity × infinity new guests wanting rooms! Every mathematician thinks this is impossible... but our hotel manager knows a secret! Click 'Show the Magic!' 🎭",
+      "3": "🔮 **Ultimate Magic!** The manager uses PRIME NUMBERS! All original guests move to prime-numbered rooms (2,3,5,7,11...). Then new guests get rooms using a special mathematical formula! 📐",
+      "4": "🌟 **Mind = Blown!** Every single guest (even infinity×infinity of them) gets their own room! This uses advanced math! Click 'Next Step'! 🎪",
+      "5": "🏆 **Mathematics Master!** You've discovered that some infinities can be bigger than others, but Hilbert's Hotel can still fit them all! You've learned one of the deepest secrets in mathematics! 🎓✨"
+    }
+  },
+  "card-fibonacci-title": "The Fibonacci Bunny Garden",
+  "card-fibonacci-description": "Watch magical rabbits multiply in nature's most beautiful pattern! Discover the golden spiral that appears in flowers, shells, and galaxies! 🌻",
+  "card-fibonacci-tag1": "Fibonacci Sequence",
+  "card-fibonacci-tag2": "Golden Ratio",
+  "card-fibonacci-tag3": "Nature Patterns",
+  "card-fibonacci-button": "🔒 Coming Soon!"
+}
