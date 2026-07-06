@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AtlasBackground from '../components/AtlasBackground';
 import TopBar from '../components/TopBar';
-import { adventures, type Adventure } from '../data/adventures';
+import { adventures, type Adventure } from '../adventures';
 import './Home.css';
 
 function useCountUp(target: number, duration = 900): number {
@@ -81,6 +81,10 @@ function AdventureCard({ adventure }: { adventure: Adventure }) {
   );
 }
 
+const unlocked = adventures.filter((a) => a.status === 'available');
+const ideasMastered = unlocked.reduce((n, a) => n + (a.ideas ?? 1), 0);
+const magicalMoments = unlocked.reduce((n, a) => n + (a.moments ?? 1), 0);
+
 export default function Home() {
   const { t } = useTranslation();
 
@@ -119,9 +123,9 @@ export default function Home() {
         <section className="stats" aria-label={t('home.progress.title')}>
           <h2 className="stats-title">{t('home.progress.title')}</h2>
           <div className="stats-row">
-            <StatTile value={1} label={t('home.progress.completed')} />
-            <StatTile value={1} label={t('home.progress.learned')} />
-            <StatTile value={3} label={t('home.progress.moments')} />
+            <StatTile value={unlocked.length} label={t('home.progress.completed')} />
+            <StatTile value={ideasMastered} label={t('home.progress.learned')} />
+            <StatTile value={magicalMoments} label={t('home.progress.moments')} />
           </div>
         </section>
 

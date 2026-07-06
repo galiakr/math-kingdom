@@ -1,21 +1,26 @@
-import { StrictMode } from 'react';
+import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import '@fontsource/secular-one';
 import '@fontsource-variable/rubik';
 import '@fontsource/ibm-plex-mono';
 import './i18n';
 import './global.css';
 import Home from './pages/Home';
-import HilbertHotel from './pages/HilbertHotel';
+import { adventures } from './adventures';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HashRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/infinity" element={<HilbertHotel />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {adventures.map(({ id, path, Page }) =>
+            path && Page ? <Route key={id} path={path} element={<Page />} /> : null
+          )}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
     </HashRouter>
   </StrictMode>
 );

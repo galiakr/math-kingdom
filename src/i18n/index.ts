@@ -1,7 +1,18 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { adventures } from '../adventures';
 import en from './en.json';
 import he from './he.json';
+
+// Core strings (shell + home cards) plus each adventure's own bundle,
+// which lives next to its component under src/adventures/<name>/.
+const buildTranslation = (core: object, lang: 'en' | 'he') => {
+  const translation: Record<string, unknown> = { ...core };
+  for (const adventure of adventures) {
+    if (adventure.i18n) Object.assign(translation, adventure.i18n[lang]);
+  }
+  return translation;
+};
 
 const STORAGE_KEY = 'math-kingdom-lang';
 
@@ -19,8 +30,8 @@ const initialLanguage = isSupported(urlLanguage)
 
 i18n.use(initReactI18next).init({
   resources: {
-    en: { translation: en },
-    he: { translation: he },
+    en: { translation: buildTranslation(en, 'en') },
+    he: { translation: buildTranslation(he, 'he') },
   },
   lng: initialLanguage,
   fallbackLng: 'en',

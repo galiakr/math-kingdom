@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import AtlasBackground from '../components/AtlasBackground';
-import TopBar from '../components/TopBar';
-import StoryText from '../components/StoryText';
+import AdventureLayout from '../../components/AdventureLayout';
+import StoryText from '../../components/StoryText';
 import './HilbertHotel.css';
 
 type ScenarioId = 'single' | 'bus' | 'infinite';
@@ -42,8 +41,7 @@ const initialRooms = (): Room[] =>
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default function HilbertHotel() {
-  const { t, i18n } = useTranslation();
-  const isRtl = i18n.dir() === 'rtl';
+  const { t } = useTranslation();
 
   const [scenario, setScenario] = useState<ScenarioId>('single');
   const [step, setStep] = useState(1);
@@ -179,19 +177,11 @@ export default function HilbertHotel() {
   };
 
   return (
-    <div className="page">
-      <AtlasBackground />
-      <TopBar />
-      <main className="container hotel">
-        <Link to="/" className="back-link">
-          <span aria-hidden="true">{isRtl ? '→' : '←'}</span> {t('hotel.back')}
-        </Link>
-
-        <header className="hero hero-compact">
-          <h1 className="hero-title">{t('hotel.title')}</h1>
-          <p className="hero-subtitle">{t('hotel.subtitle')}</p>
-        </header>
-
+    <AdventureLayout
+      title={t('hotel.title')}
+      subtitle={t('hotel.subtitle')}
+      className="hotel"
+    >
         <div className="scenario-tabs" role="tablist">
           {SCENARIOS.map((id) => (
             <button
@@ -331,7 +321,6 @@ export default function HilbertHotel() {
         <section className="story-panel">
           <StoryText text={t(`hotel.story.${scenario}.${step}`)} />
         </section>
-      </main>
 
       {burst && (
         <div key={burst.n} className="sound-burst" aria-hidden="true">
@@ -365,6 +354,6 @@ export default function HilbertHotel() {
           </div>
         </div>
       )}
-    </div>
+    </AdventureLayout>
   );
 }
