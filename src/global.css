@@ -1,0 +1,272 @@
+:root {
+  --night: #0d132e;
+  --night-raise: #151c40;
+  --panel: #1a2250;
+  --panel-2: #212a61;
+  --line: rgba(151, 164, 255, 0.18);
+  --grid: rgba(151, 164, 255, 0.06);
+  --text: #eef1ff;
+  --muted: #a9b2d9;
+  --gold: #ffc94d;
+  --violet: #9d86ff;
+  --green: #6fe0a8;
+  --pink: #ff7ab2;
+  --font-display: 'Secular One', 'Rubik Variable', sans-serif;
+  --font-body: 'Rubik Variable', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --radius: 18px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--night);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.page {
+  position: relative;
+  min-height: 100vh;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: 16px 24px 48px;
+}
+
+/* ---------- night atlas backdrop ---------- */
+
+.atlas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: radial-gradient(
+    120% 80% at 50% -10%,
+    #1b2358 0%,
+    var(--night) 62%
+  );
+}
+
+.atlas-grid {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(110% 90% at 50% 0%, black 35%, transparent 95%);
+}
+
+.atlas-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #dfe6ff;
+  opacity: 0.35;
+}
+
+.atlas-glyph {
+  position: absolute;
+  bottom: -8%;
+  font-family: var(--font-mono);
+  font-size: 26px;
+  color: var(--violet);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .atlas-star {
+    animation: twinkle 3.6s ease-in-out infinite alternate;
+  }
+
+  .atlas-glyph {
+    animation: drift linear infinite;
+  }
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.15;
+  }
+  to {
+    opacity: 0.6;
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translateY(0) rotate(-6deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.16;
+  }
+  88% {
+    opacity: 0.16;
+  }
+  100% {
+    transform: translateY(-108vh) rotate(6deg);
+    opacity: 0;
+  }
+}
+
+/* ---------- top bar ---------- */
+
+.topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: 18px 24px;
+}
+
+.topbar-brand {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar-mark {
+  color: var(--gold);
+}
+
+.lang-switcher {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px;
+  background: rgba(13, 19, 46, 0.6);
+}
+
+.lang-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 5px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.lang-btn[aria-pressed='true'] {
+  background: var(--gold);
+  color: #241a02;
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  text-align: center;
+  padding: 40px 0 36px;
+}
+
+.hero-compact {
+  padding: 16px 0 24px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1.1;
+}
+
+.hero-constellation {
+  width: min(260px, 60vw);
+  color: var(--gold);
+  margin-top: 10px;
+}
+
+.hero-subtitle {
+  color: var(--muted);
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  margin-top: 10px;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 11px 24px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: #241a02;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(255, 201, 77, 0.35);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn:hover {
+    transition: none;
+    transform: none;
+  }
+}
