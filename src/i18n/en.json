@@ -1,0 +1,63 @@
+{
+  "brand": "Math Kingdom",
+  "common": {
+    "back": "Back to the kingdom"
+  },
+  "home": {
+    "title": "Math Kingdom",
+    "subtitle": "Where numbers come alive and math is magical",
+    "progress": {
+      "title": "Your adventure progress",
+      "completed": "Adventures unlocked",
+      "learned": "Math ideas mastered",
+      "moments": "Magical moments"
+    },
+    "play": "Start adventure",
+    "comingSoon": "Coming soon",
+    "locked": "Mystery locked",
+    "footer1": "Every adventure teaches real mathematical ideas through play and wonder.",
+    "footer2": "Pick an open adventure to begin your journey.",
+    "adventures": {
+      "infinity": {
+        "title": "Hilbert's Amazing Hotel",
+        "description": "Visit the hotel that always has room for one more guest — even when it is completely full. Discover infinity with a parade of animal guests and one very determined unicorn.",
+        "tags": ["Infinity", "Set theory", "Logic"]
+      },
+      "primes": {
+        "title": "The Prime Number Orchestra",
+        "description": "Conduct an orchestra where instruments only play on prime numbers. Find the mysterious rhythm of 2, 3, 5, 7, 11… and turn it into music.",
+        "tags": ["Prime numbers", "Number theory", "Patterns"]
+      },
+      "fractal": {
+        "title": "The Fractal Pizza Palace",
+        "description": "Slice a pizza that contains endless copies of itself. Zoom into a world where the same pattern repeats forever, at every size.",
+        "tags": ["Fractals", "Self-similarity", "Infinite zoom"]
+      },
+      "probability": {
+        "title": "The Probability Carnival",
+        "description": "Join friendly monsters at carnival games. Predict outcomes, spin wheels, and learn why some things are more likely to happen than others.",
+        "tags": ["Probability", "Statistics", "Prediction"]
+      },
+      "fibonacci": {
+        "title": "The Fibonacci Bunny Garden",
+        "description": "Watch rabbits multiply in nature's most beautiful pattern, and find the golden spiral hiding in flowers, shells, and galaxies.",
+        "tags": ["Fibonacci sequence", "Golden ratio", "Nature's patterns"]
+      },
+      "topology": {
+        "title": "Topology Space Adventure",
+        "description": "Travel with alien friends who bend and stretch shapes without breaking them. Watch a coffee cup turn into a donut and learn what \"the same shape\" really means.",
+        "tags": ["Topology", "Transformations", "Mathematical thinking"]
+      },
+      "graphs": {
+        "title": "Graph Theory Kingdom",
+        "description": "Help knights and dragons travel between castles. Solve the famous bridge puzzle and learn how mathematicians map connections.",
+        "tags": ["Graph theory", "Networks", "Problem solving"]
+      },
+      "mystery": {
+        "title": "The Secret Math Mystery",
+        "description": "A surprise adventure awaits explorers who finish every other quest. What mathematical magic hides in the final challenge?",
+        "tags": ["???", "???", "???"]
+      }
+    }
+  }
+}
