@@ -1,0 +1,85 @@
+{
+  "primes": {
+    "title": "The Chord Factory",
+    "subtitle": "Where every number plays its own sound",
+    "buttons": {
+      "powerOn": "Turn on the factory",
+      "next": "Next scene",
+      "finish": "Finish the concert",
+      "listen": "Play it",
+      "check": "Check!",
+      "clear": "Clear",
+      "hint": "Show the colors",
+      "play": "Play",
+      "stop": "Pause",
+      "playAgain": "Play again"
+    },
+    "scenes": {
+      "sound": {
+        "title": "Every number has a sound",
+        "intro": "🎛️ **Welcome to the Chord Factory!** In this factory, every number has its own sound. Press the numbers and just listen. Some sound rich and full… and some sound all alone. Explore at least 4 numbers!",
+        "powerHint": "The machines are still asleep. Wake them up!",
+        "tryOne": "Press a number to hear its sound!",
+        "tried": "Sounds explored: {{n}}"
+      },
+      "sort": {
+        "title": "The lonely notes",
+        "intro": "👂 **Listen closely.** Try 8. Now try 7. Hear the difference? Some numbers make a full chord — and some just won't. Listen to each number (or watch its blocks) and sort it into the right basket!",
+        "rich": "Rich sounds",
+        "solo": "Solo sounds",
+        "listen": "Listen",
+        "correct": "Yes! Right basket! 🎉",
+        "retry": "Hmm, listen again… is it a full chord, or one lonely note?",
+        "done": "You sorted them all! Your ears discovered a secret of mathematics… 🌟"
+      },
+      "reveal": {
+        "title": "Meet the solo singers",
+        "intro": "🌟 **The big reveal!** The solo singers have a name: **prime numbers**. Here is the whole family — each prime has its very own note and its very own color, in every corner of this factory, forever.",
+        "keySentence": "A prime is a number that can't be broken into smaller pieces. So it sings alone.",
+        "tapHint": "Tap each prime to hear its note!"
+      },
+      "factory": {
+        "title": "The Chord Factory floor",
+        "intro": "🏭 **Now YOU run the factory!** Mix prime notes to build new numbers. Press the 2-note and the 3-note — out comes 6, playing its chord! Press 2, 2, 3 — out comes 12. Every number is built from prime notes. Build 3 different numbers!",
+        "empty": "Press prime notes to start mixing…",
+        "built": "Numbers you built"
+      },
+      "detective": {
+        "title": "The Chord Detective",
+        "intro": "🕵️ **A mystery chord is playing!** Which prime notes are hiding inside? The gray blocks show how many notes to find. Listen, press the primes you think are in there, and check your guess. Solve all 5 mysteries to earn your badge!",
+        "mystery": "Mystery {{n}} of {{total}}",
+        "playMystery": "Play the mystery chord",
+        "yourGuess": "Your guess",
+        "emptyGuess": "Press prime notes to build your guess…",
+        "correct": "Case solved! It was {{n}}! 🎉",
+        "retry": "Not quite — listen again!",
+        "hintUnlocked": "Detective tip: try “Show the colors” for a clue! 🎨",
+        "badgeTitle": "Chord Detective!",
+        "badgeText": "You can hear the primes hiding inside any number. Case closed! 🕵️🎼"
+      },
+      "orchestra": {
+        "title": "The Royal Orchestra",
+        "intro": "👑 **The grand finale!** The drum plays every 2 beats. The shaker every 3. The bell every 5. You can always predict them. But the golden trumpet plays on the **prime** beats — and nobody in the world can predict its rhythm, because primes have none. Press play and listen for the trumpet!",
+        "beat": "Beat",
+        "instruments": {
+          "drum": "Drum",
+          "shaker": "Shaker",
+          "bell": "Bell",
+          "trumpet": "Golden trumpet"
+        },
+        "cicadaTitle": "🦗 Nature's prime secret",
+        "cicadaText": "Real cicadas hide underground for exactly 13 or 17 years — prime numbers! Because primes share their rhythm with nobody, the cicadas almost never wake up in the same year as the hungry animals that follow shorter cycles. Nature discovered prime numbers long before people did. ✨"
+      }
+    },
+    "skills": {
+      "hearsDifference": "Some numbers sound rich, some sing alone",
+      "definition": "A prime can't be broken into smaller pieces",
+      "buildingBlocks": "Every number is built from prime notes",
+      "factorDetective": "I can find the primes hiding inside a number",
+      "noPattern": "Primes follow no predictable rhythm"
+    },
+    "finishedTitle": "Maestro of the primes!",
+    "finished": "You discovered two great secrets: every number is built from prime notes — and the primes themselves follow a rhythm nobody can predict. The whole kingdom of numbers plays your music now. 🎼✨",
+    "finishedButton": "Back to the kingdom"
+  }
+}

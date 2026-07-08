@@ -100,7 +100,13 @@ function Station({ adventure, x, y, done, isCurrent }: StationProps) {
         <span className="station-tag tag-done">{t('home.map.visited')}</span>
       ) : (
         <span className="station-tag">
-          {t(status === 'locked' ? 'home.locked' : 'home.comingSoon')}
+          {t(
+            status === 'locked'
+              ? 'home.locked'
+              : status === 'available'
+                ? 'home.map.open'
+                : 'home.comingSoon'
+          )}
         </span>
       )}
     </>

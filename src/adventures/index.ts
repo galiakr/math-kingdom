@@ -1,7 +1,8 @@
 import hilbertHotel from './hilbert-hotel';
+import chordFactory from './chord-factory';
 import type { Adventure } from './types';
 
-export type { Adventure, AdventureStatus } from './types';
+export type { Adventure, AdventureStatus, SceneDef, SkillDef } from './types';
 
 /**
  * Every concept in the kingdom, in home-page display order.
@@ -14,7 +15,7 @@ export type { Adventure, AdventureStatus } from './types';
  */
 export const adventures: Adventure[] = [
   hilbertHotel,
-  { id: 'primes', emoji: '🎼', glyph: '7', accent: '#ffc94d', status: 'soon' },
+  chordFactory,
   { id: 'fractal', emoji: '🍕', glyph: '∆', accent: '#ff8a5c', status: 'soon' },
   { id: 'probability', emoji: '🎪', glyph: '%', accent: '#ff7ab2', status: 'soon' },
   { id: 'fibonacci', emoji: '🐇', glyph: 'φ', accent: '#6fe0a8', status: 'soon' },

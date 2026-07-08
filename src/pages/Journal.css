@@ -172,6 +172,28 @@
   rotate: -1deg;
 }
 
+.sticker-skills {
+  list-style: none;
+  display: grid;
+  gap: 3px;
+  margin: 8px 0 14px;
+}
+
+.sticker-skills li {
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--graphite);
+  opacity: 0.55;
+}
+
+.sticker-skills li.is-unlocked {
+  opacity: 1;
+}
+
+.sticker-skills li.is-unlocked span {
+  color: var(--red-pen);
+}
+
 .sticker-stamp {
   position: absolute;
   inset-block-end: 10px;

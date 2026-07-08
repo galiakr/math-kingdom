@@ -17,6 +17,11 @@
       "continue": "Continue the adventure"
     },
     "celebration": "Amazing! Everyone fits!",
+    "skills": {
+      "oneMore": "Infinity always has room for one more",
+      "doubling": "Doubling room numbers frees infinitely many rooms",
+      "matching": "Some infinities can be matched up perfectly"
+    },
     "dialogue": {
       "single": "“Excuse me — do you have a room available?”",
       "bus": "“We're a tour group of five! Do you have five rooms?”",
