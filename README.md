@@ -19,6 +19,21 @@ npm run build     # type-check + production build into dist/
 npm run preview   # serve the production build locally
 ```
 
+## Design
+
+The kingdom is a **daylight quest map**: adventures are lands on an illustrated
+map, connected by a winding path; your avatar stands where you left off, and
+locked lands hide in the clouds. Progress is recorded in a **traveller journal**
+(`/journal`) styled as a graph-paper notebook — visited lands become taped-in
+stickers and ideas get checked off. Completion state lives in `localStorage`
+(`src/progress.ts`).
+
+**Each adventure owns its look and feel.** `<AdventureLayout>` accepts a
+`theme` class and a `background` node, so an adventure can bring its own
+palette, fonts, and backdrop (see `.theme-night` in `global.css` — the hotel's
+starry world). New adventures add their own theme block instead of inheriting
+the daylight kingdom.
+
 ## Project structure
 
 Each math concept is a self-contained **adventure** under `src/adventures/`:

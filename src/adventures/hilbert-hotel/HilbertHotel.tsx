@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AdventureLayout from '../../components/AdventureLayout';
 import StoryText from '../../components/StoryText';
+import { markCompleted } from '../../progress';
+import AtlasBackground from './AtlasBackground';
 import './HilbertHotel.css';
 
 type ScenarioId = 'single' | 'bus' | 'infinite';
@@ -173,6 +175,7 @@ export default function HilbertHotel() {
     } else {
       fireBurst('🏆');
       setFinished(true);
+      markCompleted('infinity');
     }
   };
 
@@ -181,6 +184,8 @@ export default function HilbertHotel() {
       title={t('hotel.title')}
       subtitle={t('hotel.subtitle')}
       className="hotel"
+      theme="theme-night"
+      background={<AtlasBackground />}
     >
         <div className="scenario-tabs" role="tablist">
           {SCENARIOS.map((id) => (

@@ -1,63 +1,89 @@
 {
   "brand": "Math Kingdom",
-  "common": {
-    "back": "Back to the kingdom"
+  "nav": {
+    "journal": "Journal"
   },
   "home": {
     "title": "Math Kingdom",
     "subtitle": "Where numbers come alive and math is magical",
-    "progress": {
-      "title": "Your adventure progress",
-      "completed": "Adventures unlocked",
-      "learned": "Math ideas mastered",
-      "moments": "Magical moments"
+    "map": {
+      "youAreHere": "You are here",
+      "visited": "Visited!",
+      "explored": "{{done}} of {{total}} lands explored",
+      "journal": "Open your traveller journal"
     },
     "play": "Start adventure",
     "comingSoon": "Coming soon",
-    "locked": "Mystery locked",
+    "locked": "Hidden in the clouds",
     "footer1": "Every adventure teaches real mathematical ideas through play and wonder.",
-    "footer2": "Pick an open adventure to begin your journey.",
+    "footer2": "Follow the path — a new land opens after every journey.",
     "adventures": {
       "infinity": {
         "title": "Hilbert's Amazing Hotel",
+        "land": "Infinity Hotel",
+        "note": "The hotel that is NEVER full!!",
         "description": "Visit the hotel that always has room for one more guest — even when it is completely full. Discover infinity with a parade of animal guests and one very determined unicorn.",
         "tags": ["Infinity", "Set theory", "Logic"]
       },
       "primes": {
         "title": "The Prime Number Orchestra",
+        "land": "Prime Forest",
+        "note": "Trees that only hum on 2, 3, 5, 7…",
         "description": "Conduct an orchestra where instruments only play on prime numbers. Find the mysterious rhythm of 2, 3, 5, 7, 11… and turn it into music.",
         "tags": ["Prime numbers", "Number theory", "Patterns"]
       },
       "fractal": {
         "title": "The Fractal Pizza Palace",
+        "land": "Pizza Palace",
+        "note": "Every slice hides a whole pizza inside 🍕",
         "description": "Slice a pizza that contains endless copies of itself. Zoom into a world where the same pattern repeats forever, at every size.",
         "tags": ["Fractals", "Self-similarity", "Infinite zoom"]
       },
       "probability": {
         "title": "The Probability Carnival",
+        "land": "The Carnival",
+        "note": "I beat the spinning wheel (twice!)",
         "description": "Join friendly monsters at carnival games. Predict outcomes, spin wheels, and learn why some things are more likely to happen than others.",
         "tags": ["Probability", "Statistics", "Prediction"]
       },
       "fibonacci": {
         "title": "The Fibonacci Bunny Garden",
+        "land": "Bunny Garden",
+        "note": "SO many bunnies! 1, 1, 2, 3, 5, 8…",
         "description": "Watch rabbits multiply in nature's most beautiful pattern, and find the golden spiral hiding in flowers, shells, and galaxies.",
         "tags": ["Fibonacci sequence", "Golden ratio", "Nature's patterns"]
       },
       "topology": {
         "title": "Topology Space Adventure",
+        "land": "Space Port",
+        "note": "A mug IS a donut?!",
         "description": "Travel with alien friends who bend and stretch shapes without breaking them. Watch a coffee cup turn into a donut and learn what \"the same shape\" really means.",
         "tags": ["Topology", "Transformations", "Mathematical thinking"]
       },
       "graphs": {
         "title": "Graph Theory Kingdom",
+        "land": "Castle Bridges",
+        "note": "Crossed every bridge exactly once!",
         "description": "Help knights and dragons travel between castles. Solve the famous bridge puzzle and learn how mathematicians map connections.",
         "tags": ["Graph theory", "Networks", "Problem solving"]
       },
       "mystery": {
         "title": "The Secret Math Mystery",
+        "land": "???",
+        "note": "…",
         "description": "A surprise adventure awaits explorers who finish every other quest. What mathematical magic hides in the final challenge?",
         "tags": ["???", "???", "???"]
       }
     }
+  },
+  "journal": {
+    "title": "My Traveller Journal",
+    "subtitle": "Everything I discover in the kingdom",
+    "lands": "lands explored",
+    "ideasCount": "ideas collected",
+    "moments": "magical moments",
+    "visited": "Visited",
+    "notVisited": "not visited yet…",
+    "ideas": "Math ideas I'm collecting"
   }
 }

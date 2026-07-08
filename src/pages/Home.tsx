@@ -1,139 +1,210 @@
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import AtlasBackground from '../components/AtlasBackground';
 import TopBar from '../components/TopBar';
 import { adventures, type Adventure } from '../adventures';
+import { useCompleted } from '../progress';
 import './Home.css';
 
-function useCountUp(target: number, duration = 900): number {
-  const [value, setValue] = useState(0);
+type Point = [number, number];
 
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setValue(target);
-      return;
-    }
-    let raf = 0;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const progress = Math.min(1, (now - start) / duration);
-      setValue(Math.round(target * (1 - Math.pow(1 - progress, 3))));
-      if (progress < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [target, duration]);
+/* Station coordinates (% of the map box) for the wide and tall layouts.
+   Index-aligned with the adventures registry: the trail visits them in order,
+   winding from the near meadow up toward the mystery castle in the clouds. */
+const WIDE: Point[] = [
+  [10, 78],
+  [26, 60],
+  [44, 73],
+  [62, 58],
+  [78, 71],
+  [88, 45],
+  [69, 29],
+  [46, 16],
+];
+const TALL: Point[] = [
+  [30, 92],
+  [72, 83],
+  [28, 72],
+  [70, 61],
+  [30, 50],
+  [72, 39],
+  [32, 28],
+  [58, 15],
+];
 
-  return value;
+/** Smooth open curve through all points (Catmull-Rom → cubic Bézier). */
+function trailPath(points: Point[]): string {
+  const p = (i: number) => points[Math.max(0, Math.min(points.length - 1, i))];
+  let d = `M ${points[0][0]},${points[0][1]}`;
+  for (let i = 0; i < points.length - 1; i++) {
+    const [x0, y0] = p(i - 1);
+    const [x1, y1] = p(i);
+    const [x2, y2] = p(i + 1);
+    const [x3, y3] = p(i + 2);
+    const c1x = x1 + (x2 - x0) / 6;
+    const c1y = y1 + (y2 - y0) / 6;
+    const c2x = x2 - (x3 - x1) / 6;
+    const c2y = y2 - (y3 - y1) / 6;
+    d += ` C ${c1x},${c1y} ${c2x},${c2y} ${x2},${y2}`;
+  }
+  return d;
 }
 
-function StatTile({ value, label }: { value: number; label: string }) {
-  const shown = useCountUp(value);
-  return (
-    <div className="stat-tile">
-      <div className="stat-number">{shown}</div>
-      <div className="stat-label">{label}</div>
+function useIsNarrow(): boolean {
+  const [narrow, setNarrow] = useState(
+    () => window.matchMedia('(max-width: 640px)').matches
+  );
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 640px)');
+    const onChange = (event: MediaQueryListEvent) => setNarrow(event.matches);
+    query.addEventListener('change', onChange);
+    return () => query.removeEventListener('change', onChange);
+  }, []);
+  return narrow;
+}
+
+interface StationProps {
+  adventure: Adventure;
+  x: number;
+  y: number;
+  done: boolean;
+  isCurrent: boolean;
+}
+
+function Station({ adventure, x, y, done, isCurrent }: StationProps) {
+  const { t } = useTranslation();
+  const { id, emoji, accent, status, path } = adventure;
+
+  const content = (
+    <>
+      {isCurrent && (
+        <span className="station-avatar" aria-hidden="true">
+          🎒
+        </span>
+      )}
+      <span className="station-badge">
+        <span className="station-emoji" aria-hidden="true">
+          {emoji}
+        </span>
+        {done && (
+          <span className="station-check" aria-hidden="true">
+            ✓
+          </span>
+        )}
+        {status === 'locked' && <span className="station-cloud" aria-hidden="true" />}
+      </span>
+      <span className="station-name">{t(`home.adventures.${id}.land`)}</span>
+      {isCurrent && !done ? (
+        <span className="station-flag">{t('home.map.youAreHere')}</span>
+      ) : done ? (
+        <span className="station-tag tag-done">{t('home.map.visited')}</span>
+      ) : (
+        <span className="station-tag">
+          {t(status === 'locked' ? 'home.locked' : 'home.comingSoon')}
+        </span>
+      )}
+    </>
+  );
+
+  const style = {
+    left: `${x}%`,
+    top: `${y}%`,
+    '--accent': accent,
+  } as React.CSSProperties;
+  const classes = `station station-${status}${done ? ' is-done' : ''}`;
+
+  return status === 'available' && path ? (
+    <Link
+      to={path}
+      className={classes}
+      style={style}
+      aria-label={t(`home.adventures.${id}.title`)}
+    >
+      {content}
+    </Link>
+  ) : (
+    <div className={classes} style={style}>
+      {content}
     </div>
   );
 }
 
-function AdventureCard({ adventure }: { adventure: Adventure }) {
-  const { t } = useTranslation();
-  const { id, emoji, glyph, accent, status, path } = adventure;
-  const tags = t(`home.adventures.${id}.tags`, { returnObjects: true }) as string[];
-
-  return (
-    <article
-      className={`card card-${status}`}
-      style={{ '--accent': accent } as CSSProperties}
-    >
-      <span className="card-glyph" aria-hidden="true">
-        {glyph}
-      </span>
-      <div className="card-top">
-        <span className="card-emoji" aria-hidden="true">
-          {emoji}
-        </span>
-        {status !== 'available' && (
-          <span className="card-badge">
-            {t(status === 'soon' ? 'home.comingSoon' : 'home.locked')}
-          </span>
-        )}
-      </div>
-      <h3 className="card-title">{t(`home.adventures.${id}.title`)}</h3>
-      <p className="card-description">{t(`home.adventures.${id}.description`)}</p>
-      <ul className="card-tags">
-        {tags.map((tag) => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
-      {status === 'available' && path ? (
-        <Link className="card-cta" to={path}>
-          {t('home.play')}
-        </Link>
-      ) : (
-        <span className="card-cta card-cta-disabled">
-          {t(status === 'soon' ? 'home.comingSoon' : 'home.locked')}
-        </span>
-      )}
-    </article>
-  );
-}
-
-const unlocked = adventures.filter((a) => a.status === 'available');
-const ideasMastered = unlocked.reduce((n, a) => n + (a.ideas ?? 1), 0);
-const magicalMoments = unlocked.reduce((n, a) => n + (a.moments ?? 1), 0);
-
 export default function Home() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.dir() === 'rtl';
+  const narrow = useIsNarrow();
+  const completed = useCompleted();
+
+  const points = (narrow ? TALL : WIDE).map(
+    ([x, y]) => (isRtl ? [100 - x, y] : [x, y]) as Point
+  );
+
+  // The traveller stands at the first unfinished open land,
+  // or at the last finished one when everything open is done.
+  const currentId =
+    adventures.find((a) => a.status === 'available' && !completed.includes(a.id))
+      ?.id ??
+    [...adventures].reverse().find((a) => completed.includes(a.id))?.id;
+
+  const doneCount = adventures.filter((a) => completed.includes(a.id)).length;
 
   return (
     <div className="page">
-      <AtlasBackground />
       <TopBar />
-      <main className="container">
-        <header className="hero">
+      <main className="container map-shell">
+        <header className="hero map-hero">
           <h1 className="hero-title">{t('home.title')}</h1>
-          <svg
-            className="hero-constellation"
-            viewBox="0 0 260 26"
-            aria-hidden="true"
-          >
-            <polyline
-              points="4,20 62,9 128,16 194,5 256,14"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.2"
-              opacity="0.55"
-            />
-            {[
-              [4, 20],
-              [62, 9],
-              [128, 16],
-              [194, 5],
-              [256, 14],
-            ].map(([x, y]) => (
-              <circle key={`${x}-${y}`} cx={x} cy={y} r="2.6" fill="currentColor" />
-            ))}
-          </svg>
           <p className="hero-subtitle">{t('home.subtitle')}</p>
+          <p className="hero-progress">
+            {t('home.map.explored', { done: doneCount, total: adventures.length })}
+          </p>
         </header>
 
-        <section className="stats" aria-label={t('home.progress.title')}>
-          <h2 className="stats-title">{t('home.progress.title')}</h2>
-          <div className="stats-row">
-            <StatTile value={unlocked.length} label={t('home.progress.completed')} />
-            <StatTile value={ideasMastered} label={t('home.progress.learned')} />
-            <StatTile value={magicalMoments} label={t('home.progress.moments')} />
-          </div>
-        </section>
-
-        <section className="kingdom-grid">
-          {adventures.map((adventure) => (
-            <AdventureCard key={adventure.id} adventure={adventure} />
+        <div className={`map${narrow ? ' map-tall' : ''}`}>
+          <div className="map-sun" aria-hidden="true" />
+          <div className="map-cloud map-cloud-1" aria-hidden="true" />
+          <div className="map-cloud map-cloud-2" aria-hidden="true" />
+          <div className="map-cloud map-cloud-3" aria-hidden="true" />
+          <svg
+            className="map-scene"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M -2,40 Q 18,28 38,38 T 72,36 T 104,32 L 104,104 L -2,104 Z"
+              fill="#8bcb77"
+            />
+            <path
+              d="M -2,58 Q 24,44 50,54 T 104,50 L 104,104 L -2,104 Z"
+              fill="#74bd6a"
+            />
+            <path
+              d="M -2,78 Q 30,66 58,74 T 104,70 L 104,104 L -2,104 Z"
+              fill="#5cae5d"
+            />
+            <path
+              className="map-trail"
+              d={trailPath(points)}
+              fill="none"
+              stroke="#fff7df"
+              strokeWidth="7"
+              strokeLinecap="round"
+              strokeDasharray="0.01 2.6"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          {adventures.map((adventure, i) => (
+            <Station
+              key={adventure.id}
+              adventure={adventure}
+              x={points[i][0]}
+              y={points[i][1]}
+              done={completed.includes(adventure.id)}
+              isCurrent={adventure.id === currentId}
+            />
           ))}
-        </section>
+        </div>
 
         <footer className="footer">
           <p>{t('home.footer1')}</p>

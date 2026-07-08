@@ -25,14 +25,20 @@ Collect `pageerror` and console `error` events — the app should produce none.
 
 ## Flows worth driving
 
-- Home: `/#/` — 8 `.card` elements, one enabled `.card-cta`.
-- Adventure: click the enabled CTA → `.hotel-sign` appears (lazy route).
+- Home (quest map): `/#/` — 8 `.station` elements on the map, avatar
+  (`.station-avatar`) on the first open land, `.signpost-count` shows progress.
+- Adventure: click `.station-available` → `.hotel-sign` appears (lazy route);
+  the hotel page keeps its `.theme-night` class.
 - Play: "Start the story" → `.waiting-dialogue`; "Show the magic!" →
-  `.celebration` (animation takes ~5s; use a generous timeout).
-- Back link: `.back-link` returns to `.kingdom-grid`.
+  `.celebration` (animation takes ~5s; use a generous timeout). Finishing all
+  three scenarios → `.finished-overlay` and marks the adventure completed
+  (localStorage `math-kingdom-progress`).
+- Journal: `/#/journal` — completed adventures show `.sticker` (taped),
+  others `.sticker-empty`; checked ideas: `.journal-checklist li.is-checked`.
 - Deep link: `goto('/#/infinity')` + reload — lazy route must load cold.
-- Hebrew: `goto('/?lang=he#/infinity')` + reload — `html[dir=rtl]`,
-  translated `.hero-title`; toggle `.lang-btn` mid-page and re-check.
+- Hebrew: `goto('/?lang=he#/')` + reload — `html[dir=rtl]`, map path and
+  stations mirror; toggle `.lang-btn` mid-page and re-check.
+- Mobile: 390px viewport → `.map-tall` variant with vertical winding path.
 
 ## Gotchas
 

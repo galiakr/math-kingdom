@@ -1,7 +1,4 @@
 import type { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import AtlasBackground from './AtlasBackground';
 import TopBar from './TopBar';
 
 interface AdventureLayoutProps {
@@ -9,31 +6,34 @@ interface AdventureLayoutProps {
   subtitle: string;
   /** Extra class on <main> for the adventure's own layout tweaks. */
   className?: string;
+  /**
+   * Theme class scoping the adventure's own palette and fonts (see
+   * global.css — e.g. "theme-night"). Each adventure owns its look;
+   * without a theme it inherits the daylight kingdom.
+   */
+  theme?: string;
+  /** The adventure's own full-page backdrop, rendered behind the content. */
+  background?: ReactNode;
   children: ReactNode;
 }
 
 /**
- * Shared shell for every adventure page: starry background, top bar,
- * back-to-kingdom link, and the compact hero header.
+ * Shared shell for every adventure page: the adventure's backdrop, top bar
+ * (whose brand mark links home), and the compact hero header.
  */
 export default function AdventureLayout({
   title,
   subtitle,
   className,
+  theme,
+  background,
   children,
 }: AdventureLayoutProps) {
-  const { t, i18n } = useTranslation();
-  const isRtl = i18n.dir() === 'rtl';
-
   return (
-    <div className="page">
-      <AtlasBackground />
+    <div className={`page${theme ? ` ${theme}` : ''}`}>
+      {background}
       <TopBar />
       <main className={`container${className ? ` ${className}` : ''}`}>
-        <Link to="/" className="back-link">
-          <span aria-hidden="true">{isRtl ? '→' : '←'}</span> {t('common.back')}
-        </Link>
-
         <header className="hero hero-compact">
           <h1 className="hero-title">{title}</h1>
           <p className="hero-subtitle">{subtitle}</p>
