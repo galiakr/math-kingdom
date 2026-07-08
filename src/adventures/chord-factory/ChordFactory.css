@@ -1,0 +1,782 @@
+/* ---------- concert-hall backdrop ---------- */
+
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.stage-beam {
+  position: absolute;
+  top: -12%;
+  width: 320px;
+  height: 130%;
+  background: linear-gradient(180deg, rgba(255, 201, 77, 0.13), transparent 70%);
+  filter: blur(8px);
+}
+
+.stage-beam-left {
+  left: 6%;
+  transform: rotate(16deg);
+}
+
+.stage-beam-right {
+  right: 6%;
+  transform: rotate(-16deg);
+}
+
+.stage-floor {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 28%;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.45));
+}
+
+.stage-sparkle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.35;
+}
+
+.stage-note {
+  position: absolute;
+  bottom: -48px;
+  font-size: 1.6rem;
+  color: rgba(206, 168, 255, 0.35);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stage-sparkle {
+    animation: cf-twinkle 4s ease-in-out infinite;
+  }
+
+  .stage-note {
+    animation: cf-float linear infinite;
+  }
+}
+
+@keyframes cf-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes cf-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.7;
+  }
+  88% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-110vh) rotate(28deg);
+    opacity: 0;
+  }
+}
+
+/* ---------- page chrome ---------- */
+
+.cf-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cf-dots {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.cf-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--panel-veil);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.cf-dot:hover:not(:disabled) {
+  transform: translateY(-2px);
+  color: var(--text);
+}
+
+.cf-dot:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cf-dot.is-done {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.cf-dot.is-active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--gold-ink);
+}
+
+.cf-scene {
+  background: var(--panel-veil);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 24px 26px;
+  backdrop-filter: blur(2px);
+}
+
+.cf-scene-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  text-align: center;
+  color: var(--gold);
+}
+
+.cf-scene-intro {
+  margin: 14px auto 0;
+  max-width: 640px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  line-height: 1.7;
+}
+
+.cf-scene-intro strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.cf-body {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+  justify-items: center;
+}
+
+.cf-hint {
+  color: var(--muted);
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  text-align: center;
+}
+
+.cf-progress-hint {
+  color: var(--muted);
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+.cf-feedback {
+  min-height: 1.6em;
+  color: var(--gold);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ---------- chord blocks: the visual voice of every sound ---------- */
+
+.chord-blocks {
+  display: inline-flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 4px;
+}
+
+.chord-block {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 26px;
+  border-radius: 8px;
+  color: #14202b;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+}
+
+.chord-block-mystery {
+  background: transparent;
+  border: 2px dashed var(--line);
+  color: var(--muted);
+}
+
+.chord-blocks-small .chord-block {
+  width: 18px;
+  height: 10px;
+  border-radius: 4px;
+  font-size: 0;
+}
+
+/* ---------- scene 1: the number pad ---------- */
+
+.cf-power {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: 44px 0;
+}
+
+.cf-power-btn {
+  font-size: 1.15rem;
+  padding: 16px 32px;
+}
+
+.cf-stage-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Number order is spatial — never mirrored, even in Hebrew. */
+.number-pad {
+  direction: ltr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 10px;
+  max-width: 360px;
+}
+
+.pad-key {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+
+.pad-key:hover {
+  transform: translateY(-2px);
+  border-color: var(--muted);
+}
+
+.pad-key.is-tried {
+  border-color: var(--teal);
+}
+
+.pad-key.is-current {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--gold-ink);
+}
+
+.cf-listen {
+  flex: 1;
+  min-width: 180px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.cf-listen-number {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+/* ---------- scene 2: sorting baskets ---------- */
+
+.cf-sort-current {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.cf-sort-number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 34px;
+  cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+
+.cf-sort-number:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+}
+
+.cf-sort-digits {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.cf-sort-play {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.cf-sort-baskets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.basket-btn {
+  border-radius: 16px;
+  border: 2px solid var(--line);
+  background: var(--panel);
+  padding: 14px 24px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+
+.basket-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.basket-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.basket-rich {
+  border-color: var(--teal);
+}
+
+.basket-solo {
+  border-color: var(--pink);
+}
+
+.cf-baskets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 640px;
+}
+
+.cf-basket {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  min-height: 90px;
+}
+
+.cf-basket-rich {
+  border-top: 3px solid var(--teal);
+}
+
+.cf-basket-solo {
+  border-top: 3px solid var(--pink);
+}
+
+.cf-basket-title {
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.cf-basket-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--panel-veil);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-family: var(--font-display);
+}
+
+/* ---------- scene 3: the prime family ---------- */
+
+.cf-key-sentence {
+  max-width: 560px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(255, 201, 77, 0.12), transparent);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+}
+
+/* Primes shown in ascending order — a number sequence, so never mirrored. */
+.cf-prime-family {
+  direction: ltr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.prime-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 86px;
+  height: 100px;
+  border-radius: 18px;
+  border: 2px solid var(--prime-color);
+  background: var(--panel);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.prime-card:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--prime-color) 40%, transparent);
+}
+
+.prime-card:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.prime-card-number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--prime-color);
+}
+
+.prime-card-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.prime-card-small {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+}
+
+.prime-card-small .prime-card-number {
+  font-size: 1.4rem;
+}
+
+/* ---------- scene 4: the machine ---------- */
+
+.cf-machine {
+  width: 100%;
+  max-width: 560px;
+  min-height: 150px;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+/* An equation reads left-to-right in Hebrew too. */
+.cf-machine-out {
+  direction: ltr;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cf-machine-equals {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+.cf-machine-number {
+  font-family: var(--font-display);
+  font-size: 2.9rem;
+  line-height: 1;
+  color: var(--gold);
+}
+
+.cf-machine-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cf-collection {
+  width: 100%;
+  max-width: 560px;
+}
+
+.cf-collection-title {
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* ---------- scene 5: the detective ---------- */
+
+.cf-mystery {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 26px;
+}
+
+.cf-mystery-blocks {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.cf-guess {
+  width: 100%;
+  max-width: 560px;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.cf-guess-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cf-guess-blocks {
+  background: transparent;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.cf-guess-blocks:hover {
+  border-color: var(--gold);
+}
+
+.cf-badge {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  max-width: 420px;
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.cf-badge-emoji {
+  font-size: 2.6rem;
+}
+
+.cf-badge-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--gold);
+}
+
+/* ---------- scene 6: the beat grid ---------- */
+
+.beat-grid-scroll {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  /* A timeline of beats 1…30 — beat 1 stays on the left in Hebrew too. */
+  direction: ltr;
+}
+
+.beat-grid {
+  display: grid;
+  grid-template-columns: max-content repeat(30, 20px);
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  min-width: max-content;
+  margin-inline: auto;
+}
+
+.beat-row {
+  display: contents;
+}
+
+.beat-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  padding-inline-end: 10px;
+}
+
+.beat-number {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-align: center;
+  color: var(--muted);
+  border-radius: 5px;
+}
+
+.beat-number.is-prime {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.beat-number.is-now {
+  background: var(--gold);
+  color: var(--gold-ink);
+}
+
+.beat-cell {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: rgba(206, 168, 255, 0.05);
+  transition: transform 0.1s ease;
+}
+
+.beat-row-drum .beat-cell.is-hit {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+
+.beat-row-shaker .beat-cell.is-hit {
+  background: var(--violet);
+  border-color: var(--violet);
+}
+
+.beat-row-bell .beat-cell.is-hit {
+  background: var(--coral);
+  border-color: var(--coral);
+}
+
+.beat-cell.is-golden {
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: 0 0 8px rgba(255, 201, 77, 0.55);
+}
+
+.beat-cell.is-now {
+  outline: 2px solid var(--text);
+  outline-offset: 1px;
+}
+
+.beat-cell.is-firing {
+  transform: scale(1.3);
+}
+
+.cf-cicada {
+  max-width: 620px;
+  background: var(--panel-veil);
+  border: 1px dashed var(--gold);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  line-height: 1.7;
+}
+
+.cf-cicada-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+/* ---------- finished overlay extras ---------- */
+
+.cf-earned {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  margin: 16px 0 4px;
+  text-align: start;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 560px) {
+  .pad-key {
+    width: 46px;
+    height: 46px;
+    font-size: 1.05rem;
+  }
+
+  .prime-card {
+    width: 70px;
+    height: 84px;
+  }
+
+  .cf-baskets {
+    grid-template-columns: 1fr;
+  }
+
+  .cf-scene {
+    padding: 16px 14px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-dot,
+  .pad-key,
+  .prime-card,
+  .basket-btn,
+  .cf-sort-number,
+  .beat-cell {
+    transition: none;
+  }
+}

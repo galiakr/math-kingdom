@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AdventureLayout from '../../components/AdventureLayout';
 import StoryText from '../../components/StoryText';
-import { markCompleted } from '../../progress';
+import { useConceptFlow } from '../../engine';
+import { CONCEPT_ID, scenes } from './manifest';
 import AtlasBackground from './AtlasBackground';
 import './HilbertHotel.css';
 
@@ -17,7 +18,6 @@ interface Room {
   flash: Flash | null;
 }
 
-const SCENARIOS: ScenarioId[] = ['single', 'bus', 'infinite'];
 const BASE_GUESTS = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐸', '🐨'];
 const BUS_GUESTS = ['🦄', '🦊', '🐯', '🦁', '🐷'];
 const INFINITE_BUSES = [
@@ -45,13 +45,13 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export default function HilbertHotel() {
   const { t } = useTranslation();
 
-  const [scenario, setScenario] = useState<ScenarioId>('single');
+  const flow = useConceptFlow({ conceptId: CONCEPT_ID, scenes });
+  const scenario = flow.scene.id as ScenarioId;
   const [step, setStep] = useState(1);
   const [rooms, setRooms] = useState<Room[]>(initialRooms);
   const [waiting, setWaiting] = useState(false);
   const [busy, setBusy] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
-  const [finished, setFinished] = useState(false);
   const [burst, setBurst] = useState<{ emoji: string; n: number } | null>(null);
 
   // Bumping this token cancels any in-flight animation sequence.
@@ -87,15 +87,22 @@ export default function HilbertHotel() {
     return id;
   };
 
-  const resetTo = useCallback((target: ScenarioId) => {
+  const resetLocal = useCallback(() => {
     runToken.current++;
-    setScenario(target);
     setStep(1);
     setRooms(initialRooms());
     setWaiting(false);
     setBusy(false);
     setCelebrate(false);
   }, []);
+
+  const switchScene = useCallback(
+    (index: number) => {
+      resetLocal();
+      flow.goTo(index);
+    },
+    [resetLocal, flow]
+  );
 
   const start = () => {
     fireBurst('🔔');
@@ -165,18 +172,13 @@ export default function HilbertHotel() {
     setCelebrate(true);
     setStep(4);
     setBusy(false);
+    flow.completeScene();
   };
 
   const continueAdventure = () => {
-    const index = SCENARIOS.indexOf(scenario);
-    if (index < SCENARIOS.length - 1) {
-      fireBurst('🎉');
-      resetTo(SCENARIOS[index + 1]);
-    } else {
-      fireBurst('🏆');
-      setFinished(true);
-      markCompleted('infinity');
-    }
+    fireBurst(flow.sceneIndex < scenes.length - 1 ? '🎉' : '🏆');
+    resetLocal();
+    flow.advance();
   };
 
   return (
@@ -188,7 +190,7 @@ export default function HilbertHotel() {
       background={<AtlasBackground />}
     >
         <div className="scenario-tabs" role="tablist">
-          {SCENARIOS.map((id) => (
+          {scenes.map(({ id }, index) => (
             <button
               key={id}
               type="button"
@@ -196,9 +198,10 @@ export default function HilbertHotel() {
               aria-selected={scenario === id}
               className="scenario-tab"
               disabled={busy}
-              onClick={() => resetTo(id)}
+              onClick={() => switchScene(index)}
             >
               {t(`hotel.scenarios.${id}`)}
+              {flow.isDone(id) && <span aria-hidden="true"> ✓</span>}
             </button>
           ))}
         </div>
@@ -283,7 +286,7 @@ export default function HilbertHotel() {
               type="button"
               className="btn btn-ghost"
               disabled={busy}
-              onClick={() => resetTo(scenario)}
+              onClick={resetLocal}
             >
               {t('hotel.buttons.reset')}
             </button>
@@ -333,7 +336,7 @@ export default function HilbertHotel() {
         </div>
       )}
 
-      {finished && (
+      {flow.finished && (
         <div className="finished-overlay" role="dialog" aria-modal="true">
           <div className="finished-panel">
             <div className="finished-emoji" aria-hidden="true">
@@ -346,8 +349,8 @@ export default function HilbertHotel() {
                 type="button"
                 className="btn btn-ghost"
                 onClick={() => {
-                  setFinished(false);
-                  resetTo('single');
+                  resetLocal();
+                  flow.restart();
                 }}
               >
                 {t('hotel.buttons.reset')}

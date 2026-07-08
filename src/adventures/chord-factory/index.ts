@@ -4,17 +4,18 @@ import { CONCEPT_ID, scenes } from './manifest';
 import en from './en.json';
 import he from './he.json';
 
-const hilbertHotel: Adventure = {
+const chordFactory: Adventure = {
   id: CONCEPT_ID,
-  emoji: '🏨',
-  glyph: '∞',
-  accent: '#9d86ff',
+  emoji: '🎼',
+  glyph: '7',
+  accent: '#ffc94d',
   status: 'available',
-  path: '/infinity',
-  Page: lazy(() => import('./HilbertHotel')),
+  path: '/primes',
+  Page: lazy(() => import('./ChordFactory')),
   i18n: { en, he },
-  moments: 3,
+  ideas: 2,
+  moments: 6,
   scenes,
 };
 
-export default hilbertHotel;
+export default chordFactory;

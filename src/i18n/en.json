@@ -3,12 +3,17 @@
   "nav": {
     "journal": "Journal"
   },
+  "audio": {
+    "mute": "Turn sound off",
+    "unmute": "Turn sound on"
+  },
   "home": {
     "title": "Math Kingdom",
     "subtitle": "Where numbers come alive and math is magical",
     "map": {
       "youAreHere": "You are here",
       "visited": "Visited!",
+      "open": "Come play!",
       "explored": "{{done}} of {{total}} lands explored",
       "journal": "Open your traveller journal"
     },
@@ -27,8 +32,8 @@
       },
       "primes": {
         "title": "The Prime Number Orchestra",
-        "land": "Prime Forest",
-        "note": "Trees that only hum on 2, 3, 5, 7…",
+        "land": "Orchestra Hall",
+        "note": "The golden trumpet only plays on 2, 3, 5, 7…",
         "description": "Conduct an orchestra where instruments only play on prime numbers. Find the mysterious rhythm of 2, 3, 5, 7, 11… and turn it into music.",
         "tags": ["Prime numbers", "Number theory", "Patterns"]
       },
@@ -82,6 +87,7 @@
     "lands": "lands explored",
     "ideasCount": "ideas collected",
     "moments": "magical moments",
+    "skillsCount": "skills unlocked",
     "visited": "Visited",
     "notVisited": "not visited yet…",
     "ideas": "Math ideas I'm collecting"

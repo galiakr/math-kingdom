@@ -25,6 +25,24 @@
  * passing a theme class to <AdventureLayout>. The hotel keeps the original
  * starry-night look; new adventures add their own block like this one.
  */
+.theme-concert {
+  /* The Chord Factory's concert hall: dark violet stage, warm gold light. */
+  --bg: #190b2c;
+  --text: #f7f0ff;
+  --muted: #bfaede;
+  --panel: #261442;
+  --panel-veil: rgba(25, 11, 44, 0.62);
+  --line: rgba(206, 168, 255, 0.2);
+  --violet: #9d86ff;
+  --teal: #4edcd2;
+  --coral: #ff8a5c;
+  --pink: #ff7ab2;
+  --blue: #5ac8fa;
+  --focus: var(--gold);
+  background: var(--bg);
+  color: var(--text);
+}
+
 .theme-night {
   --bg: #0d132e;
   --night-raise: #151c40;
@@ -244,6 +262,68 @@ a {
 .btn-ghost:hover:not(:disabled) {
   color: var(--text);
   border-color: var(--muted);
+}
+
+/* ---------- shared adventure UI ---------- */
+
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.mute-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel-veil);
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+
+.mute-btn:hover {
+  border-color: var(--muted);
+}
+
+.finished-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(7, 10, 26, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+.finished-panel {
+  max-width: 460px;
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+.finished-emoji {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.finished-panel h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.finished-panel p {
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 /* ---------- footer ---------- */
