@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/fredoka": "^5.2.10",
     "@fontsource-variable/rubik": "^5.2.5",
+    "@fontsource/amatic-sc": "^5.2.7",
     "@fontsource/ibm-plex-mono": "^5.2.5",
     "@fontsource/secular-one": "^5.2.5",
     "i18next": "^25.2.1",

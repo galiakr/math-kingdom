@@ -2,6 +2,79 @@
   max-width: 940px;
 }
 
+/* ---------- night atlas backdrop (the hotel's own world) ---------- */
+
+.atlas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: radial-gradient(120% 80% at 50% -10%, #1b2358 0%, var(--bg) 62%);
+}
+
+.atlas-grid {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(110% 90% at 50% 0%, black 35%, transparent 95%);
+}
+
+.atlas-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #dfe6ff;
+  opacity: 0.35;
+}
+
+.atlas-glyph {
+  position: absolute;
+  bottom: -8%;
+  font-family: var(--font-mono);
+  font-size: 26px;
+  color: var(--violet);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .atlas-star {
+    animation: twinkle 3.6s ease-in-out infinite alternate;
+  }
+
+  .atlas-glyph {
+    animation: drift linear infinite;
+  }
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.15;
+  }
+  to {
+    opacity: 0.6;
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translateY(0) rotate(-6deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.16;
+  }
+  88% {
+    opacity: 0.16;
+  }
+  100% {
+    transform: translateY(-108vh) rotate(6deg);
+    opacity: 0;
+  }
+}
+
 /* ---------- scenario tabs ---------- */
 
 .scenario-tabs {

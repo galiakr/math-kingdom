@@ -1,20 +1,46 @@
 :root {
-  --night: #0d132e;
+  /* Daylight kingdom — the shell, the map and the journal live here. */
+  --bg: #cfeaf7;
+  --text: #1f4257;
+  --muted: #54788c;
+  --panel: #ffffff;
+  --panel-veil: rgba(255, 255, 255, 0.72);
+  --line: rgba(31, 66, 87, 0.16);
+  --gold: #ffc94d;
+  --gold-ink: #5c3b00;
+  --meadow: #5cae5d;
+  --meadow-light: #8bcb77;
+  --path-cream: #fff7df;
+  --berry: #e4527b;
+  --focus: #b96f16;
+  --font-display: 'Fredoka Variable', 'Rubik Variable', sans-serif;
+  --font-body: 'Rubik Variable', system-ui, sans-serif;
+  --font-hand: 'Amatic SC', 'Rubik Variable', cursive;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --radius: 18px;
+}
+
+/*
+ * Adventure themes: each adventure may scope its own palette and fonts by
+ * passing a theme class to <AdventureLayout>. The hotel keeps the original
+ * starry-night look; new adventures add their own block like this one.
+ */
+.theme-night {
+  --bg: #0d132e;
   --night-raise: #151c40;
-  --panel: #1a2250;
-  --panel-2: #212a61;
-  --line: rgba(151, 164, 255, 0.18);
-  --grid: rgba(151, 164, 255, 0.06);
   --text: #eef1ff;
   --muted: #a9b2d9;
-  --gold: #ffc94d;
+  --panel: #1a2250;
+  --panel-veil: rgba(13, 19, 46, 0.6);
+  --line: rgba(151, 164, 255, 0.18);
+  --grid: rgba(151, 164, 255, 0.06);
   --violet: #9d86ff;
   --green: #6fe0a8;
   --pink: #ff7ab2;
+  --focus: var(--gold);
   --font-display: 'Secular One', 'Rubik Variable', sans-serif;
-  --font-body: 'Rubik Variable', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
-  --radius: 18px;
+  background: var(--bg);
+  color: var(--text);
 }
 
 * {
@@ -25,7 +51,7 @@
 
 body {
   font-family: var(--font-body);
-  background: var(--night);
+  background: var(--bg);
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
@@ -42,7 +68,7 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--focus);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -58,83 +84,6 @@ a {
   max-width: 1120px;
   margin-inline: auto;
   padding: 16px 24px 48px;
-}
-
-/* ---------- night atlas backdrop ---------- */
-
-.atlas {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  background: radial-gradient(
-    120% 80% at 50% -10%,
-    #1b2358 0%,
-    var(--night) 62%
-  );
-}
-
-.atlas-grid {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(110% 90% at 50% 0%, black 35%, transparent 95%);
-}
-
-.atlas-star {
-  position: absolute;
-  border-radius: 50%;
-  background: #dfe6ff;
-  opacity: 0.35;
-}
-
-.atlas-glyph {
-  position: absolute;
-  bottom: -8%;
-  font-family: var(--font-mono);
-  font-size: 26px;
-  color: var(--violet);
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .atlas-star {
-    animation: twinkle 3.6s ease-in-out infinite alternate;
-  }
-
-  .atlas-glyph {
-    animation: drift linear infinite;
-  }
-}
-
-@keyframes twinkle {
-  from {
-    opacity: 0.15;
-  }
-  to {
-    opacity: 0.6;
-  }
-}
-
-@keyframes drift {
-  0% {
-    transform: translateY(0) rotate(-6deg);
-    opacity: 0;
-  }
-  12% {
-    opacity: 0.16;
-  }
-  88% {
-    opacity: 0.16;
-  }
-  100% {
-    transform: translateY(-108vh) rotate(6deg);
-    opacity: 0;
-  }
 }
 
 /* ---------- top bar ---------- */
@@ -153,6 +102,7 @@ a {
 
 .topbar-brand {
   font-family: var(--font-display);
+  font-weight: 600;
   font-size: 1.05rem;
   letter-spacing: 0.04em;
   text-decoration: none;
@@ -165,12 +115,44 @@ a {
   color: var(--gold);
 }
 
-.lang-switcher {
+.topbar-actions {
   display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-journal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text);
+  background: var(--panel-veil);
   border: 1px solid var(--line);
   border-radius: 999px;
-  padding: 3px;
-  background: rgba(13, 19, 46, 0.6);
+  padding: 6px 14px;
+}
+
+.topbar-journal:hover {
+  border-color: var(--muted);
+}
+
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+}
+
+.lang-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.lang-divider {
+  color: var(--muted);
+  opacity: 0.6;
+  margin-inline: 2px;
 }
 
 .lang-btn {
@@ -178,31 +160,19 @@ a {
   background: transparent;
   color: var(--muted);
   font-weight: 600;
-  font-size: 0.85rem;
-  padding: 5px 14px;
-  border-radius: 999px;
+  font-size: 0.9rem;
+  padding: 4px 6px;
   cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease;
+}
+
+.lang-btn:hover {
+  color: var(--text);
 }
 
 .lang-btn[aria-pressed='true'] {
-  background: var(--gold);
-  color: #241a02;
-}
-
-/* ---------- adventure shell ---------- */
-
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.back-link:hover {
   color: var(--text);
+  font-weight: 700;
 }
 
 /* ---------- hero ---------- */
@@ -218,15 +188,13 @@ a {
 
 .hero-title {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 500;
   font-size: clamp(2.4rem, 6vw, 4rem);
   line-height: 1.1;
 }
 
-.hero-constellation {
-  width: min(260px, 60vw);
-  color: var(--gold);
-  margin-top: 10px;
+.theme-night .hero-title {
+  font-weight: 400;
 }
 
 .hero-subtitle {
@@ -259,7 +227,7 @@ a {
 
 .btn-primary {
   background: var(--gold);
-  color: #241a02;
+  color: var(--gold-ink);
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -276,6 +244,17 @@ a {
 .btn-ghost:hover:not(:disabled) {
   color: var(--text);
   border-color: var(--muted);
+}
+
+/* ---------- footer ---------- */
+
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-top: 48px;
+  display: grid;
+  gap: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
