@@ -53,10 +53,18 @@ export default function HilbertHotel() {
   const [busy, setBusy] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
   const [burst, setBurst] = useState<{ emoji: string; n: number } | null>(null);
+  const [storyOpen, setStoryOpen] = useState(true);
 
   // Bumping this token cancels any in-flight animation sequence.
   const runToken = useRef(0);
   const nextRoomId = useRef(100);
+  const storyLogRef = useRef<HTMLDivElement>(null);
+
+  // The story accumulates; keep the newest entry in view as it arrives.
+  useEffect(() => {
+    const log = storyLogRef.current;
+    if (log) log.scrollTo({ top: log.scrollHeight, behavior: 'smooth' });
+  }, [step, scenario, storyOpen]);
 
   useEffect(() => {
     if (!burst) return;
@@ -206,80 +214,25 @@ export default function HilbertHotel() {
           ))}
         </div>
 
-        <div className="step-track" aria-label={`${t('hotel.step')} ${step}/${TOTAL_STEPS}`}>
-          {Array.from({ length: TOTAL_STEPS }, (_, i) => i + 1).map((n) => (
-            <span
-              key={n}
-              className={`step-dot ${
-                n < step ? 'is-done' : n === step ? 'is-active' : ''
-              }`}
-            >
-              {n}
-            </span>
-          ))}
-          <div className="progress-rail">
-            <div
-              className="progress-fill"
-              style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
-            />
-          </div>
-        </div>
-
-        <section className="hotel-panel">
-          <div className="hotel-sign">✦ {t('hotel.sign')} ✦</div>
-          <div className="rooms-grid">
-            {rooms.map((room) => (
-              <div
-                key={room.id}
-                className={`room ${room.flash ? `flash-${room.flash}` : ''}`}
+        <div className="hotel-controlbar">
+          <div className="step-track" aria-label={`${t('hotel.step')} ${step}/${TOTAL_STEPS}`}>
+            {Array.from({ length: TOTAL_STEPS }, (_, i) => i + 1).map((n) => (
+              <span
+                key={n}
+                className={`step-dot ${
+                  n < step ? 'is-done' : n === step ? 'is-active' : ''
+                }`}
               >
-                <span className="room-number">{room.number}</span>
-                <span className="room-guest">{room.guest}</span>
-              </div>
+                {n}
+              </span>
             ))}
-            <div className="room room-more" aria-hidden="true">
-              <span className="room-number">…</span>
-              <span className="room-guest">∞</span>
+            <div className="progress-rail">
+              <div
+                className="progress-fill"
+                style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
+              />
             </div>
           </div>
-
-          {waiting && (
-            <div className="waiting-area">
-              {scenario === 'single' && (
-                <div className="waiting-guest">🦄</div>
-              )}
-              {scenario === 'bus' && (
-                <div className="waiting-bus">
-                  <span className="bus-icon">🚌</span>
-                  {BUS_GUESTS.map((guest) => (
-                    <span key={guest} className="bus-guest">
-                      {guest}
-                    </span>
-                  ))}
-                </div>
-              )}
-              {scenario === 'infinite' && (
-                <div className="waiting-fleet">
-                  {INFINITE_BUSES.map((bus, i) => (
-                    <span key={i} className="waiting-bus small">
-                      <span className="bus-icon">🚌</span>
-                      {bus.map((guest) => (
-                        <span key={guest} className="bus-guest">
-                          {guest}
-                        </span>
-                      ))}
-                    </span>
-                  ))}
-                  <span className="fleet-more">…♾️</span>
-                </div>
-              )}
-              <p className="waiting-dialogue">{t(`hotel.dialogue.${scenario}`)}</p>
-            </div>
-          )}
-
-          {celebrate && (
-            <div className="celebration">🎉 {t('hotel.celebration')} 🎉</div>
-          )}
 
           <div className="controls">
             <button
@@ -324,11 +277,110 @@ export default function HilbertHotel() {
               </button>
             )}
           </div>
+        </div>
+
+        <div className="hotel-stage">
+        <section className="hotel-panel">
+          <div className="building">
+            <div className="building-fade" aria-hidden="true">
+              {Array.from({ length: 5 }, (_, i) => (
+                <span key={i} className="fade-window" />
+              ))}
+            </div>
+            <div className="hotel-sign">✦ {t('hotel.sign')} ✦</div>
+            <div className="rooms-grid">
+              {rooms.map((room) => (
+                <div
+                  key={room.id}
+                  className={`room ${room.flash ? `flash-${room.flash}` : ''}`}
+                >
+                  <span className="room-guest">{room.guest}</span>
+                  <span className="room-number">{room.number}</span>
+                </div>
+              ))}
+            </div>
+            <div className="building-entrance">
+              <span className="entrance-door" aria-hidden="true">🚪</span>
+              <span className={`neon-sign${celebrate ? ' is-vacancy' : ''}`}>
+                ∞ {t(celebrate ? 'hotel.neon.vacancy' : 'hotel.neon.full')}
+              </span>
+            </div>
+          </div>
+
+          {waiting && (
+            <div className="waiting-area">
+              {scenario === 'single' && (
+                <div className="waiting-guest">🦄</div>
+              )}
+              {scenario === 'bus' && (
+                <div className="waiting-bus">
+                  <span className="bus-icon">🚌</span>
+                  {BUS_GUESTS.map((guest) => (
+                    <span key={guest} className="bus-guest">
+                      {guest}
+                    </span>
+                  ))}
+                </div>
+              )}
+              {scenario === 'infinite' && (
+                <div className="waiting-fleet">
+                  {INFINITE_BUSES.map((bus, i) => (
+                    <span key={i} className="waiting-bus small">
+                      <span className="bus-icon">🚌</span>
+                      {bus.map((guest) => (
+                        <span key={guest} className="bus-guest">
+                          {guest}
+                        </span>
+                      ))}
+                    </span>
+                  ))}
+                  <span className="fleet-more">…♾️</span>
+                </div>
+              )}
+              <p className="waiting-dialogue">{t(`hotel.dialogue.${scenario}`)}</p>
+            </div>
+          )}
+
+          {celebrate && (
+            <div className="celebration">🎉 {t('hotel.celebration')} 🎉</div>
+          )}
         </section>
 
-        <section className="story-panel">
-          <StoryText text={t(`hotel.story.${scenario}.${step}`)} />
-        </section>
+        {storyOpen ? (
+          <aside className="story-log">
+            <div className="story-log-head">
+              <h2 className="story-log-title">📖 {t('hotel.storyTitle')}</h2>
+              <button
+                type="button"
+                className="story-log-toggle"
+                aria-expanded="true"
+                onClick={() => setStoryOpen(false)}
+              >
+                {t('hotel.buttons.hideStory')}
+              </button>
+            </div>
+            <div className="story-log-entries" ref={storyLogRef}>
+              {Array.from({ length: step }, (_, i) => i + 1).map((n) => (
+                <div
+                  key={n}
+                  className={`story-entry${n === step ? ' is-current' : ''}`}
+                >
+                  <StoryText text={t(`hotel.story.${scenario}.${n}`)} />
+                </div>
+              ))}
+            </div>
+          </aside>
+        ) : (
+          <button
+            type="button"
+            className="story-log-open"
+            aria-expanded="false"
+            onClick={() => setStoryOpen(true)}
+          >
+            📖 {t('hotel.buttons.showStory')}
+          </button>
+        )}
+        </div>
 
       {burst && (
         <div key={burst.n} className="sound-burst" aria-hidden="true">

@@ -1,57 +1,65 @@
-import { useMemo } from 'react';
+const COGS = [
+  { left: '4%', top: '16%', size: 84, duration: 46 },
+  { left: '92%', top: '10%', size: 60, duration: 34 },
+  { left: '88%', top: '58%', size: 104, duration: 58 },
+  { left: '7%', top: '66%', size: 56, duration: 38 },
+];
 
-const NOTES = ['♪', '♫', '♩', '♬', '♪', '♫', '♩', '♬'];
-
-interface Sparkle {
-  left: number;
-  top: number;
-  delay: number;
-}
+const NOTES = ['♪', '♫', '♩', '♬', '♪', '♫'];
 
 /**
- * The concert-hall backdrop: two warm spotlight beams over a dark stage and
- * faint music notes drifting upward. Purely decorative (aria-hidden).
+ * The workshop backdrop: ivory paper wall, a walnut plank floor, slowly
+ * turning brass cogs and a few drifting notes. Purely decorative
+ * (aria-hidden).
  */
 export default function FactoryBackground() {
-  const sparkles = useMemo<Sparkle[]>(
-    () =>
-      Array.from({ length: 24 }, () => ({
-        left: Math.random() * 100,
-        top: Math.random() * 100,
-        delay: Math.random() * 5,
-      })),
-    []
-  );
-
   return (
-    <div className="stage" aria-hidden="true">
-      <div className="stage-beam stage-beam-left" />
-      <div className="stage-beam stage-beam-right" />
-      <div className="stage-floor" />
-      {sparkles.map((sparkle, i) => (
-        <span
+    <div className="works-bg" aria-hidden="true">
+      <div className="works-wall" />
+      <div className="works-blueprint" />
+      {COGS.map((cog, i) => (
+        <svg
           key={i}
-          className="stage-sparkle"
+          className="works-cog"
           style={{
-            left: `${sparkle.left}%`,
-            top: `${sparkle.top}%`,
-            animationDelay: `${sparkle.delay}s`,
+            left: cog.left,
+            top: cog.top,
+            width: cog.size,
+            height: cog.size,
+            animationDuration: `${cog.duration}s`,
           }}
-        />
+          viewBox="0 0 100 100"
+        >
+          {Array.from({ length: 8 }, (_, tooth) => (
+            <rect
+              key={tooth}
+              x="46"
+              y="2"
+              width="8"
+              height="14"
+              rx="2"
+              fill="currentColor"
+              transform={`rotate(${tooth * 45} 50 50)`}
+            />
+          ))}
+          <circle cx="50" cy="50" r="36" fill="currentColor" />
+          <circle cx="50" cy="50" r="14" fill="var(--bg, #f0e6d2)" />
+        </svg>
       ))}
       {NOTES.map((note, i) => (
         <span
           key={i}
-          className="stage-note"
+          className="works-note"
           style={{
-            left: `${5 + i * 12}%`,
-            animationDelay: `${i * 4.5}s`,
-            animationDuration: `${26 + (i % 3) * 8}s`,
+            left: `${8 + i * 16}%`,
+            animationDelay: `${i * 5}s`,
+            animationDuration: `${30 + (i % 3) * 9}s`,
           }}
         >
           {note}
         </span>
       ))}
+      <div className="works-floor" />
     </div>
   );
 }

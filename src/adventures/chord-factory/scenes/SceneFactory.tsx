@@ -51,6 +51,7 @@ export default function SceneFactory({ flow }: SceneProps) {
         ))}
       </div>
 
+      <div className="cf-factory-row">
       <div className="cf-machine">
         {tray.length === 0 ? (
           <p className="cf-hint">{t('primes.scenes.factory.empty')}</p>
@@ -94,6 +95,7 @@ export default function SceneFactory({ flow }: SceneProps) {
             </span>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );

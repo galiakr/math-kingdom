@@ -19,7 +19,6 @@ export default function SceneOrchestra({ flow }: SceneProps) {
   const audio = useAudio();
   const [playing, setPlaying] = useState(false);
   const [beat, setBeat] = useState(0);
-  const [cycled, setCycled] = useState(false);
 
   const rows = [
     { id: 'drum', emoji: '🥁', hits: (n: number) => n % 2 === 0 },
@@ -40,10 +39,7 @@ export default function SceneOrchestra({ flow }: SceneProps) {
     if (beat % 3 === 0) audio.playShaker();
     if (beat % 5 === 0) audio.playBell();
     if (isPrime(beat)) audio.playTrumpet();
-    if (beat === BEATS) {
-      setCycled(true);
-      flow.completeScene();
-    }
+    if (beat === BEATS) flow.completeScene();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [beat]);
 
@@ -96,12 +92,6 @@ export default function SceneOrchestra({ flow }: SceneProps) {
         </div>
       </div>
 
-      {cycled && (
-        <aside className="cf-cicada">
-          <h3 className="cf-cicada-title">{t('primes.scenes.orchestra.cicadaTitle')}</h3>
-          <p>{t('primes.scenes.orchestra.cicadaText')}</p>
-        </aside>
-      )}
     </div>
   );
 }

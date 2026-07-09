@@ -49,7 +49,9 @@ export default function SceneDetective({ flow }: SceneProps) {
 
   const addPrime = (prime: number) => {
     if (runner.solved || guess.length >= GUESS_MAX) return;
-    setGuess([...guess, prime].sort((a, b) => a - b));
+    const next = [...guess, prime].sort((a, b) => a - b);
+    setGuess(next);
+    audio.playChord(notesOfFactors(next));
   };
 
   const check = () => {
@@ -66,10 +68,20 @@ export default function SceneDetective({ flow }: SceneProps) {
 
   return (
     <div className="cf-body">
+      <p className="cf-feedback cf-feedback-top" aria-live="polite">
+        {runner.solved
+          ? t('primes.scenes.detective.correct', { n: runner.round })
+          : runner.result === 'retry'
+            ? runner.attempts >= 2 && !showColors
+              ? t('primes.scenes.detective.hintUnlocked')
+              : t('primes.scenes.detective.retry')
+            : ' '}
+      </p>
       <p className="cf-progress-hint">
         {t('primes.scenes.detective.mystery', { n: runner.index + 1, total: runner.total })}
       </p>
 
+      <div className="cf-detective-row">
       <div className="cf-mystery">
         <button
           type="button"
@@ -82,68 +94,66 @@ export default function SceneDetective({ flow }: SceneProps) {
           <ChordBlocks
             factors={primeFactors(runner.round)}
             mystery={!showColors && !runner.solved}
+            unlabeled={!runner.solved}
           />
         </div>
-        {!showColors && !runner.solved && (
-          <button type="button" className="btn btn-ghost" onClick={() => setShowColors(true)}>
-            🎨 {t('primes.buttons.hint')}
-          </button>
-        )}
+        <button
+          type="button"
+          className={`btn btn-ghost${showColors || runner.solved ? ' is-invisible' : ''}`}
+          onClick={() => setShowColors(true)}
+        >
+          🎨 {t('primes.buttons.hint')}
+        </button>
       </div>
 
-      <div className="cf-prime-family cf-prime-family-compact">
-        {FACTORY_PRIMES.map((prime) => (
-          <button
-            key={prime}
-            type="button"
-            className="prime-card prime-card-small"
-            style={{ '--prime-color': colorOf(prime) } as React.CSSProperties}
-            disabled={runner.solved || guess.length >= GUESS_MAX}
-            onClick={() => addPrime(prime)}
-          >
-            <span className="prime-card-number">{prime}</span>
-          </button>
-        ))}
-      </div>
-
-      <div className="cf-guess">
-        <h3 className="cf-collection-title">{t('primes.scenes.detective.yourGuess')}</h3>
-        {guess.length === 0 ? (
-          <p className="cf-hint">{t('primes.scenes.detective.emptyGuess')}</p>
-        ) : (
-          <div className="cf-guess-row">
+      <div className="cf-detective-tools">
+        <div className="cf-prime-family cf-prime-family-compact">
+          {FACTORY_PRIMES.map((prime) => (
             <button
+              key={prime}
               type="button"
-              className="cf-guess-blocks"
-              aria-label={t('primes.buttons.listen')}
-              onClick={() => audio.playChord(notesOfFactors(guess))}
+              className="prime-card prime-card-small"
+              style={{ '--prime-color': colorOf(prime) } as React.CSSProperties}
+              disabled={runner.solved || guess.length >= GUESS_MAX}
+              onClick={() => addPrime(prime)}
             >
-              <ChordBlocks factors={guess} />
+              <span className="prime-card-number">{prime}</span>
             </button>
-            <button type="button" className="btn btn-ghost" onClick={() => setGuess([])}>
-              {t('primes.buttons.clear')}
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary"
-              disabled={runner.solved}
-              onClick={check}
-            >
-              {t('primes.buttons.check')}
-            </button>
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
 
-      <p className="cf-feedback" aria-live="polite">
-        {runner.solved
-          ? t('primes.scenes.detective.correct', { n: runner.round })
-          : runner.result === 'retry'
-            ? runner.attempts >= 2 && !showColors
-              ? t('primes.scenes.detective.hintUnlocked')
-              : t('primes.scenes.detective.retry')
-            : ' '}
-      </p>
+        <div className="cf-guess">
+          <h3 className="cf-collection-title">{t('primes.scenes.detective.yourGuess')}</h3>
+          {guess.length === 0 ? (
+            <p className="cf-hint">{t('primes.scenes.detective.emptyGuess')}</p>
+          ) : (
+            <div className="cf-guess-row">
+              <button
+                type="button"
+                className="cf-guess-blocks"
+                aria-label={t('primes.buttons.listen')}
+                onClick={() => audio.playChord(notesOfFactors(guess))}
+              >
+                <ChordBlocks factors={guess} />
+              </button>
+              <div className="cf-guess-actions">
+                <button type="button" className="btn btn-ghost" onClick={() => setGuess([])}>
+                  {t('primes.buttons.clear')}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  disabled={runner.solved}
+                  onClick={check}
+                >
+                  {t('primes.buttons.check')}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      </div>
     </div>
   );
 }

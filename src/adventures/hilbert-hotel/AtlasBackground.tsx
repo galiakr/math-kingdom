@@ -28,6 +28,9 @@ export default function AtlasBackground() {
   return (
     <div className="atlas" aria-hidden="true">
       <div className="atlas-grid" />
+      <div className="atlas-moon" />
+      <div className="atlas-skyline" />
+      <div className="atlas-street" />
       {stars.map((star, i) => (
         <span
           key={i}

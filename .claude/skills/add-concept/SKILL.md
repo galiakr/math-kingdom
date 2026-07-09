@@ -28,10 +28,11 @@ without touching `index.ts` (which lazily imports the page back).
 ## The engine contract
 
 - `useConceptFlow({ conceptId, scenes })` drives the arc. A scene calls
-  `flow.completeScene()` the moment its learning goal is met (this unlocks
-  the scene's skill) and only shows its "next" button once `flow.sceneDone`.
-  `flow.advance()` from the last scene records completion; render the
-  finished overlay off `flow.finished`.
+  `flow.completeScene()` the moment its learning goal is met — this unlocks
+  the scene's skill. Navigation stays free: the "next" button is always
+  enabled (kids are never locked out); use `flow.sceneDone` for celebration
+  cues, not gating. `flow.advance()` from the last scene records
+  completion; render the finished overlay off `flow.finished`.
 - Skills: declare in the manifest as `{ id: '<concept>-<skill>', titleKey:
   '<ns>.skills.<key>' }` with names in both JSON bundles. The journal picks
   them up automatically.
