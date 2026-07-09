@@ -1,4 +1,20 @@
+# Dependencies & build output
 node_modules/
 dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editors
+.vscode/
+.idea/
+
+# OS junk
 .DS_Store
+Thumbs.db
+
+# Local env & overrides
 *.local
+.env
+.env.*
