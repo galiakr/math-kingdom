@@ -6,15 +6,15 @@
  * music genuinely agree.
  */
 export const PRIME_VOICES: Record<number, { note: string; octave: number; color: string }> = {
-  2: { note: 'C', octave: 3, color: '#4edcd2' },
-  3: { note: 'E', octave: 3, color: '#9d86ff' },
-  5: { note: 'G', octave: 3, color: '#ff8a5c' },
-  7: { note: 'Bb', octave: 3, color: '#ffc94d' },
-  11: { note: 'D', octave: 4, color: '#ff7ab2' },
-  13: { note: 'F', octave: 4, color: '#5ac8fa' },
+  2: { note: 'C', octave: 3, color: '#1fb9ae' },
+  3: { note: 'E', octave: 3, color: '#8d74f0' },
+  5: { note: 'G', octave: 3, color: '#f4703c' },
+  7: { note: 'Bb', octave: 3, color: '#e2a41c' },
+  11: { note: 'D', octave: 4, color: '#ef5f9d' },
+  13: { note: 'F', octave: 4, color: '#2fa8e8' },
   // Beyond the factory family, but reachable from the scene-1 pad (2–20).
-  17: { note: 'A', octave: 4, color: '#6fe0a8' },
-  19: { note: 'B', octave: 4, color: '#e4527b' },
+  17: { note: 'A', octave: 4, color: '#3cb46e' },
+  19: { note: 'B', octave: 4, color: '#d64562' },
 };
 
 /** The prime family the factory works with, in order. */

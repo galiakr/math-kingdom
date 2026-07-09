@@ -2,6 +2,7 @@ import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import '@fontsource/secular-one';
+import '@fontsource/suez-one';
 import '@fontsource-variable/rubik';
 import '@fontsource-variable/fredoka';
 import '@fontsource/amatic-sc/700.css';

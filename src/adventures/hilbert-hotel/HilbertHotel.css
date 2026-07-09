@@ -2,6 +2,47 @@
   max-width: 940px;
 }
 
+/* The page title is the hotel's neon sign, buzzing to life. */
+.hotel .hero-title {
+  color: #ffd98a;
+  letter-spacing: 0.04em;
+  text-shadow:
+    0 0 6px rgba(255, 201, 77, 0.8),
+    0 0 26px rgba(255, 158, 68, 0.5),
+    0 0 64px rgba(255, 122, 178, 0.35);
+}
+
+.hotel .hero-subtitle {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #cdd5ff;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hotel .hero-title {
+    animation: sign-buzz 3.4s ease-in-out 1;
+  }
+}
+
+@keyframes sign-buzz {
+  0%,
+  9%,
+  15% {
+    opacity: 0.3;
+    text-shadow: none;
+  }
+  5%,
+  12%,
+  100% {
+    opacity: 1;
+    text-shadow:
+      0 0 6px rgba(255, 201, 77, 0.8),
+      0 0 26px rgba(255, 158, 68, 0.5),
+      0 0 64px rgba(255, 122, 178, 0.35);
+  }
+}
+
 /* ---------- night atlas backdrop (the hotel's own world) ---------- */
 
 .atlas {
@@ -28,6 +69,101 @@
   border-radius: 50%;
   background: #dfe6ff;
   opacity: 0.35;
+}
+
+.atlas-moon {
+  position: absolute;
+  top: 24%;
+  inset-inline-end: 3.5%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 62% 30%,
+      rgba(0, 0, 0, 0.12) 9px,
+      transparent 10px
+    ),
+    radial-gradient(circle at 34% 58%, rgba(0, 0, 0, 0.1) 6px, transparent 7px),
+    radial-gradient(circle at 38% 34%, #fff8e0, #ecdcab 62%, #cfbb84);
+  box-shadow: 0 0 46px 14px rgba(255, 244, 200, 0.22);
+}
+
+@media (max-width: 700px) {
+  .atlas-moon {
+    display: none;
+  }
+}
+
+/* The rest of the city, asleep on the horizon. */
+.atlas-skyline {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 34px;
+  height: 140px;
+  background-image: radial-gradient(
+    rgba(255, 214, 130, 0.4) 1px,
+    transparent 1.7px
+  );
+  background-size: 15px 19px;
+  background-color: #0a0f26;
+  clip-path: polygon(
+    0% 100%,
+    0% 58%,
+    5% 58%,
+    5% 34%,
+    11% 34%,
+    11% 70%,
+    17% 70%,
+    17% 46%,
+    24% 46%,
+    24% 62%,
+    30% 62%,
+    30% 24%,
+    37% 24%,
+    37% 58%,
+    44% 58%,
+    44% 40%,
+    52% 40%,
+    52% 68%,
+    58% 68%,
+    58% 30%,
+    65% 30%,
+    65% 54%,
+    72% 54%,
+    72% 44%,
+    79% 44%,
+    79% 66%,
+    85% 66%,
+    85% 36%,
+    92% 36%,
+    92% 58%,
+    100% 58%,
+    100% 100%
+  );
+}
+
+/* The street you're standing on. */
+.atlas-street {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 36px;
+  background: linear-gradient(180deg, #0c1128, #05070f);
+  border-top: 3px solid #2c355f;
+}
+
+.atlas-street::after {
+  content: '';
+  position: absolute;
+  top: 55%;
+  inset-inline: 0;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 201, 77, 0.35) 0 26px,
+    transparent 26px 56px
+  );
 }
 
 .atlas-glyph {
@@ -75,37 +211,62 @@
   }
 }
 
-/* ---------- scenario tabs ---------- */
+/* ---------- scenario tabs: room keys on the front-desk board ---------- */
 
 .scenario-tabs {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
   margin-bottom: 22px;
 }
 
 .scenario-tab {
-  border: 1px solid var(--line);
-  background: transparent;
+  position: relative;
+  border: 1px solid rgba(255, 201, 77, 0.35);
+  background: linear-gradient(180deg, #2a2154, #1d1740);
   color: var(--muted);
-  border-radius: 999px;
-  padding: 9px 18px;
+  border-radius: 12px;
+  padding: 10px 18px;
+  padding-inline-start: 34px;
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transform-origin: top center;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    rotate 0.2s ease;
+}
+
+/* The key ring. */
+.scenario-tab::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 12px;
+  top: 50%;
+  translate: 0 -50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 201, 77, 0.55);
 }
 
 .scenario-tab:hover:not(:disabled) {
   color: var(--text);
-  border-color: var(--muted);
+  border-color: var(--gold);
+  rotate: -2deg;
 }
 
 .scenario-tab[aria-selected='true'] {
-  background: var(--violet);
-  border-color: var(--violet);
-  color: #14102b;
+  background: linear-gradient(180deg, #ffd98a, #f0b53f);
+  border-color: #ffd98a;
+  color: #3d2a02;
+}
+
+.scenario-tab[aria-selected='true']::before {
+  border-color: rgba(61, 42, 2, 0.65);
 }
 
 .scenario-tab:disabled {
@@ -113,15 +274,35 @@
   cursor: not-allowed;
 }
 
-/* ---------- step track ---------- */
+/* ---------- control bar: elevator panel + the night's actions ---------- */
+
+.hotel-controlbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.hotel-controlbar .controls {
+  margin-top: 0;
+  justify-content: flex-end;
+}
 
 .step-track {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 22px;
+  width: fit-content;
+  padding: 10px 18px 12px;
+  background: linear-gradient(180deg, #232c5e, #161d45);
+  border: 1px solid rgba(151, 164, 255, 0.28);
+  border-radius: 16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 24px -12px rgba(0, 0, 0, 0.7);
 }
 
 .step-dot {
@@ -132,16 +313,22 @@
   justify-content: center;
   border-radius: 50%;
   border: 1px solid var(--line);
+  background: #101637;
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .step-dot.is-active {
   background: var(--gold);
   border-color: var(--gold);
   color: #241a02;
+  box-shadow: 0 0 14px rgba(255, 201, 77, 0.75);
 }
 
 .step-dot.is-done {
@@ -166,51 +353,103 @@
   transition: width 0.4s ease;
 }
 
-/* ---------- hotel ---------- */
+/* ---------- the night façade ---------- */
 
 .hotel-panel {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 26px;
   text-align: center;
+}
+
+/*
+ * The rooms grid is the hotel itself: a tower whose lit windows are the
+ * rooms. Floors stack bottom-up (wrap-reverse puts room 1 at street level)
+ * and the top of the facade dissolves into the starfield — the building
+ * visibly continues to infinity.
+ */
+.building {
+  /* width: min(430px, 100%); */
+  margin-inline: auto;
+  padding: 8px 22px 0;
+  background: linear-gradient(180deg, rgba(28, 37, 88, 0) 0, #1c2558 115px);
+  border-inline: 6px solid rgba(60, 72, 140, 0.55);
+  box-shadow:
+    inset 0 0 0 1px rgba(151, 164, 255, 0.14),
+    0 24px 40px -18px rgba(0, 0, 0, 0.65);
+  border-radius: 4px 4px 0 0;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 125px);
+  mask-image: linear-gradient(180deg, transparent 0, #000 125px);
+}
+
+.building-fade {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 12px;
+}
+
+/* Shrinkable so the ghost floor never widens the tower on small screens. */
+.fade-window {
+  flex: 0 1 62px;
+  min-width: 0;
+  height: 30px;
+  border-radius: 8px 8px 3px 3px;
+  border: 1px solid rgba(151, 164, 255, 0.35);
+  background: rgba(151, 164, 255, 0.08);
 }
 
 .hotel-sign {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   color: var(--gold);
   letter-spacing: 0.06em;
-  margin-bottom: 20px;
+  padding: 6px 0 12px;
+  margin-bottom: 14px;
+  text-shadow: 0 0 14px rgba(255, 201, 77, 0.55);
+  border-bottom: 2px solid rgba(151, 164, 255, 0.22);
 }
 
+/* Room numbers are a sequence — floor order stays LTR even in Hebrew. */
 .rooms-grid {
+  direction: ltr;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 8px;
+  gap: 12px 10px;
+  margin-bottom: 14px;
 }
 
 .room {
-  width: 66px;
-  height: 66px;
+  width: 62px;
+  height: 62px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: var(--night-raise);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease,
+  gap: 1px;
+  border-radius: 10px 10px 4px 4px;
+  border: 2px solid #2c3568;
+  background:
+    radial-gradient(
+      ellipse 90% 80% at 50% 30%,
+      rgba(255, 216, 138, 0.32),
+      rgba(255, 201, 77, 0.08) 75%
+    ),
+    var(--night-raise);
+  box-shadow:
+    0 0 12px rgba(255, 201, 77, 0.14),
+    inset 0 -14px 12px -12px rgba(0, 0, 0, 0.55);
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
     transform 0.3s ease;
 }
 
 .room-number {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--muted);
+  font-size: 0.68rem;
+  color: var(--gold);
+  background: rgba(13, 19, 46, 0.75);
+  border-radius: 4px;
+  padding: 0 5px;
 }
 
 .room-guest {
@@ -218,14 +457,60 @@
   line-height: 1;
 }
 
-.room-more {
-  border-style: dashed;
-  opacity: 0.6;
+.building-entrance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 12px 0 18px;
+  border-top: 2px solid rgba(151, 164, 255, 0.22);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent);
 }
 
-.room-more .room-guest {
-  color: var(--violet);
-  font-family: var(--font-mono);
+.entrance-door {
+  font-size: 1.9rem;
+}
+
+.neon-sign {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  padding: 4px 12px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  color: var(--pink);
+  text-shadow: 0 0 10px currentColor;
+  box-shadow:
+    0 0 12px rgba(255, 122, 178, 0.35),
+    inset 0 0 10px rgba(255, 122, 178, 0.15);
+}
+
+.neon-sign.is-vacancy {
+  color: var(--green);
+  box-shadow:
+    0 0 14px rgba(111, 224, 168, 0.45),
+    inset 0 0 10px rgba(111, 224, 168, 0.2);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .neon-sign.is-vacancy {
+    animation: neon-flicker 1.6s ease-out;
+  }
+}
+
+@keyframes neon-flicker {
+  0%,
+  14%,
+  28% {
+    opacity: 0.2;
+    text-shadow: none;
+  }
+  7%,
+  21%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 10px currentColor;
+  }
 }
 
 .flash-gold {
@@ -252,13 +537,21 @@
   transform: scale(1.12);
 }
 
-/* ---------- waiting area ---------- */
+/* ---------- waiting area: the sidewalk out front ---------- */
 
 .waiting-area {
-  margin-top: 18px;
-  padding: 18px;
-  border: 1px dashed var(--line);
-  border-radius: var(--radius);
+  width: min(430px, 100%);
+  margin-inline: auto;
+  padding: 16px 18px 14px;
+  border: none;
+  border-top: 5px solid #3a4374;
+  border-radius: 0 0 14px 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 30, 0.9),
+    rgba(8, 12, 30, 0.5)
+  );
+  box-shadow: inset 0 7px 0 -4px rgba(255, 201, 77, 0.3);
 }
 
 .waiting-guest {
@@ -354,22 +647,146 @@
   }
 }
 
-/* ---------- story panel ---------- */
+/* ---------- the stage: building on one side, story log beside it ---------- */
 
-.story-panel {
-  margin-top: 20px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-inline-start: 3px solid var(--violet);
-  border-radius: var(--radius);
-  padding: 20px 24px;
-  font-size: 1.02rem;
-  line-height: 1.75;
+.hotel-stage {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
 }
 
-.story-panel strong {
-  color: var(--gold);
+.hotel-stage .hotel-panel {
+  flex: 1;
+  min-width: 0;
+}
+
+/*
+ * The story log: the front desk's memo pad. Entries accumulate as the night
+ * unfolds so slow readers can scroll back; the newest one glows.
+ */
+.story-log {
+  position: sticky;
+  top: 16px;
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  max-height: min(72vh, 620px);
+  background: #f7f0dc;
+  color: #33291a;
+  border-radius: 5px;
+  rotate: 0.5deg;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5);
+}
+
+/* A strip of gold tape holds the memo pad up. */
+.story-log::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  translate: -50% 0;
+  width: 106px;
+  height: 24px;
+  background: rgba(255, 201, 77, 0.45);
+  rotate: 2deg;
+}
+
+.story-log-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 18px 8px;
+  border-bottom: 2px dashed rgba(51, 41, 26, 0.2);
+}
+
+.story-log-title {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: #6b5326;
+}
+
+.story-log-toggle {
+  border: 1px solid rgba(51, 41, 26, 0.3);
+  background: transparent;
+  color: #6b5326;
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 0.78rem;
   font-weight: 600;
+  cursor: pointer;
+}
+
+.story-log-toggle:hover {
+  background: rgba(51, 41, 26, 0.08);
+}
+
+.story-log-entries {
+  overflow-y: auto;
+  display: grid;
+  gap: 4px;
+  padding: 10px 18px 16px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.story-entry {
+  opacity: 0.62;
+  padding: 8px 0;
+}
+
+.story-entry + .story-entry {
+  border-top: 1px dashed rgba(51, 41, 26, 0.18);
+}
+
+.story-entry.is-current {
+  opacity: 1;
+}
+
+.story-log strong {
+  color: #a3520e;
+  font-weight: 600;
+}
+
+/* The folded-away memo: a small tab to bring the story back. */
+.story-log-open {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f7f0dc;
+  color: #6b5326;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  rotate: 1deg;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.45);
+}
+
+.story-log-open:hover {
+  rotate: 0deg;
+}
+
+@media (max-width: 900px) {
+  .hotel-stage {
+    flex-direction: column;
+  }
+
+  .story-log {
+    position: static;
+    width: 100%;
+    max-height: 340px;
+    rotate: 0deg;
+  }
+
+  .story-log-open {
+    align-self: center;
+  }
 }
 
 /* ---------- sound burst ---------- */
@@ -407,15 +824,24 @@
 
 @media (max-width: 560px) {
   .room {
-    width: 56px;
-    height: 56px;
+    width: 54px;
+    height: 54px;
   }
 
   .room-guest {
     font-size: 1.15rem;
   }
 
-  .hotel-panel {
-    padding: 18px 14px;
+  .building {
+    padding-inline: 12px;
+    border-inline-width: 4px;
+  }
+
+  .rooms-grid {
+    gap: 10px 8px;
+  }
+
+  .building-fade {
+    gap: 8px;
   }
 }

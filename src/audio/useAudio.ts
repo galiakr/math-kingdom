@@ -6,9 +6,10 @@ import * as Tone from 'tone';
  * and never import Tone directly — see .claude/skills/audio/SKILL.md.
  *
  * Ground rules encoded here:
- * - No sound before a user gesture: start() must be called from a click
- *   handler (browsers block audio until then), and every play* call is a
- *   silent no-op until it has run.
+ * - No sound before a user gesture: browsers block audio until one. start()
+ *   is the explicit opener (the "turn on" button); play* calls made inside
+ *   a click handler self-start the context on first use, so sound works
+ *   from any scene the player jumps to.
  * - Children's ears first: a capped master volume plus a limiter, and soft
  *   triangle/sine voices with gentle attacks and releases.
  * - Mute is persistent (localStorage) and instant.
@@ -88,9 +89,21 @@ function toggleMute() {
   emit();
 }
 
+/**
+ * Play now, or — on the first sound of the session — start the context
+ * within the same user gesture and play as soon as it's live.
+ */
+function withAudio(play: () => void) {
+  if (started) {
+    play();
+    return;
+  }
+  void start().then(play);
+}
+
 /** One or more note names (e.g. ["C3", "E3"]) played as a soft chord. */
 function playChord(notes: string[]) {
-  voices?.chord.triggerAttackRelease(notes, '2n');
+  withAudio(() => voices?.chord.triggerAttackRelease(notes, '2n'));
 }
 
 function playNote(note: string) {
@@ -98,19 +111,19 @@ function playNote(note: string) {
 }
 
 function playDrum() {
-  voices?.drum.triggerAttackRelease('C2', '8n');
+  withAudio(() => voices?.drum.triggerAttackRelease('C2', '8n'));
 }
 
 function playShaker() {
-  voices?.shaker.triggerAttackRelease('16n');
+  withAudio(() => voices?.shaker.triggerAttackRelease('16n'));
 }
 
 function playBell() {
-  voices?.bell.triggerAttackRelease('G5', '8n');
+  withAudio(() => voices?.bell.triggerAttackRelease('G5', '8n'));
 }
 
 function playTrumpet(note = 'C5') {
-  voices?.trumpet.triggerAttackRelease(note, '8n');
+  withAudio(() => voices?.trumpet.triggerAttackRelease(note, '8n'));
 }
 
 export interface Audio {

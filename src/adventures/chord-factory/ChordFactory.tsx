@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import type { ComponentType } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -31,6 +32,44 @@ export default function ChordFactory() {
   const Scene = SCENE_COMPONENTS[flow.scene.id];
   const isLast = flow.sceneIndex === scenes.length - 1;
 
+  const [introOpen, setIntroOpen] = useState(true);
+  // The cicada wonder moment floats up between the last scene and the
+  // finished screen.
+  const [cicadaOpen, setCicadaOpen] = useState(false);
+  // Work orders accumulate up to the furthest scene reached, so slow
+  // readers can scroll back — revisiting an earlier scene keeps them all.
+  const [maxSeen, setMaxSeen] = useState(0);
+  const introLogRef = useRef<HTMLDivElement>(null);
+  const introPanelRef = useRef<HTMLElement>(null);
+  const ordersBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    setMaxSeen((m) => Math.max(m, flow.sceneIndex));
+  }, [flow.sceneIndex]);
+
+  // Every scene opens with its work order showing…
+  useEffect(() => {
+    setIntroOpen(true);
+  }, [flow.sceneIndex]);
+
+  // …and any click outside it (starting to play) folds it away.
+  useEffect(() => {
+    if (!introOpen) return;
+    const dismiss = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (introPanelRef.current?.contains(target)) return;
+      if (ordersBtnRef.current?.contains(target)) return;
+      setIntroOpen(false);
+    };
+    document.addEventListener('pointerdown', dismiss);
+    return () => document.removeEventListener('pointerdown', dismiss);
+  }, [introOpen]);
+
+  useEffect(() => {
+    const log = introLogRef.current;
+    if (log) log.scrollTo({ top: log.scrollHeight, behavior: 'smooth' });
+  }, [flow.sceneIndex, introOpen]);
+
   return (
     <AdventureLayout
       title={t('primes.title')}
@@ -56,30 +95,86 @@ export default function ChordFactory() {
                 disabled={!visitable}
                 onClick={() => flow.goTo(index)}
               >
-                {index + 1}
+                {flow.isDone(scene.id) && index !== flow.sceneIndex ? '✓' : index + 1}
               </button>
             );
           })}
         </div>
-        <MuteButton />
-      </div>
-
-      <section className="cf-scene">
-        <h2 className="cf-scene-title">
-          {t(`primes.scenes.${flow.scene.id}.title`)}
-        </h2>
-        <div className="cf-scene-intro">
-          <StoryText text={t(`primes.scenes.${flow.scene.id}.intro`)} />
-        </div>
-        <Scene key={flow.scene.id} flow={flow} />
-        <div className="controls">
-          {flow.sceneDone && !flow.finished && (
-            <button type="button" className="btn btn-primary" onClick={flow.advance}>
+        <div className="cf-toolbar-actions">
+          <div className="controls">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => (isLast ? setCicadaOpen(true) : flow.advance())}
+            >
               {isLast ? t('primes.buttons.finish') : t('primes.buttons.next')}
             </button>
-          )}
+          </div>
+          <button
+            type="button"
+            ref={ordersBtnRef}
+            className="cf-orders-btn"
+            aria-expanded={introOpen}
+            onClick={() => setIntroOpen((open) => !open)}
+          >
+            📋 {t('primes.buttons.showStory')}
+          </button>
+          <MuteButton />
         </div>
-      </section>
+      </div>
+
+      <div className="cf-stage">
+        <section className="cf-scene">
+          <h2 className="cf-scene-title">
+            {t(`primes.scenes.${flow.scene.id}.title`)}
+          </h2>
+          <Scene key={flow.scene.id} flow={flow} />
+        </section>
+
+        {introOpen && (
+          <aside className="cf-intro-log" ref={introPanelRef}>
+            <div className="cf-intro-head">
+              <h2 className="cf-intro-title">📋 {t('primes.storyTitle')}</h2>
+            </div>
+            <div className="cf-intro-entries" ref={introLogRef}>
+              {scenes.slice(0, maxSeen + 1).map((scene, index) => (
+                <div
+                  key={scene.id}
+                  className={`cf-intro-entry${
+                    index === flow.sceneIndex ? ' is-current' : ''
+                  }`}
+                >
+                  <StoryText text={t(`primes.scenes.${scene.id}.intro`)} />
+                </div>
+              ))}
+            </div>
+          </aside>
+        )}
+      </div>
+
+      {cicadaOpen && (
+        <div className="cf-cicada-veil" role="dialog" aria-modal="true">
+          <aside className="cf-cicada-balloon">
+            <span className="cf-cicada-emoji" aria-hidden="true">
+              🦗
+            </span>
+            <h3 className="cf-cicada-title">
+              {t('primes.scenes.orchestra.cicadaTitle')}
+            </h3>
+            <p>{t('primes.scenes.orchestra.cicadaText')}</p>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => {
+                setCicadaOpen(false);
+                flow.advance();
+              }}
+            >
+              {t('primes.buttons.toFinale')}
+            </button>
+          </aside>
+        </div>
+      )}
 
       {flow.finished && (
         <div className="finished-overlay" role="dialog" aria-modal="true">

@@ -5,6 +5,8 @@ interface ChordBlocksProps {
   factors: number[];
   /** Hide the colors (gray "?" blocks) — the detective's unsolved mystery. */
   mystery?: boolean;
+  /** Show the colors but not the numbers — a clue, not the answer. */
+  unlabeled?: boolean;
   /** Compact blocks for chips and baskets. */
   small?: boolean;
 }
@@ -15,7 +17,12 @@ interface ChordBlocksProps {
  * visual parallel to the sound — a child who can't hear the chord reads it
  * from the stack alone.
  */
-export default function ChordBlocks({ factors, mystery = false, small = false }: ChordBlocksProps) {
+export default function ChordBlocks({
+  factors,
+  mystery = false,
+  unlabeled = false,
+  small = false,
+}: ChordBlocksProps) {
   return (
     <span className={`chord-blocks${small ? ' chord-blocks-small' : ''}`} aria-hidden="true">
       {factors.map((prime, i) => (
@@ -24,7 +31,7 @@ export default function ChordBlocks({ factors, mystery = false, small = false }:
           className={`chord-block${mystery ? ' chord-block-mystery' : ''}`}
           style={mystery ? undefined : { background: colorOf(prime) }}
         >
-          {mystery ? '?' : prime}
+          {mystery ? '?' : unlabeled ? '' : prime}
         </span>
       ))}
     </span>

@@ -3,13 +3,20 @@
     "title": "Hilbert's Amazing Hotel",
     "subtitle": "The hotel that always has room for more",
     "sign": "Hilbert's Hotel",
+    "neon": {
+      "full": "NO VACANCY",
+      "vacancy": "VACANCY!"
+    },
     "step": "Step",
     "scenarios": {
       "single": "One new guest",
       "bus": "A bus full of guests",
       "infinite": "Infinite buses!"
     },
+    "storyTitle": "The story so far",
     "buttons": {
+      "hideStory": "Hide",
+      "showStory": "Story",
       "reset": "Start over",
       "start": "Start the story",
       "magic": "Show the magic!",

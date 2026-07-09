@@ -20,9 +20,11 @@ what is playing. If you add a sound, add its visual in the same commit.
 ## Never autoplay
 
 Browsers block audio until a user gesture, and kids should choose when sound
-starts. `audio.start()` must be called inside a click handler — adventures
-open with a big "turn on" button that doubles as a fun moment. Every `play*`
-call is a silent no-op until then, so unconditional calls are safe.
+starts. `audio.start()` is the explicit opener — adventures open with a big
+"turn on" button that doubles as a fun moment. `play*` calls made inside a
+click handler also self-start the context on first use (navigation is free,
+so a player may land mid-adventure without passing the power button). Never
+call `play*` outside a user-triggered code path before the context is live.
 
 ## Volume discipline (children's ears)
 

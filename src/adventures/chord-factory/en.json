@@ -2,7 +2,10 @@
   "primes": {
     "title": "The Chord Factory",
     "subtitle": "Where every number plays its own sound",
+    "storyTitle": "Work orders",
     "buttons": {
+      "showStory": "Orders",
+      "toFinale": "To the grand finale!",
       "powerOn": "Turn on the factory",
       "next": "Next scene",
       "finish": "Finish the concert",
@@ -67,7 +70,7 @@
           "bell": "Bell",
           "trumpet": "Golden trumpet"
         },
-        "cicadaTitle": "🦗 Nature's prime secret",
+        "cicadaTitle": "Nature's prime secret",
         "cicadaText": "Real cicadas hide underground for exactly 13 or 17 years — prime numbers! Because primes share their rhythm with nobody, the cicadas almost never wake up in the same year as the hungry animals that follow shorter cycles. Nature discovered prime numbers long before people did. ✨"
       }
     },

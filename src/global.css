@@ -26,19 +26,29 @@
  * starry-night look; new adventures add their own block like this one.
  */
 .theme-concert {
-  /* The Chord Factory's concert hall: dark violet stage, warm gold light. */
-  --bg: #190b2c;
-  --text: #f7f0ff;
-  --muted: #bfaede;
-  --panel: #261442;
-  --panel-veil: rgba(25, 11, 44, 0.62);
-  --line: rgba(206, 168, 255, 0.2);
-  --violet: #9d86ff;
-  --teal: #4edcd2;
-  --coral: #ff8a5c;
-  --pink: #ff7ab2;
-  --blue: #5ac8fa;
-  --focus: var(--gold);
+  /*
+   * The Chord Factory is a player-piano works: ivory paper, walnut cabinets,
+   * brass fittings and a strip of piano felt. A warm daylight workshop —
+   * deliberately the opposite world from the hotel's night.
+   */
+  --bg: #f0e6d2;
+  --text: #3d2b1f;
+  --muted: #7a6354;
+  --panel: #faf3e3;
+  --panel-veil: rgba(250, 243, 227, 0.78);
+  --line: rgba(91, 58, 36, 0.25);
+  --walnut: #5b3a24;
+  --walnut-deep: #402714;
+  --brass: #b8862d;
+  --felt: #c0392b;
+  --gold-ink: #4a2f08;
+  --violet: #8d74f0;
+  --teal: #1fb9ae;
+  --coral: #f4703c;
+  --pink: #ef5f9d;
+  --blue: #2fa8e8;
+  --focus: #8a4b12;
+  --font-display: 'Suez One', 'Rubik Variable', serif;
   background: var(--bg);
   color: var(--text);
 }
@@ -137,6 +147,17 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+}
+
+@media (max-width: 360px) {
+  .topbar {
+    padding-inline: 12px;
+    gap: 8px;
+  }
+
+  .topbar-actions {
+    gap: 6px;
+  }
 }
 
 .topbar-journal {
@@ -275,12 +296,12 @@ a {
 }
 
 .mute-btn {
-  width: 40px;
-  height: 40px;
+  width: 52px;
+  height: 52px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--panel-veil);
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
