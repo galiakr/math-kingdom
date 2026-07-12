@@ -1,0 +1,780 @@
+/* ---------- the fairground backdrop ---------- */
+
+/* Viewport-fixed so the string lights never shift as content grows. */
+.carnival-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.carnival-sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 120%, rgba(255, 122, 178, 0.22), transparent 55%),
+    linear-gradient(180deg, var(--plum-deep, #1d0e28), transparent 60%);
+}
+
+/* Bunting along the top: little triangle flags on a string. */
+.carnival-bunting {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  height: 26px;
+  display: flex;
+  justify-content: space-around;
+  border-top: 3px solid rgba(255, 217, 138, 0.35);
+}
+
+.carnival-flag {
+  width: 0;
+  height: 0;
+  border-inline: 11px solid transparent;
+  border-top: 20px solid var(--pink);
+  opacity: 0.55;
+}
+
+.carnival-lights {
+  position: absolute;
+  inset-inline: 0;
+  height: 0;
+}
+
+/* A warm bulb on the sagging wire. */
+.carnival-lamp {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--lamp, #ffd98a);
+  box-shadow: 0 0 12px 3px rgba(255, 217, 138, 0.5);
+  opacity: 0.85;
+}
+
+.carnival-mark {
+  position: absolute;
+  color: rgba(255, 176, 217, 0.12);
+  font-family: var(--font-display);
+}
+
+/* The big top's dark silhouette with wide tent stripes. */
+.carnival-tent {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 52px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 122, 178, 0.16) 0 46px,
+      transparent 46px 92px
+    ),
+    linear-gradient(180deg, var(--plum-deep, #1d0e28), #150920);
+  border-top: 3px solid rgba(255, 217, 138, 0.3);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .carnival-lamp {
+    animation: cv-twinkle 3.4s ease-in-out infinite;
+  }
+}
+
+@keyframes cv-twinkle {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* ---------- page chrome ---------- */
+
+.carnival .hero-title {
+  color: var(--lamp, #ffd98a);
+}
+
+.cv-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cv-toolbar-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cv-toolbar-actions .controls {
+  margin-top: 0;
+}
+
+/* Scene markers: ride tokens on a velvet strip. */
+.cv-dots {
+  display: inline-flex;
+  gap: 8px;
+  padding: 7px 12px;
+  background: linear-gradient(180deg, #52306b, #3b2350);
+  border: 1px solid #2a1740;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255, 217, 138, 0.18);
+}
+
+.cv-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 176, 217, 0.35);
+  background: var(--panel);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.cv-dot:hover:not(:disabled) {
+  transform: translateY(-2px);
+  color: var(--text);
+}
+
+.cv-dot:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cv-dot.is-done {
+  background: var(--teal);
+  border-color: #2a9f8d;
+  color: #10322c;
+}
+
+.cv-dot.is-active {
+  background: linear-gradient(180deg, #ff9cc4, #ff7ab2);
+  border-color: #d8548f;
+  color: #46102b;
+  box-shadow: 0 0 0 3px rgba(255, 122, 178, 0.35);
+  transform: scale(1.12);
+}
+
+.cv-dot.is-active:hover:not(:disabled) {
+  transform: scale(1.12);
+}
+
+/* The scene sits inside the tent: velvet panel, lamp-lit rim. */
+.cv-scene {
+  background: var(--panel-veil);
+  border: 1px solid var(--line);
+  border-top: 8px solid var(--pink);
+  border-radius: 12px;
+  padding: 22px 24px 26px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.cv-scene-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  text-align: center;
+  color: var(--lamp, #ffd98a);
+}
+
+.cv-stage {
+  position: relative;
+}
+
+/* The ticket-book toggle. */
+.cv-ticket-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #4a2c60;
+  color: var(--text);
+  border: 1px solid #6b4287;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.cv-ticket-btn:hover {
+  border-color: var(--pink);
+}
+
+.cv-ticket-btn[aria-expanded='true'] {
+  background: #3b2350;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* The ticket log floats over the tent; stubs accumulate. */
+.cv-intro-log {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  z-index: 6;
+  width: min(360px, 100%);
+  display: flex;
+  flex-direction: column;
+  max-height: min(64vh, 520px);
+  background: #4a2c60;
+  border: 1px solid #6b4287;
+  border-radius: 10px;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.5);
+}
+
+.cv-intro-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 18px 8px;
+  border-bottom: 2px dashed rgba(255, 176, 217, 0.3);
+}
+
+.cv-intro-title {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--lamp, #ffd98a);
+}
+
+.cv-intro-entries {
+  overflow-y: auto;
+  display: grid;
+  gap: 4px;
+  padding: 10px 18px 16px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.cv-intro-entry {
+  opacity: 0.62;
+  padding: 8px 0;
+}
+
+.cv-intro-entry + .cv-intro-entry {
+  border-top: 1px dashed rgba(255, 176, 217, 0.25);
+}
+
+.cv-intro-entry.is-current {
+  opacity: 1;
+}
+
+.cv-intro-log strong {
+  color: var(--pink);
+  font-weight: 600;
+}
+
+/* ---------- shared scene scaffolding ---------- */
+
+.cv-body {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+  justify-items: center;
+}
+
+.cv-hint {
+  color: var(--muted);
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.cv-feedback {
+  min-height: 1.6em;
+  color: var(--pink);
+  font-weight: 600;
+  text-align: center;
+}
+
+.cv-counter {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Numbers, charts and sequences never flip with the UI direction. */
+.cv-ltr {
+  direction: ltr;
+}
+
+.cv-count-chip {
+  display: inline-block;
+  margin-inline-start: 6px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  unicode-bidi: isolate;
+}
+
+.cv-history {
+  display: inline-flex;
+  gap: 4px;
+  margin-inline-start: 6px;
+  font-size: 1.1rem;
+  unicode-bidi: isolate;
+}
+
+/* Big answer buttons used by every game. */
+.cv-pick-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cv-pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  border: 2px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+  transition: transform 0.12s ease;
+}
+
+.cv-pick:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+.cv-pick:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.cv-pick.is-picked {
+  background: #52306b;
+  box-shadow:
+    0 4px 0 rgba(0, 0, 0, 0.3),
+    0 0 0 3px rgba(255, 217, 138, 0.4);
+}
+
+.cv-question {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+.cv-question-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  text-align: center;
+}
+
+/* ---------- the wheel ---------- */
+
+.cv-wheel {
+  position: relative;
+  width: min(300px, 78vw);
+  aspect-ratio: 1;
+}
+
+.cv-wheel-mini {
+  width: min(170px, 50vw);
+}
+
+.cv-wheel-disc {
+  position: absolute;
+  inset: 5%;
+  border-radius: 50%;
+  transform-origin: 50% 50%;
+}
+
+.cv-wheel-disc.is-spinning {
+  transition: transform 2.4s cubic-bezier(0.12, 0.6, 0.08, 1);
+}
+
+.cv-slice {
+  stroke: var(--plum-deep, #1d0e28);
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+
+.cv-slice-emoji {
+  font-size: 11px;
+}
+
+.cv-wheel-hub {
+  fill: var(--plum-deep, #1d0e28);
+  stroke: var(--lamp, #ffd98a);
+  stroke-width: 1.5;
+}
+
+.cv-wheel-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cv-wheel-ring {
+  fill: none;
+  stroke: var(--plum-deep, #1d0e28);
+  stroke-width: 2.5;
+}
+
+.cv-bulb {
+  fill: var(--lamp, #ffd98a);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cv-wheel-main .cv-bulb {
+    animation: cv-twinkle 2.2s ease-in-out infinite;
+  }
+}
+
+/* The fixed pointer at 12 o'clock. */
+.cv-wheel-pointer {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  translate: -50% 0;
+  width: 0;
+  height: 0;
+  border-inline: 11px solid transparent;
+  border-top: 22px solid var(--gold);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.4));
+}
+
+/* ---------- scene 1: the booths ---------- */
+
+.cv-card {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 26px;
+  max-width: 420px;
+}
+
+.cv-card-emoji {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.cv-card-text {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.cv-booth-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cv-booth {
+  padding: 14px 20px;
+  border-radius: 12px 12px var(--radius) var(--radius);
+  border: 2px solid var(--line);
+  border-top-width: 8px;
+  background: var(--panel);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+  transition: transform 0.12s ease;
+}
+
+.cv-booth:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+.cv-booth:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.cv-booth-impossible {
+  border-top-color: var(--pink);
+}
+
+.cv-booth-maybe {
+  border-top-color: var(--gold);
+}
+
+.cv-booth-certain {
+  border-top-color: var(--teal);
+}
+
+.cv-shelves {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.cv-shelf {
+  background: var(--panel-veil);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 14px 14px;
+  min-height: 84px;
+}
+
+.cv-shelf-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.cv-shelf-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cv-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  font-size: 0.85rem;
+  animation: cv-land 0.4s ease;
+}
+
+@keyframes cv-land {
+  from {
+    transform: translateY(-10px) scale(1.2);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* ---------- scene 3: the egg machine ---------- */
+
+.cv-jar {
+  width: min(240px, 65vw);
+}
+
+.cv-jar-glass {
+  fill: rgba(255, 246, 232, 0.08);
+  stroke: rgba(255, 217, 138, 0.5);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.cv-egg {
+  stroke: rgba(0, 0, 0, 0.3);
+  stroke-width: 1;
+  animation: cv-land 0.35s ease backwards;
+}
+
+.cv-egg-dot {
+  display: inline-block;
+  width: 16px;
+  height: 19px;
+  border-radius: 50% 50% 50% 50% / 58% 58% 42% 42%;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- scene 4: the tally tent ---------- */
+
+.cv-tally-floor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+}
+
+.cv-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  height: 220px;
+}
+
+.cv-chart-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+}
+
+.cv-chart-track {
+  position: relative;
+  width: 52px;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--line);
+  border-radius: 8px 8px 4px 4px;
+  overflow: hidden;
+}
+
+.cv-chart-bar {
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  transition: height 0.15s linear;
+}
+
+/* The wheel's fair share, revealed at the end. */
+.cv-chart-expected {
+  position: absolute;
+  inset-inline: 0;
+  border-top: 3px dashed var(--lamp, #ffd98a);
+  z-index: 1;
+  animation: cv-fade 0.8s ease;
+}
+
+@keyframes cv-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cv-chart-count {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.cv-chart-emoji {
+  font-size: 1.4rem;
+}
+
+/* ---------- scene 5: fair or rigged ---------- */
+
+.cv-offer {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 26px;
+  max-width: 460px;
+}
+
+.cv-offer-rule {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.cv-offer.is-fair {
+  box-shadow: 0 0 0 3px rgba(75, 224, 200, 0.5);
+}
+
+.cv-offer.is-rigged {
+  box-shadow: 0 0 0 3px rgba(255, 122, 178, 0.55);
+}
+
+.cv-stamp {
+  position: absolute;
+  inset-inline-end: 10px;
+  top: 10px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  font-family: var(--font-display);
+  rotate: -8deg;
+  animation: cv-stamp-in 0.25s ease;
+}
+
+@keyframes cv-stamp-in {
+  from {
+    transform: scale(2);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.cv-pick-fair {
+  border-color: var(--teal);
+}
+
+.cv-pick-rigged {
+  border-color: var(--pink);
+}
+
+/* ---------- finished overlay ---------- */
+
+.cv-earned {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  margin: 14px 0;
+  color: var(--teal);
+  font-weight: 600;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 700px) {
+  .cv-scene {
+    padding: 16px 14px 20px;
+  }
+
+  .cv-chart {
+    height: 170px;
+    gap: 12px;
+  }
+
+  .cv-chart-track {
+    width: 42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep a nonzero duration so transitionend still fires for the wheel. */
+  .cv-wheel-disc.is-spinning {
+    transition-duration: 0.2s;
+  }
+
+  .cv-chart-bar {
+    transition: none;
+  }
+
+  .cv-chip,
+  .cv-egg,
+  .cv-stamp,
+  .cv-chart-expected {
+    animation: none;
+  }
+}

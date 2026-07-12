@@ -75,6 +75,26 @@
   color: var(--text);
 }
 
+.theme-carnival {
+  /*
+   * The Probability Carnival at dusk: a plum evening sky, string lights and
+   * a pink big top — a warm rosy night, nothing like the hotel's cold navy.
+   */
+  --bg: #2b1836;
+  --text: #fdeef7;
+  --muted: #c7a6cd;
+  --panel: #3b2350;
+  --panel-veil: rgba(43, 24, 54, 0.72);
+  --line: rgba(255, 176, 217, 0.22);
+  --pink: #ff7ab2;
+  --teal: #4be0c8;
+  --lamp: #ffd98a;
+  --plum-deep: #1d0e28;
+  --focus: #ffc94d;
+  background: var(--bg);
+  color: var(--text);
+}
+
 .theme-night {
   --bg: #0d132e;
   --night-raise: #151c40;

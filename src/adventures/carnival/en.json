@@ -1,0 +1,125 @@
+{
+  "probability": {
+    "title": "The Probability Carnival",
+    "subtitle": "Where the monsters know what's likely to happen",
+    "storyTitle": "Your carnival tickets",
+    "buttons": {
+      "showStory": "Tickets",
+      "next": "Next game",
+      "finish": "Leave the carnival",
+      "playAgain": "Play again",
+      "spin": "Spin the wheel!",
+      "spinOnce": "Spin once",
+      "spinFast": "Let Goldie spin fast!",
+      "pause": "Pause"
+    },
+    "colors": {
+      "pink": "Pink",
+      "teal": "Teal",
+      "gold": "Gold"
+    },
+    "monsters": {
+      "pinky": "Pinky",
+      "marina": "Marina",
+      "goldie": "Goldie"
+    },
+    "scenes": {
+      "booths": {
+        "title": "The carnival gate",
+        "intro": "🎪 **Welcome to the Probability Carnival!** Three monster friends run the games here: 👾 Pinky, 🐙 Marina and 🦄 Goldie. At the gate they play a guessing game: will it happen? Some things CAN'T happen, some things are FOR SURE, and lots of things are… maybe! Sort each card into the right booth.",
+        "booth": {
+          "impossible": "No way!",
+          "maybe": "Maybe!",
+          "certain": "For sure!"
+        },
+        "events": {
+          "sun": "The sun will rise tomorrow",
+          "dragon": "A real dragon will buy cotton candy",
+          "rain": "It will rain tomorrow",
+          "sevenDie": "You'll roll a 7 on a regular die",
+          "pinkSpin": "The wheel will land on pink next spin",
+          "saturday": "Saturday will come after Friday",
+          "friend": "You'll make a new friend at the carnival",
+          "catTalks": "A cat will start talking in people-words"
+        },
+        "correct": "Right booth! 🎉",
+        "retry": "Hmm, think again — CAN it happen? MUST it happen?",
+        "done": "You speak probability now: impossible, maybe, for sure! 🌟"
+      },
+      "spinner": {
+        "title": "The Great Wheel",
+        "intro": "🎡 **👾 Pinky's Great Wheel!** Look at the slices: pink is huge, teal is smaller, gold is tiny. Pick the color you think the wheel will land on, then SPIN! Watch closely — is every color equally easy to hit?",
+        "pickPrompt": "Pick your color, then spin the wheel!",
+        "spinning": "Round and round it goes…",
+        "landedMatch": "🎉 It landed on your pick! What luck!",
+        "landedMiss": "It landed on {{color}} this time — nobody can know for sure!",
+        "spinsLabel": "Where it landed:",
+        "whichEasiest": "🤔 Pinky asks: which color is EASIEST for the wheel to land on?",
+        "easyCorrect": "Exactly! The pink slice is the biggest, so pink happens most often. Spin a bit more!",
+        "easyRetry": "Look at the wheel — whose slice takes up the most space?",
+        "done": "A bigger slice means a bigger chance — even when nobody knows the next spin! ✨"
+      },
+      "eggs": {
+        "title": "Marina's egg machine",
+        "intro": "🥚 **🐙 Marina's monster-egg machine!** Behind the glass you can COUNT the eggs of every color. That's the whole secret of chance: more eggs of a color, more chance it pops out. Answer Marina's questions — every right answer wins you an egg!",
+        "questions": {
+          "most": "Which color egg is MOST likely to pop out?",
+          "least": "Which color egg is LEAST likely to pop out?",
+          "compare": "Pink or teal — which is more likely to pop out?",
+          "canGold": "Can a gold egg pop out of this jar?"
+        },
+        "options": {
+          "equal": "Same chance!",
+          "yes": "Yes",
+          "no": "No — impossible!"
+        },
+        "correct": "Egg-zactly right! 🎉",
+        "retry": "Count the eggs of each color — which pile is bigger?",
+        "dispensed": "Your eggs:",
+        "done": "More of a kind means more likely — you can SEE chance by counting! 🥚✨"
+      },
+      "tally": {
+        "title": "The tally tent",
+        "intro": "📊 **🦄 Goldie's tally tent!** One spin can surprise you. But what happens after LOTS of spins? Goldie will spin the Great Wheel 40 times and chart every landing. First — predict: which color will win the most?",
+        "predictPrompt": "Before we start: which color do you think will win the most?",
+        "keepSpinning": "Spin, spin! Watch the bars grow…",
+        "wildStart": "Whoa — pink isn't winning?! Small numbers love surprises. Keep spinning!",
+        "settling": "Look — the chart is starting to look like the wheel…",
+        "spinsLabel": "Spins:",
+        "whichWon": "40 spins! Now read YOUR chart: which color won the most?",
+        "wonRetry": "Look at the bars — which one is tallest?",
+        "matchWheel": "Your tally chart grew into the shape of the wheel — big slice, tall bar!",
+        "done": "Lots of tries reveal the true chances. One spin is a surprise; forty spins tell the truth! 📊",
+        "doneGoodGuess": "And that's the color you predicted — great thinking! Lots of tries reveal the true chances. 📊"
+      },
+      "fair": {
+        "title": "Fair or rigged?",
+        "intro": "🕵️ **You're the Carnival Inspector!** The monsters invented new wheel games, and some are sneaky. Read each game's rule, look at the slices, and stamp it: FAIR if every player has the same chance — RIGGED if someone's slice is bigger. Even if the lucky one is YOU!",
+        "gameLabel": "Game",
+        "stampFair": "FAIR",
+        "stampRigged": "RIGGED",
+        "games": {
+          "g1": "You win on 👾 pink, Pinky wins on 🐙 teal.",
+          "g2": "Pinky wins on 👾 pink, you win on 🐙 teal.",
+          "g3": "You win on 🐙 teal, Marina wins on 👾 pink.",
+          "g4": "YOU win on 👾 pink, Marina wins on 🐙 teal. Lucky you…?",
+          "g5": "Three players: one wins on 👾 pink, one on 🐙 teal, one on 🦄 gold."
+        },
+        "correct": "Sharp inspecting! 🎉",
+        "retry": "Check the slices again — does every player get the same amount of wheel?",
+        "retryHint2": "Count the slices for each player. Same size = fair. Different size = rigged — even when it helps you!",
+        "done": "The monsters cheer their honest inspector: a fair game gives everyone the same chance! 🕵️✨"
+      }
+    },
+    "skills": {
+      "words": "I can tell impossible, maybe, and certain apart",
+      "bigSlice": "A bigger slice means a bigger chance",
+      "compare": "More of a kind means more likely",
+      "longRun": "Lots of tries reveal the true chances",
+      "fair": "A fair game gives everyone the same chance"
+    },
+    "finishedTitle": "Master of the Carnival!",
+    "finished": "You discovered two great secrets: chance can be SEEN — in slices and piles and tall bars — and even when nobody knows the next spin, lots of spins tell the truth. The monsters wave goodbye… come back and beat the wheel again! 🎪✨",
+    "finishedButton": "Back to the kingdom"
+  }
+}
