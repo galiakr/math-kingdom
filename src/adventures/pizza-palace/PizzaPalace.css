@@ -1,0 +1,689 @@
+/* ---------- the trattoria backdrop ---------- */
+
+/* Viewport-fixed so the oven glow never shifts as content grows. */
+.palace-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Warm light spilling from the brick oven, top corner of the room. */
+.palace-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 85% -10%,
+      rgba(255, 171, 94, 0.55),
+      transparent 42%
+    ),
+    radial-gradient(circle at 8% 110%, rgba(217, 79, 48, 0.18), transparent 38%);
+}
+
+.palace-mark {
+  position: absolute;
+  color: rgba(168, 100, 47, 0.14);
+  font-family: var(--font-display);
+}
+
+/* Steam wisps drifting up from somewhere in the kitchen. */
+.palace-steam {
+  position: absolute;
+  bottom: -60px;
+  width: 14px;
+  height: 46px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 246, 232, 0), rgba(255, 246, 232, 0.55));
+  filter: blur(4px);
+}
+
+/* The red-checkered tablecloth the whole palace stands on. */
+.palace-cloth {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 46px;
+  background:
+    repeating-conic-gradient(
+      rgba(217, 79, 48, 0.55) 0% 25%,
+      rgba(255, 246, 232, 0.7) 25% 50%
+    );
+  background-size: 36px 36px;
+  border-top: 3px solid rgba(168, 100, 47, 0.5);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .palace-steam {
+    animation: pz-steam linear infinite;
+  }
+}
+
+@keyframes pz-steam {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.7;
+  }
+  88% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-108vh) translateX(18px);
+    opacity: 0;
+  }
+}
+
+/* ---------- page chrome ---------- */
+
+.palace .hero-title {
+  color: var(--crust);
+}
+
+.pz-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.pz-toolbar-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pz-toolbar-actions .controls {
+  margin-top: 0;
+}
+
+/* Scene markers: pepperoni slices lined up on the counter. */
+.pz-dots {
+  display: inline-flex;
+  gap: 8px;
+  padding: 7px 12px;
+  background: linear-gradient(180deg, #c3703b, #a8642f);
+  border: 1px solid #8a4e20;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255, 240, 210, 0.25);
+}
+
+.pz-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(168, 100, 47, 0.45);
+  background: var(--panel);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.pz-dot:hover:not(:disabled) {
+  transform: translateY(-2px);
+  color: var(--text);
+}
+
+.pz-dot:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pz-dot.is-done {
+  background: var(--basil);
+  border-color: #3a7a3d;
+  color: #fffaf0;
+}
+
+.pz-dot.is-active {
+  background: linear-gradient(180deg, #f5b83d, #dd9a1c);
+  border-color: #b07708;
+  color: #47210f;
+  box-shadow: 0 0 0 3px rgba(245, 184, 61, 0.4);
+  transform: scale(1.12);
+}
+
+.pz-dot.is-active:hover:not(:disabled) {
+  transform: scale(1.12);
+}
+
+/* The scene sits on a marble counter with a crust-colored rim. */
+.pz-scene {
+  background: var(--panel-veil);
+  border: 1px solid var(--line);
+  border-top: 8px solid var(--crust);
+  border-radius: 12px;
+  padding: 22px 24px 26px;
+  box-shadow: 0 10px 30px rgba(122, 62, 24, 0.14);
+}
+
+.pz-scene-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  text-align: center;
+  color: var(--crust);
+}
+
+.pz-stage {
+  position: relative;
+}
+
+/* The recipe-book toggle. */
+.pz-book-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffedd6;
+  color: var(--crust);
+  border: 1px solid #e0b483;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(122, 62, 24, 0.2);
+}
+
+.pz-book-btn:hover {
+  border-color: var(--cheese);
+}
+
+.pz-book-btn[aria-expanded='true'] {
+  background: #f7ddb9;
+  box-shadow: inset 0 2px 4px rgba(122, 62, 24, 0.25);
+}
+
+/* The chef's recipe book floats over the counter; pages accumulate. */
+.pz-intro-log {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  z-index: 6;
+  width: min(360px, 100%);
+  display: flex;
+  flex-direction: column;
+  max-height: min(64vh, 520px);
+  background: #ffedd6;
+  border: 1px solid #e0b483;
+  border-radius: 10px;
+  box-shadow: 0 22px 48px rgba(71, 33, 15, 0.35);
+}
+
+.pz-intro-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 18px 8px;
+  border-bottom: 2px dashed rgba(122, 62, 24, 0.28);
+}
+
+.pz-intro-title {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--crust);
+}
+
+.pz-intro-entries {
+  overflow-y: auto;
+  display: grid;
+  gap: 4px;
+  padding: 10px 18px 16px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.pz-intro-entry {
+  opacity: 0.62;
+  padding: 8px 0;
+}
+
+.pz-intro-entry + .pz-intro-entry {
+  border-top: 1px dashed rgba(122, 62, 24, 0.24);
+}
+
+.pz-intro-entry.is-current {
+  opacity: 1;
+}
+
+.pz-intro-log strong {
+  color: var(--tomato);
+  font-weight: 600;
+}
+
+/* ---------- shared scene scaffolding ---------- */
+
+.pz-body {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+  justify-items: center;
+}
+
+.pz-hint {
+  color: var(--muted);
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  text-align: center;
+}
+
+.pz-feedback {
+  min-height: 1.6em;
+  color: var(--tomato);
+  font-weight: 600;
+  text-align: center;
+}
+
+.pz-counter {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Numbers and math never flip with the UI direction. */
+.pz-ltr {
+  direction: ltr;
+}
+
+.pz-count-chip {
+  display: inline-block;
+  margin-inline-start: 6px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  unicode-bidi: isolate;
+}
+
+/* ---------- the pizza itself ---------- */
+
+.pz-pizza {
+  width: min(420px, 92%);
+  overflow: visible;
+}
+
+.pz-piece {
+  fill: var(--cheese);
+}
+
+.pz-piece-tomato {
+  fill: var(--tomato);
+}
+
+.pz-piece-basil {
+  fill: var(--basil);
+}
+
+.pz-crusty .pz-piece {
+  stroke: var(--crust);
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+}
+
+.is-tappable .pz-piece {
+  cursor: pointer;
+}
+
+.pz-piece.is-pulsing {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pz-pulse 0.4s ease;
+}
+
+@keyframes pz-pulse {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.18);
+    fill: #ffe08a;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ---------- scene 2: the infinite zoom ---------- */
+
+.pz-zooming {
+  transition: transform 900ms ease-in-out;
+}
+
+.pz-hotspot {
+  fill: rgba(255, 246, 232, 0.01);
+  stroke: var(--tomato);
+  stroke-width: 1.4;
+  stroke-dasharray: 4 3;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.pz-hotspot:hover,
+.pz-hotspot:focus-visible {
+  fill: rgba(255, 246, 232, 0.28);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pz-hotspot {
+    animation: pz-glow 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes pz-glow {
+  0%,
+  100% {
+    stroke-opacity: 0.35;
+  }
+  50% {
+    stroke-opacity: 1;
+  }
+}
+
+/* ---------- scene 3: the pizza counter ---------- */
+
+.pz-choices {
+  display: flex;
+  gap: 14px;
+}
+
+.pz-choice {
+  min-width: 84px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  border: 2px solid var(--crust);
+  background: var(--panel);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(122, 62, 24, 0.25);
+  transition: transform 0.12s ease;
+}
+
+.pz-choice:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: var(--tomato);
+}
+
+.pz-choice:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.pz-sequence {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  min-height: 2.2em;
+}
+
+.pz-seq-chip {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #ffedd6;
+  border: 1px solid #e0b483;
+  color: var(--crust);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+.pz-seq-chip.is-landed {
+  animation: pz-land 0.4s ease;
+}
+
+@keyframes pz-land {
+  from {
+    transform: translateY(-10px) scale(1.25);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.pz-pizza-count {
+  width: min(300px, 80%);
+}
+
+/* ---------- scene 4: fractal hunters ---------- */
+
+.pz-hunt-current {
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+}
+
+.pz-hunt-item {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.pz-hunt-emoji {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.pz-hunt-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+.pz-hunt-baskets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.pz-basket-btn {
+  padding: 14px 22px;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(122, 62, 24, 0.25);
+  transition: transform 0.12s ease;
+}
+
+.pz-basket-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+.pz-basket-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.pz-basket-fractal {
+  background: var(--basil);
+  border-color: #3a7a3d;
+  color: #fffaf0;
+}
+
+.pz-basket-plain {
+  background: var(--panel);
+  border-color: var(--line);
+  color: var(--text);
+}
+
+.pz-shelves {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  width: 100%;
+}
+
+.pz-shelf {
+  background: var(--panel-veil);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 16px 16px;
+  min-height: 96px;
+}
+
+.pz-shelf-fractal {
+  border-top: 5px solid var(--basil);
+}
+
+.pz-shelf-plain {
+  border-top: 5px solid var(--line);
+}
+
+.pz-shelf-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.pz-shelf-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pz-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  font-size: 0.92rem;
+  animation: pz-land 0.4s ease;
+}
+
+/* ---------- scene 5: the fractal chef ---------- */
+
+.pz-chef-bench {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  width: 100%;
+}
+
+.pz-recipe {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+
+.pz-recipe-title {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--crust);
+}
+
+.pz-recipe-card {
+  width: 170px;
+  overflow: visible;
+  background: #ffedd6;
+  border: 1px solid #e0b483;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.pz-slot {
+  cursor: pointer;
+  fill: var(--cheese);
+  stroke: var(--crust);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  transition: fill 0.15s ease;
+}
+
+.pz-slot:not(.is-kept) {
+  fill: transparent;
+  stroke-dasharray: 4 3;
+  stroke-opacity: 0.5;
+}
+
+.pz-slot:focus-visible {
+  outline: none;
+  stroke: var(--focus);
+  stroke-opacity: 1;
+}
+
+.pz-pizza-oven {
+  width: min(320px, 80%);
+}
+
+.pz-pizza-oven.is-fanfare {
+  animation: pz-fanfare 0.7s ease;
+}
+
+@keyframes pz-fanfare {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.08) rotate(-2deg);
+  }
+  60% {
+    transform: scale(1.04) rotate(1.5deg);
+  }
+}
+
+/* ---------- finished overlay ---------- */
+
+.pz-earned {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  margin: 14px 0;
+  color: var(--basil);
+  font-weight: 600;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 700px) {
+  .pz-scene {
+    padding: 16px 14px 20px;
+  }
+
+  .pz-hunt-emoji {
+    font-size: 3.2rem;
+  }
+
+  .pz-choice {
+    min-width: 72px;
+    font-size: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pz-zooming {
+    transition: none;
+  }
+
+  .pz-piece.is-pulsing,
+  .pz-seq-chip.is-landed,
+  .pz-chip,
+  .pz-pizza-oven.is-fanfare {
+    animation: none;
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "fractal": {
+    "title": "The Fractal Pizza Palace",
+    "subtitle": "Where every slice hides a whole pizza inside",
+    "storyTitle": "The chef's recipe book",
+    "buttons": {
+      "showStory": "Recipes",
+      "next": "Next table",
+      "finish": "Close the kitchen",
+      "playAgain": "Play again",
+      "slice": "Slice!",
+      "freshPizza": "Fresh pizza",
+      "bake": "Bake!",
+      "newRecipe": "Start over"
+    },
+    "scenes": {
+      "slice": {
+        "title": "The magic pizza",
+        "intro": "🍕 **Welcome to the Pizza Palace!** The chef bakes one very strange pizza: every time you slice it, EVERY triangle turns into 3 smaller pizzas — and the middle disappears! Press **Slice!** a few times and watch what happens. Tap the pieces too — the tiny ones sing higher!",
+        "tapHint": "Press Slice! and watch every triangle follow the same rule…",
+        "sliced": "Every triangle became 3 smaller pizzas — the same rule, again and again!",
+        "depthLabel": "Pizza pieces:",
+        "done": "You found the palace's secret: one simple rule, repeated! 🌟"
+      },
+      "zoom": {
+        "title": "The infinite zoom",
+        "intro": "🔍 **Look closer…** See the three corner slices glowing? Pick one and zoom into it. Careful — this pizza has a magical surprise waiting inside. Zoom 3 times and see if you can escape!",
+        "pickCorner": "Tap a glowing corner slice to zoom into it!",
+        "zoomIn": "Zoom into this slice",
+        "zoomLevel": "Zooms:",
+        "same": "It's exactly the same pizza! 🔁",
+        "done": "However deep you zoom, the same pizza is waiting. You could zoom in FOREVER — that's called self-similarity! ✨"
+      },
+      "count": {
+        "title": "The pizza counter",
+        "intro": "🧮 **The waiter needs help!** Every slicing turns each triangle into 3 little pizzas. So how many pieces after each slice? Count carefully — watch the numbers grow faster and faster!",
+        "question": "We slice every triangle again — how many little pizzas now?",
+        "correct": "Yes! The pizzas tripled! 🎉",
+        "retry": "Hmm, remember — every single triangle turns into 3…",
+        "hint2": "Here's a chef's tip:",
+        "sequence": "How the pieces grow",
+        "done": "1, 3, 9, 27, 81… each slice makes 3 times as many! Numbers that multiply grow SO fast! 🚀"
+      },
+      "hunt": {
+        "title": "Fractal hunters",
+        "intro": "🔍 **Fractals escaped the kitchen!** They're hiding all over the world. Look at each thing and ask the magic question: do little copies of the whole thing hide inside it? If yes — it's a fractal!",
+        "fractalBasket": "Fractal! Copies hide inside",
+        "plainBasket": "Just a shape",
+        "correct": "Sharp eyes! 🎉",
+        "retry": "Zoom in with your eyes — do you see small copies of the whole thing?",
+        "done": "You can spot fractals anywhere now — broccoli, ferns, lightning… nature LOVES repeating rules! 🌿",
+        "items": {
+          "broccoli": "Broccoli",
+          "ball": "Ball",
+          "fern": "Fern",
+          "banana": "Banana",
+          "snowflake": "Snowflake",
+          "donut": "Donut",
+          "lightning": "Lightning",
+          "tree": "Tree"
+        }
+      },
+      "chef": {
+        "title": "The fractal chef",
+        "intro": "👨‍🍳 **Now YOU are the chef!** Invent your own slicing rule: on the recipe card, choose which of the 4 parts keep their pizza. Then press **Bake!** again and again and watch YOUR rule build YOUR fractal!",
+        "recipe": "My recipe",
+        "ruleHint": "Tap the recipe card to change your rule, then bake it — again and again!",
+        "needTwo": "Keep at least 2 parts, or there won't be a pizza left to bake!",
+        "fullDepth": "Fully baked! Your rule, repeated into a fractal masterpiece! 🎺",
+        "done": "You repeated your own rule 3 times — you built a real fractal! 👨‍🍳",
+        "slots": {
+          "0": "Top slice",
+          "1": "Left slice",
+          "2": "Right slice",
+          "3": "Middle slice"
+        }
+      }
+    },
+    "skills": {
+      "selfSimilar": "The same shape hides inside itself",
+      "powersOfThree": "Each slicing makes 3 times as many pieces",
+      "inNature": "I can spot self-similar shapes in the real world",
+      "repeatRule": "A simple rule, repeated, builds a fractal"
+    },
+    "finishedTitle": "Master of the Pizza Palace!",
+    "finished": "You discovered two great secrets: a simple rule repeated forever builds endless worlds — and the same pattern hides at every size, in pizzas, in broccoli, in lightning. The whole kingdom looks different when you zoom in. 🍕✨",
+    "finishedButton": "Back to the kingdom"
+  }
+}

@@ -93,7 +93,7 @@ sound needs a visual parallel.
 | --- | --- | --- |
 | Hilbert's Amazing Hotel | Infinity, set theory, logic | ✅ Playable |
 | The Prime Number Orchestra (The Chord Factory) | Primes, number theory | ✅ Playable |
-| The Fractal Pizza Palace | Fractals, self-similarity | Coming soon |
+| The Fractal Pizza Palace | Fractals, self-similarity | ✅ Playable |
 | The Probability Carnival | Probability, statistics | Coming soon |
 | The Fibonacci Bunny Garden | Fibonacci, golden ratio | Coming soon |
 | Topology Space Adventure | Topology, transformations | Coming soon |

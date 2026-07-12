@@ -53,6 +53,28 @@
   color: var(--text);
 }
 
+.theme-pizza {
+  /*
+   * The Pizza Palace is a sunset trattoria: oven-glow apricot walls,
+   * mozzarella-cream panels, tomato and basil accents — warmer and redder
+   * than the factory's ivory workshop, the opposite of the hotel's night.
+   */
+  --bg: #ffdcb8;
+  --text: #47210f;
+  --muted: #8a5a3b;
+  --panel: #fff6e8;
+  --panel-veil: rgba(255, 246, 232, 0.8);
+  --line: rgba(122, 62, 24, 0.25);
+  --tomato: #d94f30;
+  --cheese: #f5b83d;
+  --basil: #4e9a51;
+  --crust: #a8642f;
+  --olive: #5a4632;
+  --focus: #b04a1f;
+  background: var(--bg);
+  color: var(--text);
+}
+
 .theme-night {
   --bg: #0d132e;
   --night-raise: #151c40;

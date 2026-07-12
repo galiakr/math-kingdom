@@ -1,5 +1,6 @@
 import hilbertHotel from './hilbert-hotel';
 import chordFactory from './chord-factory';
+import pizzaPalace from './pizza-palace';
 import type { Adventure } from './types';
 
 export type { Adventure, AdventureStatus, SceneDef, SkillDef } from './types';
@@ -16,7 +17,7 @@ export type { Adventure, AdventureStatus, SceneDef, SkillDef } from './types';
 export const adventures: Adventure[] = [
   hilbertHotel,
   chordFactory,
-  { id: 'fractal', emoji: '🍕', glyph: '∆', accent: '#ff8a5c', status: 'soon' },
+  pizzaPalace,
   { id: 'probability', emoji: '🎪', glyph: '%', accent: '#ff7ab2', status: 'soon' },
   { id: 'fibonacci', emoji: '🐇', glyph: 'φ', accent: '#6fe0a8', status: 'soon' },
   { id: 'topology', emoji: '🚀', glyph: '≈', accent: '#5ac8fa', status: 'soon' },
