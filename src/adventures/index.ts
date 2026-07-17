@@ -4,6 +4,7 @@ import pizzaPalace from './pizza-palace';
 import probabilityCarnival from './carnival';
 import bunnyGarden from './bunny-garden';
 import spacePort from './space-port';
+import castleBridges from './castle-bridges';
 import type { Adventure } from './types';
 
 export type { Adventure, AdventureStatus, SceneDef, SkillDef } from './types';
@@ -24,6 +25,6 @@ export const adventures: Adventure[] = [
   probabilityCarnival,
   bunnyGarden,
   spacePort,
-  { id: 'graphs', emoji: '🏰', glyph: '∴', accent: '#4edcd2', status: 'soon' },
+  castleBridges,
   { id: 'mystery', emoji: '❓', glyph: '?', accent: '#a9b2d9', status: 'locked' },
 ];

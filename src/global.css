@@ -140,6 +140,32 @@
   color: var(--text);
 }
 
+.theme-castle {
+  /*
+   * Castle Bridges: granite and parchment under a pale noon sky — cool
+   * stone grey with warm parchment panels and teal pennants; a stone
+   * daylight world unlike the concert's ivory or the pizza's apricot.
+   */
+  --bg: #dcd9cd;
+  --text: #333a40;
+  --muted: #6c7268;
+  --panel: #f6f1e2;
+  --panel-veil: rgba(246, 241, 226, 0.82);
+  --line: rgba(58, 64, 58, 0.22);
+  --stone: #a9a596;
+  --stone-deep: #7d7969;
+  --banner-teal: #4edcd2;
+  --teal-ink: #157a72;
+  --river: #82c3d8;
+  --flag-red: #d95d4e;
+  --moss: #8fae70;
+  --gold-ink: #5c3b00;
+  --focus: #b96f16;
+  --font-display: 'Suez One', 'Rubik Variable', serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
 .theme-night {
   --bg: #0d132e;
   --night-raise: #151c40;

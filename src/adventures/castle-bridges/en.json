@@ -1,0 +1,90 @@
+{
+  "graphs": {
+    "title": "Graph Theory Kingdom",
+    "subtitle": "Where every journey is dots and lines",
+    "storyTitle": "The dragon's chronicle",
+    "buttons": {
+      "showStory": "Chronicle",
+      "next": "Ride on",
+      "finish": "End the quest",
+      "playAgain": "Play again",
+      "reset": "Start over",
+      "reveal": "Reveal the graph!",
+      "askDragon": "Ask the dragon",
+      "countBridges": "Count bridges"
+    },
+    "scenes": {
+      "map": {
+        "title": "The Mapmaker's Secret",
+        "intro": "🗺️ **Welcome to Castle Bridges!** The royal mapmaker has a secret: to plan the knights' journeys, she doesn't draw mountains or forests. She only marks the castles… and the roads between them. Tap every castle, then every road — and see what a mathematician's map looks like!",
+        "tapCastles": "Tap every castle on the map!",
+        "tapRoads": "Now tap every road between them!",
+        "revealPrompt": "All marked! Ready to see the secret?",
+        "qDots": "The mapmaker calls castles “dots”. How many dots does this graph have?",
+        "qLines": "And the roads are “lines”. How many lines?",
+        "correct": "Exactly! 🎉",
+        "retry": "Count again — tap-count them one by one!",
+        "done": "Dots and lines — that's ALL a graph is. And it's enough to plan every journey! 🌟"
+      },
+      "trace": {
+        "title": "The Knight's Patrol",
+        "intro": "🐴 **The knight's morning patrol!** Every bridge must be inspected — and crossing a bridge twice wastes the whole morning. Tap a castle to start, then tap neighbor castles to ride across bridges. Cross EVERY bridge exactly once!",
+        "prompt": "Tap a castle to start, then ride across every bridge exactly once!",
+        "progress": "Bridges crossed:",
+        "roundDone": "Patrol complete! 🎉 The next kingdom awaits…",
+        "stuckHint1": "Stuck with bridges left? Hmm — maybe begin somewhere else. Tap Start over and try a different castle!",
+        "stuckHint2": "🛡️ The knights whisper: count the bridges at each castle — start where the count is ODD…",
+        "done": "Three kingdoms patrolled, every bridge exactly once! But there is one city no knight has ever finished… 🌟"
+      },
+      "bridges": {
+        "title": "The Seven Bridges of Königsberg",
+        "intro": "🌉 **The famous city of Königsberg!** A river, an island, and SEVEN bridges. For 300 years, the townspeople tried to walk across every bridge exactly once — and no one EVER managed it. Not one person. Your turn… and when you're ready, the old dragon knows why.",
+        "tryPrompt": "Try the famous walk: cross all seven bridges exactly once!",
+        "best": "Most bridges crossed:",
+        "countPrompt": "🐉 “Watch closely,” says the dragon. “Tap each place and COUNT its bridges.”",
+        "qOdd": "🐉 “Look at the counts. How many places have an ODD number of bridges?”",
+        "qPossible": "🐉 “A walk needs to enter and leave each middle place in pairs. With FOUR odd places… can the walk be done?”",
+        "yes": "Yes, keep trying!",
+        "no": "No — it's impossible!",
+        "correct": "The dragon nods slowly… 🎉",
+        "retry": "Look at the glowing counts again…",
+        "retryHint2": "A place with an odd count can only start or end a walk — and a walk has only ONE start and ONE end.",
+        "provedTitle": "IMPOSSIBLE — and you PROVED it!",
+        "provedText": "In 1736, Leonhard Euler proved exactly this — no walk can cross all seven bridges once. His proof invented graph theory. Proving something is impossible is real mathematics, and today it was yours.",
+        "done": "You didn't fail the puzzle — you solved the deeper one. 🐉📜"
+      },
+      "predict": {
+        "title": "The Dragon's Test",
+        "intro": "🐉 **“Now you know my secret,”** smiles the dragon. **“More than two odd castles — no walk. Zero or two — the knight can do it!”** For each kingdom, count the bridges FIRST, then predict: possible, or impossible?",
+        "prompt": "Count the odd castles… then predict before the knight rides!",
+        "possible": "Possible!",
+        "impossible": "Impossible!",
+        "stampYes": "POSSIBLE ✓",
+        "stampNo": "IMPOSSIBLE ✗",
+        "correct": "The dragon is impressed! 🎉",
+        "retry": "Use “Count bridges” — tap the castles and count!",
+        "retryHint2": "The rule: more than 2 odd castles = impossible. 0 or 2 odd castles = possible!",
+        "done": "You predict journeys without taking a single step — that's the power of a theorem! 🐉"
+      },
+      "banners": {
+        "title": "The Banner Festival",
+        "intro": "🎪 **The great festival!** Every castle hoists a banner — but castles connected by a road must NEVER fly the same color, or their knights will argue all night. Pick a color, tap castles, and make the whole kingdom festive with just three colors!",
+        "prompt": "Pick a color, then tap castles to hoist banners. Neighbors must differ!",
+        "pickColor": "Banner colors",
+        "conflict": "😾 The knights are arguing! Two connected castles fly the same banner…",
+        "fourColorFact": "Mapmakers proved that FOUR colors are enough for any flat map — the proof was so big it needed a computer!",
+        "done": "Every banner flying, not one argument. The festival is saved! 🎉"
+      }
+    },
+    "skills": {
+      "map": "A graph is dots and lines — I can turn a map into one",
+      "trace": "I can walk a graph crossing every bridge exactly once",
+      "euler": "I proved the Königsberg walk impossible — just like Euler in 1736",
+      "odd": "Odd castles tell me if a walk is possible before I even try",
+      "color": "I can color the kingdom's banners so no two neighbors match"
+    },
+    "finishedTitle": "Master of Castle Bridges!",
+    "finished": "You discovered two great secrets: any journey can be drawn as dots and lines — and once it is, mathematics can tell you what's possible before you take a single step. Euler's dragon salutes you. 🏰🐉",
+    "finishedButton": "Back to the kingdom"
+  }
+}

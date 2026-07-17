@@ -1,0 +1,799 @@
+/* ---------- the kingdom backdrop ---------- */
+
+/* Viewport-fixed so the pennants never shift as content grows. */
+.castle-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.castle-cloud {
+  position: absolute;
+  font-size: 2.6rem;
+  opacity: 0.65;
+}
+
+/* Pennants strung across the top. */
+.castle-bunting {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  height: 24px;
+  display: flex;
+  justify-content: space-around;
+  border-top: 3px solid rgba(125, 121, 105, 0.5);
+}
+
+.castle-flag {
+  width: 0;
+  height: 0;
+  border-inline: 10px solid transparent;
+  border-top: 18px solid var(--banner-teal);
+  opacity: 0.7;
+}
+
+.castle-river {
+  position: absolute;
+  bottom: 34px;
+  inset-inline: 0;
+  width: 100%;
+  height: 90px;
+}
+
+.castle-river-water {
+  fill: var(--river, #82c3d8);
+  opacity: 0.5;
+}
+
+.castle-river-bridge {
+  fill: none;
+  stroke: var(--stone-deep, #7d7969);
+  stroke-width: 5;
+}
+
+/* The far tower the dragon circles. */
+.castle-tower {
+  position: absolute;
+  bottom: 110px;
+  inset-inline-end: 7%;
+  width: 46px;
+  height: 120px;
+  background: linear-gradient(180deg, var(--stone), var(--stone-deep));
+  border-radius: 6px 6px 0 0;
+  clip-path: polygon(
+    0 12px, 12% 12px, 12% 0, 30% 0, 30% 12px, 46% 12px, 46% 0,
+    64% 0, 64% 12px, 82% 12px, 82% 0, 100% 0, 100% 12px,
+    100% 100%, 0 100%
+  );
+  opacity: 0.55;
+}
+
+.castle-dragon {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  font-size: 1.5rem;
+}
+
+.castle-mark {
+  position: absolute;
+  color: rgba(58, 64, 58, 0.14);
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+}
+
+/* The crenellated wall the whole kingdom stands behind. */
+.castle-wall {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 40px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(58, 64, 58, 0.14) 0 2px,
+      transparent 2px 44px
+    ),
+    linear-gradient(180deg, var(--stone), var(--stone-deep));
+  clip-path: polygon(
+    0 12px, 4% 12px, 4% 0, 8% 0, 8% 12px, 14% 12px, 14% 0, 18% 0, 18% 12px,
+    24% 12px, 24% 0, 28% 0, 28% 12px, 34% 12px, 34% 0, 38% 0, 38% 12px,
+    44% 12px, 44% 0, 48% 0, 48% 12px, 54% 12px, 54% 0, 58% 0, 58% 12px,
+    64% 12px, 64% 0, 68% 0, 68% 12px, 74% 12px, 74% 0, 78% 0, 78% 12px,
+    84% 12px, 84% 0, 88% 0, 88% 12px, 94% 12px, 94% 0, 98% 0, 98% 12px,
+    100% 12px, 100% 100%, 0 100%
+  );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .castle-cloud {
+    animation: gk-drift linear infinite;
+  }
+
+  .castle-dragon {
+    animation: gk-orbit 14s linear infinite;
+  }
+}
+
+@keyframes gk-drift {
+  from {
+    translate: 0 0;
+  }
+  50% {
+    translate: 60px 6px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes gk-orbit {
+  from {
+    transform: rotate(0deg) translateX(38px);
+  }
+  to {
+    transform: rotate(360deg) translateX(38px);
+  }
+}
+
+/* ---------- page chrome ---------- */
+
+.castlebridges .hero-title {
+  color: var(--teal-ink);
+}
+
+.gk-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.gk-toolbar-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gk-toolbar-actions .controls {
+  margin-top: 0;
+}
+
+/* Scene markers: shields on the castle gate. */
+.gk-dots {
+  display: inline-flex;
+  gap: 8px;
+  padding: 7px 12px;
+  background: linear-gradient(180deg, #8e8a7b, #7d7969);
+  border: 1px solid #66625a;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(246, 241, 226, 0.35);
+}
+
+.gk-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(125, 121, 105, 0.5);
+  background: var(--panel);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.gk-dot:hover:not(:disabled) {
+  transform: translateY(-2px);
+  color: var(--text);
+}
+
+.gk-dot:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.gk-dot.is-done {
+  background: var(--moss);
+  border-color: #6d8a52;
+  color: #23330f;
+}
+
+.gk-dot.is-active {
+  background: linear-gradient(180deg, #7fe8de, #4edcd2);
+  border-color: #23a89c;
+  color: #0b3532;
+  box-shadow: 0 0 0 3px rgba(78, 220, 210, 0.4);
+  transform: scale(1.12);
+}
+
+.gk-dot.is-active:hover:not(:disabled) {
+  transform: scale(1.12);
+}
+
+/* The scene sits on a parchment table with a teal pennant rim. */
+.gk-scene {
+  background: var(--panel-veil);
+  border: 1px solid var(--line);
+  border-top: 8px solid var(--teal-ink);
+  border-radius: 12px;
+  padding: 22px 24px 26px;
+  box-shadow: 0 10px 30px rgba(58, 64, 58, 0.2);
+}
+
+.gk-scene-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  text-align: center;
+  color: var(--teal-ink);
+}
+
+.gk-stage {
+  position: relative;
+}
+
+/* The dragon's-chronicle toggle. */
+.gk-chronicle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ece5cf;
+  color: var(--text);
+  border: 1px solid #c9bfa0;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(58, 64, 58, 0.25);
+}
+
+.gk-chronicle-btn:hover {
+  border-color: var(--banner-teal);
+}
+
+.gk-chronicle-btn[aria-expanded='true'] {
+  background: #ddd4b8;
+  box-shadow: inset 0 2px 4px rgba(58, 64, 58, 0.25);
+}
+
+/* The chronicle floats over the table; pages accumulate. */
+.gk-intro-log {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  z-index: 6;
+  width: min(360px, 100%);
+  display: flex;
+  flex-direction: column;
+  max-height: min(64vh, 520px);
+  background: #ece5cf;
+  border: 1px solid #c9bfa0;
+  border-radius: 10px;
+  box-shadow: 0 22px 48px rgba(58, 64, 58, 0.4);
+}
+
+.gk-intro-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 18px 8px;
+  border-bottom: 2px dashed rgba(58, 64, 58, 0.28);
+}
+
+.gk-intro-title {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--teal-ink);
+}
+
+.gk-intro-entries {
+  overflow-y: auto;
+  display: grid;
+  gap: 4px;
+  padding: 10px 18px 16px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.gk-intro-entry {
+  opacity: 0.62;
+  padding: 8px 0;
+}
+
+.gk-intro-entry + .gk-intro-entry {
+  border-top: 1px dashed rgba(58, 64, 58, 0.24);
+}
+
+.gk-intro-entry.is-current {
+  opacity: 1;
+}
+
+.gk-intro-log strong {
+  color: var(--flag-red);
+  font-weight: 600;
+}
+
+/* ---------- shared scene scaffolding ---------- */
+
+.gk-body {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+  justify-items: center;
+}
+
+.gk-hint {
+  color: var(--muted);
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  text-align: center;
+  max-width: 560px;
+}
+
+.gk-feedback {
+  min-height: 1.6em;
+  color: var(--flag-red);
+  font-weight: 600;
+  text-align: center;
+}
+
+.gk-fact {
+  color: var(--teal-ink);
+  max-width: 480px;
+}
+
+.gk-counter {
+  color: var(--muted);
+  font-size: 0.95rem;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Counters and ratios never flip with the UI direction. */
+.gk-ltr {
+  direction: ltr;
+}
+
+.gk-count-chip {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  unicode-bidi: isolate;
+}
+
+.gk-choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.gk-choice {
+  min-width: 72px;
+  padding: 13px 18px;
+  border-radius: var(--radius);
+  border: 2px solid var(--teal-ink);
+  background: var(--panel);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(58, 64, 58, 0.25);
+  transition: transform 0.12s ease;
+}
+
+.gk-choice-wide {
+  font-size: 1.05rem;
+}
+
+.gk-choice:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: var(--flag-red);
+}
+
+.gk-choice:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.gk-verdict-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.gk-verdict {
+  padding: 14px 22px;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--text);
+  background: var(--panel);
+  box-shadow: 0 4px 0 rgba(58, 64, 58, 0.25);
+  transition: transform 0.12s ease;
+}
+
+.gk-verdict:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+.gk-verdict:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.gk-verdict-yes {
+  border-color: var(--moss);
+}
+
+.gk-verdict-no {
+  border-color: var(--flag-red);
+}
+
+.gk-pulse {
+  animation: gk-pulse 1.3s ease-in-out infinite;
+}
+
+@keyframes gk-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+/* ---------- the graph board ---------- */
+
+.gk-board {
+  width: min(560px, 100%);
+  overflow: visible;
+}
+
+.gk-edge {
+  fill: none;
+  stroke: var(--stone-deep);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 8 7;
+  transition: stroke 0.25s ease;
+}
+
+.gk-edge.is-crossed {
+  stroke: var(--banner-teal);
+  stroke-dasharray: none;
+  stroke-width: 5;
+}
+
+.gk-edge.is-conflict {
+  stroke: var(--flag-red);
+  stroke-dasharray: none;
+  animation: gk-conflict 0.9s ease-in-out infinite;
+}
+
+@keyframes gk-conflict {
+  0%,
+  100% {
+    stroke-width: 4;
+  }
+  50% {
+    stroke-width: 7;
+  }
+}
+
+.gk-edge-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 26;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+.gk-node {
+  cursor: pointer;
+}
+
+.gk-node-hit {
+  fill: transparent;
+}
+
+.gk-node-disc {
+  fill: var(--panel);
+  stroke: var(--stone-deep);
+  stroke-width: 2.5;
+  transition: fill 0.2s ease;
+}
+
+.gk-node-emoji {
+  font-size: 17px;
+  pointer-events: none;
+}
+
+.gk-node.is-marked .gk-node-disc {
+  stroke: var(--banner-teal);
+  stroke-width: 4;
+}
+
+.gk-node.is-start-hint .gk-node-disc {
+  stroke: var(--gold);
+  stroke-width: 4;
+  animation: gk-hint-glow 1.4s ease-in-out infinite;
+}
+
+@keyframes gk-hint-glow {
+  0%,
+  100% {
+    stroke-opacity: 1;
+  }
+  50% {
+    stroke-opacity: 0.35;
+  }
+}
+
+.gk-node.is-wiggling {
+  animation: gk-wiggle 0.38s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes gk-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-7deg);
+  }
+  75% {
+    transform: rotate(7deg);
+  }
+}
+
+/* Banner colors hoisted on castles (scene 5). */
+.gk-node.gk-banner-red .gk-node-disc {
+  fill: var(--flag-red);
+}
+
+.gk-node.gk-banner-gold .gk-node-disc {
+  fill: var(--gold);
+}
+
+.gk-node.gk-banner-teal .gk-node-disc {
+  fill: var(--banner-teal);
+}
+
+/* Degree badges. */
+.gk-badge circle {
+  fill: var(--panel);
+  stroke: var(--stone-deep);
+  stroke-width: 2;
+}
+
+.gk-badge text {
+  font-family: var(--font-display);
+  font-size: 12px;
+  fill: var(--text);
+}
+
+.gk-badge.is-odd circle {
+  stroke: var(--flag-red);
+  stroke-width: 3;
+  animation: gk-hint-glow 1.6s ease-in-out infinite;
+}
+
+.gk-badge.is-odd text {
+  fill: var(--flag-red);
+}
+
+/* The knight. */
+.gk-knight {
+  transition: transform 0.45s cubic-bezier(0.4, 0.9, 0.4, 1.1);
+  pointer-events: none;
+}
+
+.gk-knight-emoji {
+  font-size: 22px;
+}
+
+.gk-knight-thought {
+  font-size: 14px;
+}
+
+.gk-tracer {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.gk-reset {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+/* ---------- scene 1: the map reveal ---------- */
+
+.gk-map-frame {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  border-radius: 14px;
+  transition: background 0.6s ease;
+}
+
+.gk-map-frame.is-revealed {
+  background: var(--panel);
+}
+
+.gk-map-frame.is-revealed .gk-node-emoji {
+  opacity: 0.25;
+  transition: opacity 0.6s ease;
+}
+
+/* ---------- scene 3: the proof scroll ---------- */
+
+.gk-scroll {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  width: min(460px, 100%);
+  background: #ece5cf;
+  border: 2px solid #c9bfa0;
+  border-radius: 8px 26px 8px 26px;
+  padding: 18px 24px;
+  box-shadow: 0 8px 24px rgba(58, 64, 58, 0.3);
+  animation: gk-land 0.5s ease;
+}
+
+.gk-scroll-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  color: var(--flag-red);
+  text-align: center;
+}
+
+.gk-scroll-dragon {
+  position: absolute;
+  top: -18px;
+  inset-inline-end: -10px;
+  font-size: 2rem;
+}
+
+@keyframes gk-land {
+  from {
+    transform: translateY(-12px) scale(1.15);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* ---------- scene 4: the stamp ---------- */
+
+.gk-predict-board {
+  position: relative;
+  width: min(560px, 100%);
+  display: grid;
+  justify-items: center;
+}
+
+.gk-stamp {
+  position: absolute;
+  top: 12px;
+  inset-inline-end: 6px;
+  padding: 6px 14px;
+  border: 3px solid var(--moss);
+  border-radius: 10px;
+  color: var(--moss);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  rotate: -10deg;
+  background: rgba(246, 241, 226, 0.9);
+  animation: gk-stamp-in 0.25s ease;
+}
+
+.gk-stamp-no {
+  border-color: var(--flag-red);
+  color: var(--flag-red);
+}
+
+@keyframes gk-stamp-in {
+  from {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---------- scene 5: banner swatches ---------- */
+
+.gk-swatch-row {
+  display: flex;
+  gap: 14px;
+}
+
+.gk-swatch {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 3px solid rgba(58, 64, 58, 0.3);
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+.gk-swatch:hover {
+  transform: translateY(-3px);
+}
+
+.gk-swatch.is-picked {
+  border-color: var(--text);
+  box-shadow: 0 0 0 3px rgba(58, 64, 58, 0.25);
+  transform: scale(1.1);
+}
+
+/* ---------- finished overlay ---------- */
+
+.gk-earned {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  margin: 14px 0;
+  color: var(--teal-ink);
+  font-weight: 600;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 700px) {
+  .gk-scene {
+    padding: 16px 14px 20px;
+  }
+
+  .gk-choice {
+    min-width: 64px;
+    font-size: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gk-knight,
+  .gk-edge,
+  .gk-node-disc,
+  .gk-map-frame {
+    transition: none;
+  }
+
+  .gk-node.is-wiggling,
+  .gk-node.is-start-hint .gk-node-disc,
+  .gk-badge.is-odd circle,
+  .gk-edge.is-conflict,
+  .gk-stamp,
+  .gk-scroll,
+  .gk-pulse {
+    animation: none;
+  }
+}

@@ -97,5 +97,5 @@ sound needs a visual parallel.
 | The Probability Carnival | Probability, statistics | ✅ Playable |
 | The Fibonacci Bunny Garden | Fibonacci, golden ratio | ✅ Playable |
 | Topology Space Adventure | Topology, transformations | ✅ Playable |
-| Graph Theory Kingdom | Graphs, networks | Coming soon |
+| Graph Theory Kingdom | Graphs, networks | ✅ Playable |
 | The Secret Math Mystery | ??? | Locked |
