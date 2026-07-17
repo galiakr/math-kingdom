@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AdventureLayout from '../../components/AdventureLayout';
 import StoryText from '../../components/StoryText';
-import { MuteButton } from '../../audio';
 import { useConceptFlow } from '../../engine';
 import { CONCEPT_ID, scenes } from './manifest';
 import GardenBackground from './GardenBackground';
@@ -108,7 +107,6 @@ export default function BunnyGarden() {
           >
             🌻 {t('fibonacci.buttons.showStory')}
           </button>
-          <MuteButton />
         </div>
       </div>
 

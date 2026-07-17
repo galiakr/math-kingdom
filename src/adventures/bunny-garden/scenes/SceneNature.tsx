@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import { useExerciseRunner } from '../../../engine';
 import { FIB } from '../fib';
 import type { SceneProps } from './types';
@@ -70,7 +69,6 @@ function Flower({
  */
 export default function SceneNature({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const runner = useExerciseRunner<NatureRound, number | string>(ROUNDS, (round, answer) =>
     round.kind === 'count' ? answer === round.count : answer === 'four'
   );
@@ -92,10 +90,7 @@ export default function SceneNature({ flow }: SceneProps) {
     if (countStep !== null) return;
     timersRef.current.forEach((id) => window.clearTimeout(id));
     timersRef.current = Array.from({ length: runner.round.count }, (_, i) =>
-      window.setTimeout(() => {
-        audio.playShaker();
-        setCountStep(i);
-      }, i * 550)
+      window.setTimeout(() => setCountStep(i), i * 550)
     );
     timersRef.current.push(
       window.setTimeout(() => setCountStep(null), runner.round.count * 550 + 600)
@@ -105,10 +100,7 @@ export default function SceneNature({ flow }: SceneProps) {
   const answer = (value: number | string) => {
     if (runner.solved || runner.done) return;
     if (runner.submit(value) === 'correct') {
-      if (runner.round.kind === 'odd') {
-        audio.playBell();
-      } else {
-        audio.playChord(['C4', 'E4', 'G4']);
+      if (runner.round.kind === 'count') {
         setLitNumbers((lit) => [...lit, runner.round.count]);
       }
       window.setTimeout(runner.next, 900);

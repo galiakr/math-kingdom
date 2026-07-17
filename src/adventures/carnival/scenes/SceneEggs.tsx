@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import { useExerciseRunner } from '../../../engine';
 import type { SceneProps } from './types';
 
@@ -36,8 +35,6 @@ const SPOTS = Array.from({ length: 12 }, (_, i) => ({
   y: 72 - Math.floor(i / 4) * 18,
 }));
 
-const NOTES = ['C4', 'E4', 'G4', 'C5', 'E5', 'G5'];
-
 const jarEggs = (jar: Jar): EggColor[] =>
   (['pink', 'teal', 'gold'] as const).flatMap((color) => Array(jar[color]).fill(color));
 
@@ -54,7 +51,6 @@ const dispense = (jar: Jar): EggColor => {
  */
 export default function SceneEggs({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const runner = useExerciseRunner<EggRound, string>(
     ROUNDS,
     (round, answer) => answer === round.answer
@@ -70,7 +66,6 @@ export default function SceneEggs({ flow }: SceneProps) {
     if (runner.solved || runner.done) return;
     if (runner.submit(option) === 'correct') {
       const egg = dispense(runner.round.jar);
-      audio.playNote(NOTES[collected.length % NOTES.length]);
       setCollected((c) => [...c, egg]);
       window.setTimeout(runner.next, 900);
     }

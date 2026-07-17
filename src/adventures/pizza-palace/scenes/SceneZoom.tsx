@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import FractalPizza from '../FractalPizza';
 import { ROOT, subdivide } from '../fractal';
 import type { SceneProps } from './types';
@@ -12,7 +11,6 @@ import type { SceneProps } from './types';
  */
 const ZOOM_DEPTH = 6;
 const ZOOMS_TO_LEARN = 3;
-const RISING_NOTES = ['C4', 'E4', 'G4', 'C5', 'E5', 'G5'];
 
 /** Scaling ×2 about a main vertex maps that corner sub-triangle onto the whole pie. */
 const CORNERS = ROOT;
@@ -29,7 +27,6 @@ const zoomTransform = ([x, y]: readonly [number, number]) =>
  */
 export default function SceneZoom({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const [corner, setCorner] = useState<number | null>(null);
   const [zooms, setZooms] = useState(0);
   const animatingRef = useRef(false);
@@ -47,7 +44,6 @@ export default function SceneZoom({ flow }: SceneProps) {
     if (!animatingRef.current) return;
     animatingRef.current = false;
     window.clearTimeout(fallbackRef.current);
-    audio.playNote(RISING_NOTES[zooms % RISING_NOTES.length]);
     // Dropping the transition class and the transform in one commit snaps
     // back to identity — the "same pizza again" moment.
     setCorner(null);
@@ -57,7 +53,6 @@ export default function SceneZoom({ flow }: SceneProps) {
   const zoomInto = (index: number) => {
     if (animatingRef.current) return;
     animatingRef.current = true;
-    audio.playShaker();
     setCorner(index);
     // transitionend can be swallowed (reduced motion, hidden tab) — a timer
     // runs the same idempotent re-base either way.

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import { useExerciseRunner } from '../../../engine';
 import FractalPizza from '../FractalPizza';
 import type { SceneProps } from './types';
@@ -26,7 +25,6 @@ const ROUNDS: CountRound[] = [
  */
 export default function SceneCount({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const runner = useExerciseRunner<CountRound, number>(
     ROUNDS,
     (round, answer) => answer === 3 ** round.level
@@ -40,7 +38,6 @@ export default function SceneCount({ flow }: SceneProps) {
   const answer = (n: number) => {
     if (runner.solved || runner.done) return;
     if (runner.submit(n) === 'correct') {
-      audio.playChord(['C4', 'E4', 'G4']);
       window.setTimeout(runner.next, 900);
     }
   };

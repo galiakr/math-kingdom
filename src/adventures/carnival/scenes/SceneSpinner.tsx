@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import CarnivalWheel from '../CarnivalWheel';
 import { CARNIVAL_WHEEL, biggestSector, drawSector, rotationFor } from '../wheel';
 import type { SectorId } from '../wheel';
@@ -8,7 +7,6 @@ import type { SceneProps } from './types';
 
 const SPINS_TO_LEARN = 3;
 const SPIN_MS = 2400;
-const TICKS_MS = [150, 550, 1100, 1800];
 
 /**
  * Scene 2 — Pinky's Great Wheel. Pick a color, spin, watch where it lands.
@@ -17,7 +15,6 @@ const TICKS_MS = [150, 550, 1100, 1800];
  */
 export default function SceneSpinner({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
 
   const [pick, setPick] = useState<SectorId | null>(null);
   const [landed, setLanded] = useState<SectorId | null>(null);
@@ -52,7 +49,6 @@ export default function SceneSpinner({ flow }: SceneProps) {
     timersRef.current.forEach((id) => window.clearTimeout(id));
     timersRef.current = [];
     const sector = CARNIVAL_WHEEL[pendingRef.current];
-    audio.playDrum();
     setSpinning(false);
     setLanded(sector.id);
     setHistory((h) => [...h, sector.id]);
@@ -68,25 +64,14 @@ export default function SceneSpinner({ flow }: SceneProps) {
     setLanded(null);
     setRotation(rotationRef.current);
     setSpinning(true);
-    // Decelerating ticks — the turning wheel is their visual parallel.
-    timersRef.current = TICKS_MS.map((ms) => window.setTimeout(audio.playShaker, ms));
     // transitionend can be swallowed (reduced motion, hidden tab).
-    timersRef.current.push(window.setTimeout(() => settleRef.current(), SPIN_MS + 200));
+    timersRef.current = [window.setTimeout(() => settleRef.current(), SPIN_MS + 200)];
   };
 
   const matched = landed !== null && landed === pick;
-  useEffect(() => {
-    if (matched) audio.playTrumpet('C5');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [matched]);
 
   const answerBest = (id: SectorId) => {
-    if (id === best.id) {
-      audio.playBell();
-      setBestAnswer('correct');
-    } else {
-      setBestAnswer('retry');
-    }
+    setBestAnswer(id === best.id ? 'correct' : 'retry');
   };
 
   return (

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import { useExerciseRunner } from '../../../engine';
 import type { SceneProps } from './types';
 
@@ -36,7 +35,6 @@ const BOOTHS: { id: Likelihood; emoji: string }[] = [
  */
 export default function SceneBooths({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const runner = useExerciseRunner<BoothRound, Likelihood>(
     ROUNDS,
     (round, booth) => booth === round.answer
@@ -55,7 +53,6 @@ export default function SceneBooths({ flow }: SceneProps) {
   const answer = (booth: Likelihood) => {
     if (runner.solved || runner.done) return;
     if (runner.submit(booth) === 'correct') {
-      audio.playBell();
       setShelves((s) => ({ ...s, [booth]: [...s[booth], runner.round] }));
       window.setTimeout(runner.next, 900);
     }

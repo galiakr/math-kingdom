@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import { useExerciseRunner } from '../../../engine';
 import type { SceneProps } from './types';
 
@@ -30,7 +29,6 @@ type Basket = 'fractal' | 'plain';
  */
 export default function SceneHunt({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const runner = useExerciseRunner<HuntItem, Basket>(
     ITEMS,
     (item, basket) => (basket === 'fractal') === item.fractal
@@ -48,7 +46,6 @@ export default function SceneHunt({ flow }: SceneProps) {
   const answer = (basket: Basket) => {
     if (runner.solved || runner.done) return;
     if (runner.submit(basket) === 'correct') {
-      audio.playBell();
       setBaskets((b) => ({ ...b, [basket]: [...b[basket], runner.round] }));
       window.setTimeout(runner.next, 900);
     }

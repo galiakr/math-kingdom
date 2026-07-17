@@ -16,7 +16,7 @@
     "scenes": {
       "slice": {
         "title": "The magic pizza",
-        "intro": "🍕 **Welcome to the Pizza Palace!** The chef bakes one very strange pizza: every time you slice it, EVERY triangle turns into 3 smaller pizzas — and the middle disappears! Press **Slice!** a few times and watch what happens. Tap the pieces too — the tiny ones sing higher!",
+        "intro": "🍕 **Welcome to the Pizza Palace!** The chef bakes one very strange pizza: every time you slice it, EVERY triangle turns into 3 smaller pizzas — and the middle disappears! Press **Slice!** a few times and watch what happens. Tap the pieces too — see how tiny they get!",
         "tapHint": "Press Slice! and watch every triangle follow the same rule…",
         "sliced": "Every triangle became 3 smaller pizzas — the same rule, again and again!",
         "depthLabel": "Pizza pieces:",

@@ -6,42 +6,42 @@ import AdventureLayout from '../../components/AdventureLayout';
 import StoryText from '../../components/StoryText';
 import { useConceptFlow } from '../../engine';
 import { CONCEPT_ID, scenes } from './manifest';
-import CarnivalBackground from './CarnivalBackground';
-import SceneBooths from './scenes/SceneBooths';
-import SceneSpinner from './scenes/SceneSpinner';
-import SceneEggs from './scenes/SceneEggs';
-import SceneTally from './scenes/SceneTally';
-import SceneFair from './scenes/SceneFair';
+import SpaceBackground from './SpaceBackground';
+import SceneRule from './scenes/SceneRule';
+import SceneMorph from './scenes/SceneMorph';
+import SceneCargo from './scenes/SceneCargo';
+import SceneCustoms from './scenes/SceneCustoms';
+import SceneLicense from './scenes/SceneLicense';
 import type { SceneProps } from './scenes/types';
-import './ProbabilityCarnival.css';
+import './SpacePort.css';
 
 const SCENE_COMPONENTS: Record<string, ComponentType<SceneProps>> = {
-  booths: SceneBooths,
-  spinner: SceneSpinner,
-  eggs: SceneEggs,
-  tally: SceneTally,
-  fair: SceneFair,
+  rule: SceneRule,
+  morph: SceneMorph,
+  cargo: SceneCargo,
+  customs: SceneCustoms,
+  license: SceneLicense,
 };
 
-export default function ProbabilityCarnival() {
+export default function SpacePort() {
   const { t } = useTranslation();
   const flow = useConceptFlow({ conceptId: CONCEPT_ID, scenes });
   const Scene = SCENE_COMPONENTS[flow.scene.id];
   const isLast = flow.sceneIndex === scenes.length - 1;
 
   const [introOpen, setIntroOpen] = useState(true);
-  // Ticket stubs accumulate up to the furthest scene reached, so slow
+  // Log entries accumulate up to the furthest scene reached, so slow
   // readers can scroll back — revisiting an earlier scene keeps them all.
   const [maxSeen, setMaxSeen] = useState(0);
   const introLogRef = useRef<HTMLDivElement>(null);
   const introPanelRef = useRef<HTMLElement>(null);
-  const ticketBtnRef = useRef<HTMLButtonElement>(null);
+  const logBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setMaxSeen((m) => Math.max(m, flow.sceneIndex));
   }, [flow.sceneIndex]);
 
-  // Every scene opens with its ticket showing…
+  // Every scene opens with its log entry showing…
   useEffect(() => {
     setIntroOpen(true);
   }, [flow.sceneIndex]);
@@ -52,7 +52,7 @@ export default function ProbabilityCarnival() {
     const dismiss = (event: PointerEvent) => {
       const target = event.target as Node;
       if (introPanelRef.current?.contains(target)) return;
-      if (ticketBtnRef.current?.contains(target)) return;
+      if (logBtnRef.current?.contains(target)) return;
       setIntroOpen(false);
     };
     document.addEventListener('pointerdown', dismiss);
@@ -66,14 +66,14 @@ export default function ProbabilityCarnival() {
 
   return (
     <AdventureLayout
-      title={t('probability.title')}
-      subtitle={t('probability.subtitle')}
-      className="carnival"
-      theme="theme-carnival"
-      background={<CarnivalBackground />}
+      title={t('topology.title')}
+      subtitle={t('topology.subtitle')}
+      className="spaceport"
+      theme="theme-space"
+      background={<SpaceBackground />}
     >
-      <div className="cv-toolbar">
-        <div className="cv-dots" role="tablist" aria-label={t('probability.title')}>
+      <div className="tp-toolbar">
+        <div className="tp-dots" role="tablist" aria-label={t('topology.title')}>
           {scenes.map((scene, index) => {
             const visitable = index <= flow.sceneIndex || flow.isDone(scene.id);
             return (
@@ -82,8 +82,8 @@ export default function ProbabilityCarnival() {
                 type="button"
                 role="tab"
                 aria-selected={index === flow.sceneIndex}
-                aria-label={t(`probability.scenes.${scene.id}.title`)}
-                className={`cv-dot${index === flow.sceneIndex ? ' is-active' : ''}${
+                aria-label={t(`topology.scenes.${scene.id}.title`)}
+                className={`tp-dot${index === flow.sceneIndex ? ' is-active' : ''}${
                   flow.isDone(scene.id) ? ' is-done' : ''
                 }`}
                 disabled={!visitable}
@@ -94,46 +94,46 @@ export default function ProbabilityCarnival() {
             );
           })}
         </div>
-        <div className="cv-toolbar-actions">
+        <div className="tp-toolbar-actions">
           <div className="controls">
             <button type="button" className="btn btn-primary" onClick={flow.advance}>
-              {isLast ? t('probability.buttons.finish') : t('probability.buttons.next')}
+              {isLast ? t('topology.buttons.finish') : t('topology.buttons.next')}
             </button>
           </div>
           <button
             type="button"
-            ref={ticketBtnRef}
-            className="cv-ticket-btn"
+            ref={logBtnRef}
+            className="tp-log-btn"
             aria-expanded={introOpen}
             onClick={() => setIntroOpen((open) => !open)}
           >
-            🎟️ {t('probability.buttons.showStory')}
+            🛸 {t('topology.buttons.showStory')}
           </button>
         </div>
       </div>
 
-      <div className="cv-stage">
-        <section className="cv-scene">
-          <h2 className="cv-scene-title">
-            {t(`probability.scenes.${flow.scene.id}.title`)}
+      <div className="tp-stage">
+        <section className="tp-scene">
+          <h2 className="tp-scene-title">
+            {t(`topology.scenes.${flow.scene.id}.title`)}
           </h2>
           <Scene key={flow.scene.id} flow={flow} />
         </section>
 
         {introOpen && (
-          <aside className="cv-intro-log" ref={introPanelRef}>
-            <div className="cv-intro-head">
-              <h2 className="cv-intro-title">🎟️ {t('probability.storyTitle')}</h2>
+          <aside className="tp-intro-log" ref={introPanelRef}>
+            <div className="tp-intro-head">
+              <h2 className="tp-intro-title">🛸 {t('topology.storyTitle')}</h2>
             </div>
-            <div className="cv-intro-entries" ref={introLogRef}>
+            <div className="tp-intro-entries" ref={introLogRef}>
               {scenes.slice(0, maxSeen + 1).map((scene, index) => (
                 <div
                   key={scene.id}
-                  className={`cv-intro-entry${
+                  className={`tp-intro-entry${
                     index === flow.sceneIndex ? ' is-current' : ''
                   }`}
                 >
-                  <StoryText text={t(`probability.scenes.${scene.id}.intro`)} />
+                  <StoryText text={t(`topology.scenes.${scene.id}.intro`)} />
                 </div>
               ))}
             </div>
@@ -145,11 +145,11 @@ export default function ProbabilityCarnival() {
         <div className="finished-overlay" role="dialog" aria-modal="true">
           <div className="finished-panel">
             <div className="finished-emoji" aria-hidden="true">
-              🎪
+              🐙
             </div>
-            <h2>{t('probability.finishedTitle')}</h2>
-            <p>{t('probability.finished')}</p>
-            <ul className="cv-earned">
+            <h2>{t('topology.finishedTitle')}</h2>
+            <p>{t('topology.finished')}</p>
+            <ul className="tp-earned">
               {scenes.map(
                 (scene) =>
                   scene.skill && (
@@ -159,10 +159,10 @@ export default function ProbabilityCarnival() {
             </ul>
             <div className="controls">
               <button type="button" className="btn btn-ghost" onClick={flow.restart}>
-                {t('probability.buttons.playAgain')}
+                {t('topology.buttons.playAgain')}
               </button>
               <Link to="/" className="btn btn-primary">
-                {t('probability.finishedButton')}
+                {t('topology.finishedButton')}
               </Link>
             </div>
           </div>

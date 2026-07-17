@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import { useExerciseRunner } from '../../../engine';
 import type { SceneProps } from './types';
 
@@ -21,7 +20,6 @@ const ROUNDS: SumRound[] = [
 ];
 
 const BASE_STRIP = [1, 1, 2, 3];
-const NOTES = ['C4', 'D4', 'E4', 'G4', 'A4', 'C5'];
 
 /**
  * Scene 2 — the addition secret: every Fibonacci number is the last two,
@@ -30,7 +28,6 @@ const NOTES = ['C4', 'D4', 'E4', 'G4', 'A4', 'C5'];
  */
 export default function SceneSums({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const runner = useExerciseRunner<SumRound, number>(
     ROUNDS,
     (round, answer) => answer === round.answer
@@ -44,7 +41,6 @@ export default function SceneSums({ flow }: SceneProps) {
   const answer = (n: number) => {
     if (runner.solved || runner.done) return;
     if (runner.submit(n) === 'correct') {
-      audio.playNote(NOTES[runner.index % NOTES.length]);
       window.setTimeout(runner.next, 900);
     }
   };

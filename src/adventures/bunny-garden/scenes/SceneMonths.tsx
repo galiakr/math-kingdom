@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import { FIB, LAST_MONTH, isBaby, nestsUpTo, pairsAt } from '../fib';
 import type { SceneProps } from './types';
 
@@ -11,8 +10,6 @@ const PREDICTIONS: Record<number, number[]> = {
   6: [6, 7, 8],
 };
 
-const PENTA = ['C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5'];
-
 /**
  * Scene 1 — the bunny months. The rule card stays pinned; every press of
  * "Next month" applies it to the whole garden. From month 4 the child
@@ -20,7 +17,6 @@ const PENTA = ['C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5'];
  */
 export default function SceneMonths({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const [month, setMonth] = useState(1);
   const [attempts, setAttempts] = useState(0);
   const [result, setResult] = useState<'correct' | 'retry' | null>(null);
@@ -40,27 +36,13 @@ export default function SceneMonths({ flow }: SceneProps) {
   );
 
   const advance = () => {
-    const next = month + 1;
-    audio.playDrum();
-    setMonth(next);
+    setMonth(month + 1);
     setAttempts(0);
     setResult(null);
-    // Newborn nests pop one by one, each with its own pip.
-    const newborn = nestsUpTo(next).filter((nest) => nest.bornMonth === next);
-    newborn.forEach((nest, i) => {
-      timersRef.current.push(
-        window.setTimeout(() => audio.playNote(PENTA[nest.id % PENTA.length]), 250 + i * 140)
-      );
-    });
-    if (next === 2) {
-      // No newborns in month 2 — the event is the babies growing up.
-      timersRef.current.push(window.setTimeout(audio.playShaker, 250));
-    }
   };
 
   const predict = (n: number) => {
     if (n === pairsAt(month + 1)) {
-      audio.playChord(['C4', 'E4', 'G4']);
       setResult('correct');
       timersRef.current.push(window.setTimeout(advance, 500));
     } else {

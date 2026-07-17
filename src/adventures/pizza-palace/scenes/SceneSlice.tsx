@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import FractalPizza from '../FractalPizza';
 import { pieceCount } from '../fractal';
 import type { SceneProps } from './types';
 
 const TOP_DEPTH = 4;
-// A tapped piece sings higher the deeper the slicing has gone.
-const DEPTH_NOTES = ['C4', 'E4', 'G4', 'C5', 'E5'];
 
 /**
  * Scene 1 — the magic pizza. One button applies the slicing rule to every
@@ -15,7 +12,6 @@ const DEPTH_NOTES = ['C4', 'E4', 'G4', 'C5', 'E5'];
  */
 export default function SceneSlice({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const [depth, setDepth] = useState(0);
 
   useEffect(() => {
@@ -24,7 +20,6 @@ export default function SceneSlice({ flow }: SceneProps) {
   }, [depth]);
 
   const slice = () => {
-    audio.playBell();
     setDepth((d) => Math.min(d + 1, TOP_DEPTH));
   };
 
@@ -40,7 +35,7 @@ export default function SceneSlice({ flow }: SceneProps) {
         depth={depth}
         className="pz-pizza-main"
         label={t('fractal.scenes.slice.title')}
-        onPieceTap={() => audio.playNote(DEPTH_NOTES[depth])}
+        onPieceTap={() => undefined} // presence alone enables the tap pulse
       />
 
       <p className="pz-counter" aria-live="polite">

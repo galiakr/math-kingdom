@@ -118,6 +118,28 @@
   color: var(--text);
 }
 
+.theme-space {
+  /*
+   * The Space Port: a teal-cyan cosmos with mint-and-violet nebulas —
+   * warmer and greener than the hotel's cold navy, nothing like the
+   * carnival's plum dusk.
+   */
+  --bg: #0e2f3c;
+  --text: #eafbff;
+  --muted: #9fcfdd;
+  --panel: #16455a;
+  --panel-veil: rgba(14, 47, 60, 0.72);
+  --line: rgba(122, 216, 250, 0.22);
+  --glow: #5ac8fa;
+  --alien: #7ef2a0;
+  --nebula: #c78bff;
+  --star: #ffd98a;
+  --space-deep: #071e28;
+  --focus: #ffc94d;
+  background: var(--bg);
+  color: var(--text);
+}
+
 .theme-night {
   --bg: #0d132e;
   --night-raise: #151c40;

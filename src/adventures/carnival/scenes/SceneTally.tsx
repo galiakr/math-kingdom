@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import CarnivalWheel from '../CarnivalWheel';
 import TallyChart from '../TallyChart';
 import { CARNIVAL_WHEEL, drawSector } from '../wheel';
@@ -17,7 +16,6 @@ type Phase = 'predict' | 'run' | 'read' | 'done';
  */
 export default function SceneTally({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
 
   const [phase, setPhase] = useState<Phase>('predict');
   const [prediction, setPrediction] = useState<SectorId | null>(null);
@@ -48,21 +46,14 @@ export default function SceneTally({ flow }: SceneProps) {
     }
   }, [total, phase]);
 
-  useEffect(() => {
-    if (running && total > 0 && total % 5 === 0) audio.playShaker();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [total]);
-
   const spinOnce = () => {
     if (total >= SPIN_CAP) return;
     const sector = CARNIVAL_WHEEL[drawSector(CARNIVAL_WHEEL)];
-    audio.playShaker();
     setCounts((prev) => ({ ...prev, [sector.id]: prev[sector.id] + 1 }));
   };
 
   const answerRead = (id: SectorId) => {
     if (leaders.includes(id)) {
-      audio.playChord(['C4', 'E4', 'G4']);
       setReadAnswer('correct');
       setPhase('done');
       flow.completeScene();

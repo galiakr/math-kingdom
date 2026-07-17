@@ -1,0 +1,133 @@
+{
+  "topology": {
+    "title": "Topology Space Adventure",
+    "subtitle": "Where stretching is legal and cutting is a space crime",
+    "storyTitle": "The captain's log",
+    "buttons": {
+      "showStory": "Log",
+      "next": "Next airlock",
+      "finish": "Blast off home",
+      "playAgain": "Play again",
+      "morph": "Morph!",
+      "ready": "Ready for the Rubber Rule test!"
+    },
+    "cast": {
+      "zorb": "Zorb",
+      "gloop": "Gloop",
+      "beep": "Beep"
+    },
+    "scenes": {
+      "rule": {
+        "title": "The Rubber Rule",
+        "intro": "👽 **Welcome aboard, earthling!** Captain Zorb here. In space, shapes are made of super-rubber. You may STRETCH them, SQUISH them, BEND them — and they stay the same shape! But cutting? Poking new holes? Gluing? FORBIDDEN — that would really change them. Play with Gloop 🐙, then take the Rubber Rule test!",
+        "sameMsg": "Still Gloop — same shape!",
+        "noMsg": "🚨 NO! That would BREAK Gloop!",
+        "quizPrompt": "Does the Rubber Rule allow this move?",
+        "allowed": "Rubber says YES",
+        "forbidden": "Rubber says NO",
+        "moves": {
+          "stretch": "Stretch it really long",
+          "squish": "Squish it flat",
+          "bend": "Bend it into a banana",
+          "cut": "Cut it in two",
+          "poke": "Poke a brand-new hole",
+          "glue": "Glue two arms together"
+        },
+        "correct": "Exactly right! 🎉",
+        "retry": "Hmm — does the shape stay in one piece, with the same holes?",
+        "retryHint2": "The rule: stretching, squishing and bending are fine. Cutting, poking holes and gluing are NOT.",
+        "done": "You know the Rubber Rule! Now for the strangest machine in the port… 🌟"
+      },
+      "morph": {
+        "title": "The Mug Machine",
+        "intro": "☕ **The famous Mug Machine!** Zorb drops a coffee mug inside and stretches it — never cutting, never poking. Watch closely at every step and count the holes. Something amazing is about to be true…",
+        "holesPrompt": "How many holes does it have right now?",
+        "holeSurvived": "The hole survived! ✨",
+        "stages": {
+          "s0": "A coffee mug. The inside of the cup is a DENT — only the handle goes all the way through.",
+          "s1": "Squish! The cup gets shallower… the hole doesn't care.",
+          "s2": "The cup part melted into the handle — still one hole.",
+          "s3": "Almost round now. The hole rides along.",
+          "s4": "A donut! Sprinkles included."
+        },
+        "punchline": "One hole the whole way. A mug IS a donut! ☕≈🍩",
+        "retry": "Can you poke your finger all the way THROUGH it? The cup's inside is a dent, not a hole — only the handle counts!",
+        "retryHint2": "The glowing ring marks the real hole. The grey ✕ is just a dent.",
+        "done": "Stretching never changes the number of holes — that's the great secret of topology! 🌟"
+      },
+      "cargo": {
+        "title": "The Cargo Bay",
+        "intro": "📦 **Cargo inspection!** Every item in the Space Port gets sorted by its most important feature: how many holes go ALL the way through. Not dents, not pockets — real tunnels. Sort the cargo into the right crate!",
+        "prompt": "How many holes go all the way through?",
+        "crate": {
+          "zero": "No holes",
+          "one": "1 hole",
+          "two": "2 holes"
+        },
+        "items": {
+          "ball": "Ball",
+          "banana": "Banana",
+          "sock": "Sock",
+          "donut": "Donut",
+          "mug": "Mug",
+          "buoy": "Life buoy",
+          "scissors": "Scissors",
+          "button": "Button",
+          "glasses": "Glasses frames"
+        },
+        "correct": "Sorted! 🎉",
+        "retry": "Poke your finger through — how many tunnels does it have?",
+        "retryHint2": "Remember: a pocket or a dent is NOT a hole. Only tunnels that go all the way through count!",
+        "done": "You can count what stretching can never erase. The cargo bay is spotless! 📦"
+      },
+      "customs": {
+        "title": "Alien Customs",
+        "intro": "🤖 **Officer Beep checks every traveler.** Two shapes are secretly THE SAME if super-rubber could stretch one into the other — and that works exactly when they have the same number of holes! Stamp each pair: same shape, or different?",
+        "prompt": "Could one stretch into the other — without cutting or poking?",
+        "same": "Same shape!",
+        "different": "Different!",
+        "stampSame": "≈ SAME ≈",
+        "stampDiff": "≠ DIFFERENT ≠",
+        "correct": "Stamp! Correct! 🎉",
+        "retry": "Count each one's holes first — then compare!",
+        "retryHint2": "Same number of holes = same shape. Different number = no stretching can ever fix that.",
+        "done": "Officer Beep salutes you: you see what shapes secretly are! 🤖"
+      },
+      "license": {
+        "title": "The Shape-Shifter License",
+        "intro": "🪪 **The final ceremony!** Answer Captain Zorb's four questions — one from each station — and earn your official Shape-Shifter License, stamped and starry.",
+        "q": {
+          "move": "Which of these moves is FORBIDDEN by the Rubber Rule?",
+          "holes": "How many holes does a life buoy 🛟 have?",
+          "same": "A mug and a ring 💍 — same shape?",
+          "morph": "Which of these could a donut 🍩 stretch into?"
+        },
+        "options": {
+          "bend": "Bend it",
+          "squish": "Squish it",
+          "cut": "Cut it",
+          "same": "Same shape!",
+          "different": "Different!",
+          "mug": "A mug",
+          "ball": "A ball",
+          "scissors": "Scissors"
+        },
+        "licenseTitle": "SHAPE-SHIFTER LICENSE",
+        "licenseLine": "Certified by the Space Port Kingdom — may stretch, squish and bend anywhere in the galaxy.",
+        "correct": "Correct! 🎉",
+        "retry": "Think back to the stations you visited…",
+        "done": "License granted! The whole galaxy of shapes is yours to bend. 🪪✨"
+      }
+    },
+    "skills": {
+      "rule": "I know the rubber rule: stretch and bend — never cut or poke",
+      "morph": "I watched a mug become a donut — the hole survived the whole way",
+      "holes": "Holes are what stretching can never erase — I can count them",
+      "same": "Two shapes are secretly the same when their holes match",
+      "license": "I earned my Shape-Shifter License"
+    },
+    "finishedTitle": "Master of Rubber Space!",
+    "finished": "You discovered two great secrets: stretching and bending never really change a shape — and the holes are the one thing no stretching can erase. A mug is a donut, scissors are eyeglasses, and the universe is bendier than it looks. 🚀✨",
+    "finishedButton": "Back to the kingdom"
+  }
+}

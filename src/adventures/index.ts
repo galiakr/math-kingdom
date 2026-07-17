@@ -3,6 +3,7 @@ import chordFactory from './chord-factory';
 import pizzaPalace from './pizza-palace';
 import probabilityCarnival from './carnival';
 import bunnyGarden from './bunny-garden';
+import spacePort from './space-port';
 import type { Adventure } from './types';
 
 export type { Adventure, AdventureStatus, SceneDef, SkillDef } from './types';
@@ -22,7 +23,7 @@ export const adventures: Adventure[] = [
   pizzaPalace,
   probabilityCarnival,
   bunnyGarden,
-  { id: 'topology', emoji: '🚀', glyph: '≈', accent: '#5ac8fa', status: 'soon' },
+  spacePort,
   { id: 'graphs', emoji: '🏰', glyph: '∴', accent: '#4edcd2', status: 'soon' },
   { id: 'mystery', emoji: '❓', glyph: '?', accent: '#a9b2d9', status: 'locked' },
 ];

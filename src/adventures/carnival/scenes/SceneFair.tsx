@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import { useExerciseRunner } from '../../../engine';
 import CarnivalWheel from '../CarnivalWheel';
 import type { WheelSector } from '../wheel';
@@ -34,7 +33,6 @@ const ROUNDS: FairRound[] = [
  */
 export default function SceneFair({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const runner = useExerciseRunner<FairRound, Verdict>(
     ROUNDS,
     (round, verdict) => (verdict === 'fair') === round.fair
@@ -48,9 +46,7 @@ export default function SceneFair({ flow }: SceneProps) {
 
   const stamp = (verdict: Verdict) => {
     if (runner.solved || runner.done) return;
-    audio.playDrum();
     if (runner.submit(verdict) === 'correct') {
-      audio.playBell();
       setStamped(verdict);
       window.setTimeout(() => {
         setStamped(null);

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import { SPIRAL_SQUARES, SQUARE_VARS } from '../fib';
 import type { SceneProps } from './types';
 
@@ -10,7 +9,6 @@ const SIZE_QUESTIONS: Record<number, number[]> = {
   5: [7, 8, 9],
   6: [12, 13, 14],
 };
-const SCALE_NOTES = ['C4', 'E4', 'G4', 'C5', 'E5', 'G5', 'C6'];
 
 // The shape-match beat: width-to-height ratios; the golden one wins.
 const SHAPES = [
@@ -28,7 +26,6 @@ type Golden = 'measure' | 'match' | 'matched';
  */
 export default function SceneSpiral({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const [placed, setPlaced] = useState(0);
   const [attempts, setAttempts] = useState(0);
   const [result, setResult] = useState<'correct' | 'retry' | null>(null);
@@ -45,16 +42,13 @@ export default function SceneSpiral({ flow }: SceneProps) {
 
   const grow = () => {
     if (built) return;
-    audio.playNote(SCALE_NOTES[placed]);
     setPlaced((p) => p + 1);
     setResult(null);
     setAttempts(0);
-    if (placed + 1 === TOTAL) audio.playChord(['C4', 'E4', 'G4', 'C5']);
   };
 
   const answerSize = (n: number) => {
     if (n === SPIRAL_SQUARES[placed].size) {
-      audio.playChord(['C4', 'E4', 'G4']);
       grow();
     } else {
       setAttempts((a) => a + 1);
@@ -63,13 +57,11 @@ export default function SceneSpiral({ flow }: SceneProps) {
   };
 
   const measure = () => {
-    audio.playTrumpet('G5');
     setGolden('measure');
   };
 
   const answerMatch = (id: string) => {
     if (id === 'golden') {
-      audio.playBell();
       setMatchResult('correct');
       setGolden('matched');
     } else {

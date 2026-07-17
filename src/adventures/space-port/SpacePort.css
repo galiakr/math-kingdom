@@ -1,0 +1,1095 @@
+/* ---------- the cosmos backdrop ---------- */
+
+/* Viewport-fixed so the stars never shift as content grows. */
+.space-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.space-nebula {
+  position: absolute;
+  width: 55vw;
+  height: 55vh;
+  border-radius: 50%;
+  filter: blur(46px);
+}
+
+.space-nebula-violet {
+  top: -12%;
+  inset-inline-start: -8%;
+  background: radial-gradient(circle, rgba(199, 139, 255, 0.16), transparent 70%);
+}
+
+.space-nebula-mint {
+  bottom: -14%;
+  inset-inline-end: -10%;
+  background: radial-gradient(circle, rgba(126, 242, 160, 0.13), transparent 70%);
+}
+
+.space-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #bfeaff;
+  box-shadow: 0 0 8px 2px rgba(122, 216, 250, 0.4);
+}
+
+.space-planet {
+  position: absolute;
+  top: 8%;
+  inset-inline-end: 5%;
+  width: 170px;
+}
+
+.space-planet-body {
+  fill: rgba(90, 200, 250, 0.2);
+  stroke: rgba(122, 216, 250, 0.4);
+  stroke-width: 1.5;
+}
+
+.space-planet-ring {
+  fill: none;
+  stroke: rgba(122, 216, 250, 0.45);
+  stroke-width: 2.5;
+}
+
+/* A donut in space — the adventure's own watermark. */
+.space-torus {
+  position: absolute;
+  bottom: 12%;
+  inset-inline-start: 4%;
+  width: 130px;
+}
+
+.space-torus path {
+  fill: rgba(122, 216, 250, 0.08);
+  stroke: rgba(122, 216, 250, 0.2);
+  stroke-width: 2;
+}
+
+.space-mark {
+  position: absolute;
+  color: rgba(122, 216, 250, 0.14);
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+}
+
+.space-ufo {
+  position: absolute;
+  top: 20%;
+  inset-inline-start: 12%;
+  font-size: 1.8rem;
+  opacity: 0.8;
+}
+
+.space-jupiter {
+  position: absolute;
+  bottom: 24%;
+  inset-inline-end: 12%;
+  font-size: 1.5rem;
+  opacity: 0.6;
+}
+
+.space-comet {
+  position: absolute;
+  top: 30%;
+  inset-inline-start: -140px;
+  width: 120px;
+  height: 2.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255, 217, 138, 0.7));
+  rotate: 14deg;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .space-star {
+    animation: tp-twinkle 3.8s ease-in-out infinite;
+  }
+
+  .space-ufo {
+    animation: tp-drift 30s ease-in-out infinite;
+  }
+
+  .space-comet {
+    animation: tp-comet 26s linear infinite;
+  }
+}
+
+@keyframes tp-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes tp-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(60px, -22px);
+  }
+  65% {
+    transform: translate(-30px, 16px);
+  }
+}
+
+@keyframes tp-comet {
+  0%,
+  62% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  64% {
+    opacity: 1;
+  }
+  74% {
+    transform: translateX(130vw);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(130vw);
+    opacity: 0;
+  }
+}
+
+/* ---------- page chrome ---------- */
+
+.spaceport .hero-title {
+  color: var(--glow);
+}
+
+.tp-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tp-toolbar-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tp-toolbar-actions .controls {
+  margin-top: 0;
+}
+
+/* Scene markers: portholes along the station corridor. */
+.tp-dots {
+  display: inline-flex;
+  gap: 8px;
+  padding: 7px 12px;
+  background: linear-gradient(180deg, #1d5570, #16455a);
+  border: 1px solid #0d3648;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(191, 234, 255, 0.2);
+}
+
+.tp-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(122, 216, 250, 0.4);
+  background: var(--panel);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.tp-dot:hover:not(:disabled) {
+  transform: translateY(-2px);
+  color: var(--text);
+}
+
+.tp-dot:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.tp-dot.is-done {
+  background: var(--alien);
+  border-color: #45b877;
+  color: #0c3220;
+}
+
+.tp-dot.is-active {
+  background: linear-gradient(180deg, #8fdcff, #5ac8fa);
+  border-color: #2f9fd6;
+  color: #08283a;
+  box-shadow: 0 0 0 3px rgba(90, 200, 250, 0.4);
+  transform: scale(1.12);
+}
+
+.tp-dot.is-active:hover:not(:disabled) {
+  transform: scale(1.12);
+}
+
+/* The scene is a viewport window in the station hull. */
+.tp-scene {
+  background: var(--panel-veil);
+  border: 1px solid var(--line);
+  border-top: 8px solid var(--glow);
+  border-radius: 12px;
+  padding: 22px 24px 26px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.tp-scene-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  text-align: center;
+  color: var(--glow);
+}
+
+.tp-stage {
+  position: relative;
+}
+
+/* The captain's-log toggle. */
+.tp-log-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #1d5570;
+  color: var(--text);
+  border: 1px solid #2f7a9e;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+}
+
+.tp-log-btn:hover {
+  border-color: var(--glow);
+}
+
+.tp-log-btn[aria-expanded='true'] {
+  background: #16455a;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+/* The captain's log floats over the viewport; entries accumulate. */
+.tp-intro-log {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  z-index: 6;
+  width: min(360px, 100%);
+  display: flex;
+  flex-direction: column;
+  max-height: min(64vh, 520px);
+  background: #1d5570;
+  border: 1px solid #2f7a9e;
+  border-radius: 10px;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.55);
+}
+
+.tp-intro-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 18px 8px;
+  border-bottom: 2px dashed rgba(122, 216, 250, 0.3);
+}
+
+.tp-intro-title {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--glow);
+}
+
+.tp-intro-entries {
+  overflow-y: auto;
+  display: grid;
+  gap: 4px;
+  padding: 10px 18px 16px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.tp-intro-entry {
+  opacity: 0.62;
+  padding: 8px 0;
+}
+
+.tp-intro-entry + .tp-intro-entry {
+  border-top: 1px dashed rgba(122, 216, 250, 0.25);
+}
+
+.tp-intro-entry.is-current {
+  opacity: 1;
+}
+
+.tp-intro-log strong {
+  color: var(--star);
+  font-weight: 600;
+}
+
+/* ---------- shared scene scaffolding ---------- */
+
+.tp-body {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+  justify-items: center;
+}
+
+.tp-hint {
+  color: var(--muted);
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  text-align: center;
+  max-width: 560px;
+}
+
+.tp-feedback {
+  min-height: 1.6em;
+  color: var(--star);
+  font-weight: 600;
+  text-align: center;
+}
+
+.tp-counter {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Numbers, stage strips and badges never flip with the UI direction. */
+.tp-ltr {
+  direction: ltr;
+}
+
+.tp-count-chip {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  unicode-bidi: isolate;
+}
+
+.tp-question-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  text-align: center;
+}
+
+.tp-choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.tp-choice {
+  min-width: 72px;
+  padding: 13px 18px;
+  border-radius: var(--radius);
+  border: 2px solid var(--glow);
+  background: var(--panel);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+  transition: transform 0.12s ease;
+}
+
+.tp-choice-wide {
+  font-size: 1.05rem;
+}
+
+.tp-choice:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: var(--alien);
+}
+
+.tp-choice:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* ---------- shared art ---------- */
+
+.tp-art {
+  overflow: visible;
+}
+
+.tp-shape {
+  fill: #8fd8f0;
+  stroke: #2f7a9e;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.tp-shape-rim {
+  fill: none;
+  stroke: rgba(13, 54, 72, 0.35);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+}
+
+.tp-shape-dent {
+  fill: rgba(7, 30, 40, 0.5);
+}
+
+.tp-shape-blob {
+  fill: var(--alien);
+  stroke: #3d9c63;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.tp-blob-eye {
+  fill: #fffdf5;
+}
+
+.tp-blob-pupil {
+  fill: #14352a;
+}
+
+.tp-blob-smile {
+  fill: none;
+  stroke: #14352a;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* ---------- scene 1: gloop's playground ---------- */
+
+.tp-gloop-stage {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  min-height: 210px;
+  align-content: center;
+  border-radius: 14px;
+  padding: 12px 20px;
+  transition: background 0.3s ease;
+}
+
+.tp-gloop-stage.is-warning {
+  background: rgba(199, 139, 255, 0.14);
+}
+
+.tp-blob {
+  transition: transform 0.4s ease;
+}
+
+.tp-pose-stretch {
+  transform: scaleX(1.55) scaleY(0.65);
+}
+
+.tp-pose-squish {
+  transform: scaleX(0.72) scaleY(1.32);
+}
+
+.tp-pose-bend {
+  transform: skewX(14deg) rotate(9deg);
+}
+
+.tp-blob.is-shaking {
+  animation: tp-shake 0.5s ease;
+}
+
+@keyframes tp-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-9px) rotate(-3deg);
+  }
+  40%,
+  80% {
+    transform: translateX(9px) rotate(3deg);
+  }
+}
+
+.tp-no-bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(199, 139, 255, 0.22);
+  border: 2px solid var(--nebula);
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-weight: 700;
+  animation: tp-no-pop 0.3s ease;
+}
+
+.tp-no-alien {
+  font-size: 1.8rem;
+  animation: tp-wobble 0.6s ease;
+}
+
+@keyframes tp-no-pop {
+  from {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes tp-wobble {
+  0%,
+  100% {
+    rotate: 0deg;
+  }
+  25% {
+    rotate: -14deg;
+  }
+  75% {
+    rotate: 14deg;
+  }
+}
+
+.tp-move-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tp-move {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+  transition: transform 0.12s ease;
+}
+
+.tp-move:hover {
+  transform: translateY(-2px);
+}
+
+.tp-move-ok {
+  background: rgba(126, 242, 160, 0.16);
+  border-color: var(--alien);
+  color: var(--text);
+}
+
+.tp-move-no {
+  background: rgba(199, 139, 255, 0.14);
+  border-color: var(--nebula);
+  color: var(--text);
+}
+
+/* ---------- quiz cards, verdicts, shelves (scenes 1 & 4) ---------- */
+
+.tp-card {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 26px;
+  max-width: 420px;
+}
+
+.tp-card-emoji {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.tp-card-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  text-align: center;
+}
+
+.tp-verdict-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.tp-verdict {
+  padding: 14px 22px;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--text);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+  transition: transform 0.12s ease;
+}
+
+.tp-verdict:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+.tp-verdict:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.tp-verdict-yes {
+  background: rgba(126, 242, 160, 0.16);
+  border-color: var(--alien);
+}
+
+.tp-verdict-no {
+  background: rgba(199, 139, 255, 0.14);
+  border-color: var(--nebula);
+}
+
+.tp-shelves {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.tp-shelves-3 {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.tp-shelf {
+  background: var(--panel-veil);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 14px 14px;
+  min-height: 84px;
+}
+
+.tp-shelf-allowed {
+  border-top: 5px solid var(--alien);
+}
+
+.tp-shelf-forbidden {
+  border-top: 5px solid var(--nebula);
+}
+
+.tp-shelf-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.tp-shelf-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  font-size: 0.85rem;
+  animation: tp-land 0.4s ease;
+}
+
+@keyframes tp-land {
+  from {
+    transform: translateY(-10px) scale(1.2);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* ---------- scene 2: the mug machine ---------- */
+
+.tp-machine {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  background: var(--panel);
+  border: 2px solid #2f7a9e;
+  border-radius: 16px;
+  padding: 16px 22px;
+  width: min(480px, 100%);
+}
+
+.tp-morph {
+  width: 100%;
+}
+
+.tp-morph g {
+  opacity: 0;
+  transform: scale(0.94);
+  transform-origin: 110px 95px;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+.tp-morph g.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tp-frosting {
+  fill: var(--nebula);
+  fill-opacity: 0.75;
+  stroke: none;
+}
+
+.tp-sprinkle-a {
+  fill: var(--star);
+}
+
+.tp-sprinkle-b {
+  fill: var(--alien);
+}
+
+/* The one hole, tracked across the whole morph. */
+.tp-hole-ring {
+  fill: none;
+  stroke: var(--star);
+  stroke-width: 3;
+  stroke-dasharray: 6 5;
+  transition:
+    cx 0.45s ease,
+    cy 0.45s ease,
+    rx 0.45s ease,
+    ry 0.45s ease;
+}
+
+.tp-dent-mark ellipse {
+  fill: none;
+  stroke: rgba(191, 234, 255, 0.55);
+  stroke-width: 2;
+  stroke-dasharray: 4 4;
+}
+
+.tp-dent-mark text {
+  fill: rgba(191, 234, 255, 0.75);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.tp-stage-dots {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.tp-stage-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: transparent;
+}
+
+.tp-stage-dot.is-past {
+  background: var(--glow);
+  border-color: var(--glow);
+  opacity: 0.5;
+}
+
+.tp-stage-dot.is-here {
+  background: var(--star);
+  border-color: var(--star);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tp-hole-ring {
+    animation: tp-ring-pulse 2s ease-in-out infinite;
+  }
+}
+
+@keyframes tp-ring-pulse {
+  0%,
+  100% {
+    stroke-opacity: 1;
+  }
+  50% {
+    stroke-opacity: 0.45;
+  }
+}
+
+/* ---------- scene 3: the cargo bay ---------- */
+
+.tp-cargo-item {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 30px;
+}
+
+.tp-cargo-emoji {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.tp-cargo-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+/* Attempt-2 hint: glow every real hole in the SVG art. */
+.tp-cargo-item.is-ringed .tp-art {
+  filter: drop-shadow(0 0 6px rgba(255, 217, 138, 0.9));
+}
+
+.tp-crate-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.tp-crate {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  border-radius: 12px 12px var(--radius) var(--radius);
+  border: 2px solid var(--line);
+  border-top-width: 8px;
+  border-top-color: var(--glow);
+  background: var(--panel);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+  transition: transform 0.12s ease;
+}
+
+.tp-crate:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+.tp-crate:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.tp-crate-rings {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  min-height: 18px;
+}
+
+.tp-ring {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3.5px solid var(--glow);
+}
+
+.tp-ring-none {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* ---------- scene 4: alien customs ---------- */
+
+.tp-pair-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 34px;
+}
+
+.tp-pair-side {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+
+.tp-pair-emoji {
+  font-size: 3.6rem;
+  line-height: 1;
+}
+
+.tp-pair-vs {
+  font-size: 1.8rem;
+  color: var(--muted);
+}
+
+.tp-hole-badge {
+  position: absolute;
+  bottom: -10px;
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--star);
+  color: #3a2b05;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  animation: tp-land 0.3s ease;
+  unicode-bidi: isolate;
+}
+
+.tp-stamp {
+  position: absolute;
+  inset-inline-end: 8px;
+  top: 8px;
+  padding: 6px 14px;
+  border: 3px solid var(--star);
+  border-radius: 10px;
+  color: var(--star);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  rotate: -10deg;
+  background: rgba(0, 0, 0, 0.35);
+  animation: tp-stamp-in 0.25s ease;
+}
+
+.tp-stamp-diff {
+  border-color: var(--nebula);
+  color: var(--nebula);
+}
+
+@keyframes tp-stamp-in {
+  from {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---------- scene 5: the license ---------- */
+
+.tp-license {
+  display: grid;
+  gap: 12px;
+  width: min(460px, 100%);
+  background: linear-gradient(160deg, #1d5570, #16455a);
+  border: 2px solid var(--glow);
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 0 24px rgba(90, 200, 250, 0.25);
+  animation: tp-land 0.5s ease;
+}
+
+.tp-license-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.2rem;
+  text-align: center;
+  color: var(--star);
+  letter-spacing: 0.08em;
+}
+
+.tp-license-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tp-license-photo {
+  flex-shrink: 0;
+  background: rgba(7, 30, 40, 0.5);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 6px;
+}
+
+.tp-license-stamps {
+  display: grid;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--alien);
+  font-weight: 600;
+}
+
+.tp-license-line {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ---------- finished overlay ---------- */
+
+.tp-earned {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  margin: 14px 0;
+  color: var(--alien);
+  font-weight: 600;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 700px) {
+  .tp-scene {
+    padding: 16px 14px 20px;
+  }
+
+  .tp-cargo-emoji,
+  .tp-pair-emoji {
+    font-size: 3rem;
+  }
+
+  .tp-pair-card {
+    gap: 12px;
+    padding: 16px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tp-morph g,
+  .tp-hole-ring,
+  .tp-blob {
+    transition: none;
+  }
+
+  .tp-chip,
+  .tp-stamp,
+  .tp-no-bubble,
+  .tp-no-alien,
+  .tp-blob.is-shaking,
+  .tp-license,
+  .tp-hole-badge {
+    animation: none;
+  }
+}

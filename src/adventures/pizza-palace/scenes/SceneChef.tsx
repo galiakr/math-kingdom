@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAudio } from '../../../audio';
 import FractalPizza from '../FractalPizza';
 import { ROOT, SIERPINSKI, maxDepth, subdivide, survivors } from '../fractal';
 import type { Rule } from '../fractal';
@@ -16,7 +15,6 @@ const DONE_DEPTH = 3;
  */
 export default function SceneChef({ flow }: SceneProps) {
   const { t } = useTranslation();
-  const audio = useAudio();
   const [rule, setRule] = useState<Rule>(SIERPINSKI);
   const [depth, setDepth] = useState(0);
 
@@ -30,17 +28,13 @@ export default function SceneChef({ flow }: SceneProps) {
   }, [depth]);
 
   const toggleSlot = (slot: number) => {
-    audio.playNote('D4');
     setRule((r) => r.map((keep, i) => (i === slot ? !keep : keep)) as unknown as Rule);
     setDepth(0);
   };
 
   const bake = () => {
     if (fullyBaked) return;
-    const next = depth + 1;
-    if (next >= top) audio.playTrumpet();
-    else audio.playDrum();
-    setDepth(next);
+    setDepth(depth + 1);
   };
 
   return (
