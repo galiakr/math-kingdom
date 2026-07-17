@@ -95,7 +95,7 @@ sound needs a visual parallel.
 | The Prime Number Orchestra (The Chord Factory) | Primes, number theory | ✅ Playable |
 | The Fractal Pizza Palace | Fractals, self-similarity | ✅ Playable |
 | The Probability Carnival | Probability, statistics | ✅ Playable |
-| The Fibonacci Bunny Garden | Fibonacci, golden ratio | Coming soon |
+| The Fibonacci Bunny Garden | Fibonacci, golden ratio | ✅ Playable |
 | Topology Space Adventure | Topology, transformations | Coming soon |
 | Graph Theory Kingdom | Graphs, networks | Coming soon |
 | The Secret Math Mystery | ??? | Locked |

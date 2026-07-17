@@ -1,0 +1,97 @@
+{
+  "fibonacci": {
+    "title": "The Fibonacci Bunny Garden",
+    "subtitle": "Where the bunnies count themselves",
+    "storyTitle": "The gardener's notebook",
+    "buttons": {
+      "showStory": "Notebook",
+      "next": "Down the path",
+      "finish": "Close the gate",
+      "playAgain": "Play again",
+      "nextMonth": "Next month",
+      "grow": "Grow the next square",
+      "measure": "Measure it!",
+      "countAlong": "Count with me"
+    },
+    "rule": {
+      "babiesGrow": "A baby pair grows up next month",
+      "adultsMake": "Every grown-up pair makes one new baby pair each month"
+    },
+    "scenes": {
+      "months": {
+        "title": "The bunny months",
+        "intro": "🐇 **Welcome to the bunny garden!** Long ago, a mathematician named Fibonacci wondered: if bunnies follow two simple rules, how fast does the garden fill up? The rules are on the card. Press **Next month** and count the pairs — and when you think you've spotted the pattern, the garden will ask YOU what comes next!",
+        "monthLabel": "Month:",
+        "pairsLabel": "Pairs:",
+        "bunniesLabel": "Bunnies:",
+        "grewUp": "The babies grew up — still 1 pair, so the sequence goes 1, 1!",
+        "predictPrompt": "How many pairs will there be next month?",
+        "correct": "Yes! Watch the garden fill up! 🎉",
+        "retry": "Hmm, count again — how many pairs are here now, and how many will be born?",
+        "retryHint2": "The secret: all of last month's pairs are still here, and every grown pair adds one — last month + the month before!",
+        "done": "1, 1, 2, 3, 5, 8… you discovered the Fibonacci sequence! 🌟"
+      },
+      "sums": {
+        "title": "The addition secret",
+        "intro": "🥕 **The head gardener checks the carrot supply.** Every month she needs to know the next number of pairs — but she never counts bunnies! Her secret: **add the last two numbers**. 2 + 3 = 5. 3 + 5 = 8. Help her continue the sequence!",
+        "prompt": "Add the last two numbers — what comes next?",
+        "correct": "That's the secret! 🎉",
+        "retry": "Add the LAST TWO numbers on the strip…",
+        "retryHint2": "Here it is as a sum:",
+        "done": "Each Fibonacci number is just the two before it, added together. The sequence builds itself! 🥕✨"
+      },
+      "spiral": {
+        "title": "The golden spiral builder",
+        "intro": "🌱 **Now plant the numbers!** Give every Fibonacci number its own square garden bed: 1, 1, 2, 3, 5, 8, 13. Each new square hugs the ones before it — and a magical curve grows through them all. Grow all 7 beds and see what appears!",
+        "growPrompt": "The dashed outline shows where the next square bed goes — grow it!",
+        "askSize": "How big is the next square bed? (Remember the addition secret!)",
+        "retry": "Look at the two squares it will lean on…",
+        "retryHint2": "The addition secret works here too:",
+        "goldenTitle": "Your spiral is complete! Now measure the whole garden…",
+        "goldenText": "— the golden number φ! Rectangles with this shape appear all over nature and art.",
+        "matchPrompt": "Which of these frames is the SAME shape as your garden?",
+        "matchCorrect": "That's the golden rectangle — nature's favorite shape! ✨",
+        "matchRetry": "Compare with your garden — not too long, not square…",
+        "shapes": {
+          "skinny": "A long skinny rectangle",
+          "square": "An almost-square rectangle",
+          "golden": "A golden rectangle"
+        },
+        "vignettes": {
+          "shell": "A snail's shell",
+          "sunflower": "A sunflower's heart",
+          "galaxy": "A spiral galaxy"
+        },
+        "done": "You built the golden spiral from Fibonacci squares — the same curve hiding in shells, sunflowers and galaxies! 🌀"
+      },
+      "nature": {
+        "title": "The garden hunt",
+        "intro": "🌸 **Out into the wild garden!** Flowers can't count… or can they? Count the petals on each flower and the arms on the pinecone. A surprise is hiding in the numbers — and one sneaky flower doesn't fit the pattern!",
+        "countPetals": "Count the petals — how many?",
+        "countArms": "Count the spiral arms — how many?",
+        "oddOneOut": "One of these flowers is NOT wearing a Fibonacci number. Which one?",
+        "items": {
+          "lily": "Lily",
+          "buttercup": "Buttercup",
+          "cosmos": "Cosmos",
+          "pinecone": "Pinecone",
+          "daisy": "Daisy"
+        },
+        "petals": "A flower with {{n}} petals",
+        "correct": "Another Fibonacci number! 🎉",
+        "retry": "Count again — try “Count with me”, we'll do it together!",
+        "notFib": "Caught it! 4 is not in the sequence. Most flowers pick Fibonacci numbers — but not all! 🕵️",
+        "done": "Lilies, buttercups, daisies, pinecones — the garden was counting in Fibonacci all along! 🌸"
+      }
+    },
+    "skills": {
+      "sequence": "I discovered the Fibonacci sequence: 1, 1, 2, 3, 5, 8…",
+      "add": "Each Fibonacci number is the two before it, added together",
+      "spiral": "I can build the golden spiral from Fibonacci squares",
+      "nature": "I can spot Fibonacci numbers hiding in flowers and shells"
+    },
+    "finishedTitle": "Keeper of the Bunny Garden!",
+    "finished": "You discovered two great secrets: a sequence that builds itself by adding its last two numbers — and a golden spiral that grows from those numbers into shells, sunflowers and galaxies. The whole garden counts in Fibonacci, and now so do you. 🐇✨",
+    "finishedButton": "Back to the kingdom"
+  }
+}

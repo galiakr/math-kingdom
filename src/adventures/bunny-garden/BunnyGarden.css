@@ -1,0 +1,748 @@
+/* ---------- the garden backdrop ---------- */
+
+/* Viewport-fixed so the hills never shift as content grows. */
+.garden-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Rolling hills: huge soft ellipses rising from the bottom. */
+.garden-hill {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.garden-hill-far {
+  width: 160vw;
+  height: 60vh;
+  left: -40vw;
+  bottom: -34vh;
+  background: #cbe4ab;
+}
+
+.garden-hill-near {
+  width: 150vw;
+  height: 50vh;
+  left: -20vw;
+  bottom: -32vh;
+  background: #b9dc94;
+}
+
+/* A whisper of the golden spiral in the corner. */
+.garden-spiral-mark {
+  position: absolute;
+  top: 6%;
+  inset-inline-end: 3%;
+  width: 220px;
+}
+
+.garden-spiral-mark path {
+  fill: none;
+  stroke: rgba(44, 74, 34, 0.09);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.garden-phi {
+  position: absolute;
+  color: rgba(44, 74, 34, 0.1);
+  font-family: var(--font-display);
+}
+
+.garden-sprig {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
+
+.garden-butterfly {
+  position: absolute;
+  font-size: 1.3rem;
+  opacity: 0.75;
+}
+
+/* The meadow strip the garden stands on. */
+.garden-meadow {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 42px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(44, 74, 34, 0.12) 0 2px,
+      transparent 2px 26px
+    ),
+    linear-gradient(180deg, #8fbf62, #6ea344);
+  border-top: 3px solid #5c8c39;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .garden-butterfly {
+    animation: fib-flutter 26s ease-in-out infinite;
+  }
+}
+
+@keyframes fib-flutter {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(40px, -30px) rotate(12deg);
+  }
+  50% {
+    transform: translate(-20px, -55px) rotate(-8deg);
+  }
+  75% {
+    transform: translate(-45px, -20px) rotate(10deg);
+  }
+}
+
+/* ---------- page chrome ---------- */
+
+.garden .hero-title {
+  color: var(--leaf);
+}
+
+.fib-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.fib-toolbar-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fib-toolbar-actions .controls {
+  margin-top: 0;
+}
+
+/* Scene markers: stepping stones on the garden path. */
+.fib-dots {
+  display: inline-flex;
+  gap: 8px;
+  padding: 7px 12px;
+  background: linear-gradient(180deg, #6ea344, #578534);
+  border: 1px solid #47702a;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(247, 251, 238, 0.3);
+}
+
+.fib-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(74, 158, 92, 0.45);
+  background: var(--panel);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.fib-dot:hover:not(:disabled) {
+  transform: translateY(-2px);
+  color: var(--text);
+}
+
+.fib-dot:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.fib-dot.is-done {
+  background: var(--petal);
+  border-color: #c75a90;
+  color: #fffaf5;
+}
+
+.fib-dot.is-active {
+  background: linear-gradient(180deg, #8fe6b8, #6fe0a8);
+  border-color: #3da96f;
+  color: #17402a;
+  box-shadow: 0 0 0 3px rgba(111, 224, 168, 0.45);
+  transform: scale(1.12);
+}
+
+.fib-dot.is-active:hover:not(:disabled) {
+  transform: scale(1.12);
+}
+
+/* The scene sits on a clover-cream picnic blanket with a leafy rim. */
+.fib-scene {
+  background: var(--panel-veil);
+  border: 1px solid var(--line);
+  border-top: 8px solid var(--leaf);
+  border-radius: 12px;
+  padding: 22px 24px 26px;
+  box-shadow: 0 10px 30px rgba(44, 74, 34, 0.16);
+}
+
+.fib-scene-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  text-align: center;
+  color: var(--leaf);
+}
+
+.fib-stage {
+  position: relative;
+}
+
+/* The gardener's-notebook toggle. */
+.fib-notebook-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #eef6da;
+  color: var(--text);
+  border: 1px solid #b9d18c;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 3px 0 rgba(44, 74, 34, 0.2);
+}
+
+.fib-notebook-btn:hover {
+  border-color: var(--leaf);
+}
+
+.fib-notebook-btn[aria-expanded='true'] {
+  background: #dfeec2;
+  box-shadow: inset 0 2px 4px rgba(44, 74, 34, 0.25);
+}
+
+/* The gardener's notebook floats over the scene; pages accumulate. */
+.fib-intro-log {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  z-index: 6;
+  width: min(360px, 100%);
+  display: flex;
+  flex-direction: column;
+  max-height: min(64vh, 520px);
+  background: #eef6da;
+  border: 1px solid #b9d18c;
+  border-radius: 10px;
+  box-shadow: 0 22px 48px rgba(44, 74, 34, 0.35);
+}
+
+.fib-intro-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 18px 8px;
+  border-bottom: 2px dashed rgba(44, 74, 34, 0.28);
+}
+
+.fib-intro-title {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--leaf);
+}
+
+.fib-intro-entries {
+  overflow-y: auto;
+  display: grid;
+  gap: 4px;
+  padding: 10px 18px 16px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.fib-intro-entry {
+  opacity: 0.62;
+  padding: 8px 0;
+}
+
+.fib-intro-entry + .fib-intro-entry {
+  border-top: 1px dashed rgba(44, 74, 34, 0.24);
+}
+
+.fib-intro-entry.is-current {
+  opacity: 1;
+}
+
+.fib-intro-log strong {
+  color: #c75a90;
+  font-weight: 600;
+}
+
+/* ---------- shared scene scaffolding ---------- */
+
+.fib-body {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+  justify-items: center;
+}
+
+.fib-hint {
+  color: var(--muted);
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.fib-feedback {
+  min-height: 1.6em;
+  color: #c75a90;
+  font-weight: 600;
+  text-align: center;
+}
+
+.fib-counter {
+  color: var(--muted);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Numbers and sequences never flip with the UI direction. */
+.fib-ltr {
+  direction: ltr;
+}
+
+.fib-count-chip {
+  display: inline-block;
+  margin-inline: 4px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  unicode-bidi: isolate;
+}
+
+/* The hand-tallied sequence strip. */
+.fib-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  min-height: 2.2em;
+}
+
+.fib-seq-chip {
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.3rem;
+  animation: fib-pop 0.35s ease backwards;
+}
+
+.fib-seq-chip.is-latest {
+  border-color: var(--leaf);
+  box-shadow: 0 0 0 3px rgba(111, 224, 168, 0.35);
+}
+
+.fib-seq-chip.is-adding {
+  border-color: var(--marigold);
+  background: #fdf3d7;
+}
+
+.fib-seq-chip.is-mystery {
+  border-style: dashed;
+  color: var(--muted);
+  animation: fib-pulse 1.4s ease-in-out infinite;
+}
+
+.fib-seq-chip.is-lit {
+  border-color: var(--marigold);
+  background: #fdf3d7;
+  box-shadow: 0 0 0 3px rgba(245, 184, 61, 0.35);
+}
+
+@keyframes fib-pop {
+  from {
+    transform: translateY(-10px) scale(1.3);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes fib-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Big number-answer buttons. */
+.fib-choices {
+  display: flex;
+  gap: 14px;
+}
+
+.fib-choice {
+  min-width: 80px;
+  padding: 13px 18px;
+  border-radius: var(--radius);
+  border: 2px solid var(--leaf);
+  background: var(--panel);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(44, 74, 34, 0.25);
+  transition: transform 0.12s ease;
+}
+
+.fib-choice:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: var(--petal);
+}
+
+.fib-choice:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.fib-question {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+.fib-question-text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  text-align: center;
+}
+
+/* ---------- scene 1: the bunny months ---------- */
+
+.fib-rule-card {
+  display: grid;
+  gap: 4px;
+  background: #eef6da;
+  border: 1px dashed #b9d18c;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.fib-field {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  min-height: 90px;
+  max-width: 560px;
+}
+
+/* A pair lives in one burrow — pair-ness made visible. */
+.fib-nest {
+  display: grid;
+  place-items: center;
+  padding: 8px 12px 10px;
+  background: radial-gradient(ellipse at 50% 90%, var(--earth) 55%, #6f5439 100%);
+  border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
+  border: 2px solid #6f5439;
+  font-size: 1.8rem;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.fib-nest.is-baby {
+  font-size: 1.2rem;
+  padding: 7px 10px 8px;
+}
+
+.fib-nest.is-new {
+  animation: fib-pop 0.45s ease backwards;
+}
+
+/* ---------- scene 2: carrots ---------- */
+
+.fib-carrots {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  unicode-bidi: isolate;
+}
+
+.fib-carrot-group {
+  padding: 6px 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  letter-spacing: 2px;
+}
+
+.fib-plus {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--leaf);
+}
+
+/* ---------- scene 3: the golden spiral ---------- */
+
+.fib-spiral {
+  width: 100%;
+  max-width: 560px;
+  overflow: visible;
+}
+
+.fib-square {
+  fill-opacity: 0.35;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fib-square.is-placed {
+  transform: scale(1);
+}
+
+.fib-arc {
+  fill: none;
+  stroke: var(--marigold);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 0.7s ease-out 0.25s;
+}
+
+.fib-arc.is-drawn {
+  stroke-dashoffset: 0;
+}
+
+.fib-spiral.is-built .fib-arc {
+  filter: drop-shadow(0 0 3px rgba(245, 184, 61, 0.7));
+}
+
+.fib-ghost {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.4;
+  stroke-dasharray: 6 6;
+  animation: fib-pulse 1.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.fib-measure-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  fill: var(--text);
+}
+
+.fib-golden-line {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  text-align: center;
+}
+
+.fib-shapes {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.fib-shape-btn {
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+.fib-shape-btn:hover {
+  transform: translateY(-3px);
+  border-color: var(--marigold);
+}
+
+.fib-shape {
+  display: block;
+  border: 3px solid var(--leaf);
+  border-radius: 4px;
+}
+
+.fib-vignettes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.fib-vignette {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 20px 10px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  animation: fib-pop 0.4s ease backwards;
+}
+
+.fib-vignette-emoji {
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.fib-vignette-spiral {
+  position: absolute;
+  inset: 8px;
+  width: calc(100% - 16px);
+  height: auto;
+  opacity: 0.4;
+}
+
+.fib-vignette-spiral path {
+  fill: none;
+  stroke: var(--marigold);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+/* ---------- scene 4: the garden hunt ---------- */
+
+.fib-flower {
+  overflow: visible;
+}
+
+.fib-petal {
+  stroke: rgba(44, 74, 34, 0.35);
+  stroke-width: 1.4;
+}
+
+.fib-petal.is-counted {
+  filter: brightness(1.25) drop-shadow(0 0 4px rgba(245, 184, 61, 0.8));
+}
+
+.fib-flower-heart {
+  fill: #8a5a12;
+  stroke: rgba(44, 74, 34, 0.4);
+  stroke-width: 1.4;
+}
+
+.fib-odd-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.fib-odd-btn {
+  background: var(--panel);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 8px;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+
+.fib-odd-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: var(--petal);
+}
+
+.fib-odd-btn.is-impostor {
+  border-color: var(--marigold);
+  animation: fib-wobble 0.6s ease;
+}
+
+@keyframes fib-wobble {
+  0%,
+  100% {
+    rotate: 0deg;
+  }
+  25% {
+    rotate: -6deg;
+  }
+  75% {
+    rotate: 6deg;
+  }
+}
+
+/* ---------- finished overlay ---------- */
+
+.fib-earned {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  margin: 14px 0;
+  color: var(--leaf);
+  font-weight: 600;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 700px) {
+  .fib-scene {
+    padding: 16px 14px 20px;
+  }
+
+  .fib-choice {
+    min-width: 68px;
+    font-size: 1.3rem;
+  }
+
+  .fib-nest {
+    font-size: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fib-square,
+  .fib-arc {
+    transition-duration: 0.01ms;
+    transition-delay: 0ms;
+  }
+
+  .fib-seq-chip,
+  .fib-nest.is-new,
+  .fib-ghost,
+  .fib-seq-chip.is-mystery,
+  .fib-odd-btn.is-impostor,
+  .fib-vignette,
+  .garden-butterfly {
+    animation: none;
+  }
+}

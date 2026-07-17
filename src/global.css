@@ -95,6 +95,29 @@
   color: var(--text);
 }
 
+.theme-garden {
+  /*
+   * The Bunny Garden: a spring meadow in the morning — leafy greens and
+   * clover cream, petal pink and marigold gold for the golden ratio. Green
+   * on purpose: the home map owns sky blue, and no other adventure is green.
+   */
+  --bg: #dcedc4;
+  --text: #2c4a22;
+  --muted: #5f7d52;
+  --panel: #f7fbee;
+  --panel-veil: rgba(247, 251, 238, 0.8);
+  --line: rgba(44, 74, 34, 0.22);
+  --leaf: #4a9e5c;
+  --mint: #6fe0a8;
+  --petal: #f27fb2;
+  --marigold: #f5b83d;
+  --sky-soft: #bfe3ef;
+  --earth: #8a6b4a;
+  --focus: #8a5a12;
+  background: var(--bg);
+  color: var(--text);
+}
+
 .theme-night {
   --bg: #0d132e;
   --night-raise: #151c40;
