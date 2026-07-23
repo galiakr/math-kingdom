@@ -20,8 +20,8 @@
     "play": "Start adventure",
     "comingSoon": "Coming soon",
     "locked": "Hidden in the clouds",
-    "footer1": "Every adventure teaches real mathematical ideas through play and wonder.",
-    "footer2": "Follow the path — a new land opens after every journey.",
+    "footer1": "Every adventure teaches real mathematical ideas",
+    "footer2": "Follow the path to discover a new land after every journey",
     "adventures": {
       "infinity": {
         "title": "Hilbert's Amazing Hotel",

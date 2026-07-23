@@ -292,7 +292,8 @@ a {
 }
 
 .lang-switcher {
-  display: inline-flex;
+  display: none;
+  /* display: inline-flex; */
   align-items: center;
 }
 
@@ -369,7 +370,9 @@ a {
   cursor: pointer;
   text-decoration: none;
   border: 1px solid transparent;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .btn:disabled {
